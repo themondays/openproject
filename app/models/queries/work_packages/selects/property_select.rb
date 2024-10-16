@@ -53,7 +53,6 @@ class Queries::WorkPackages::Selects::PropertySelect < Queries::WorkPackages::Se
     },
     parent: {
       association: "ancestors_relations",
-      default_order: "asc",
       sortable: false
     },
     status: {
@@ -96,7 +95,6 @@ class Queries::WorkPackages::Selects::PropertySelect < Queries::WorkPackages::Se
     version: {
       association: "version",
       sortable: "name",
-      default_order: "ASC",
       groupable: "#{WorkPackage.table_name}.version_id"
     },
     start_date: {
