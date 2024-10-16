@@ -97,17 +97,14 @@ class Queries::WorkPackages::Selects::PropertySelect < Queries::WorkPackages::Se
       association: "version",
       sortable: "name",
       default_order: "ASC",
-      null_handling: "NULLS LAST",
       groupable: "#{WorkPackage.table_name}.version_id"
     },
     start_date: {
-      sortable: "#{WorkPackage.table_name}.start_date",
-      null_handling: "NULLS LAST"
+      sortable: "#{WorkPackage.table_name}.start_date"
     },
     due_date: {
       highlightable: true,
-      sortable: "#{WorkPackage.table_name}.due_date",
-      null_handling: "NULLS LAST"
+      sortable: "#{WorkPackage.table_name}.due_date"
     },
     estimated_hours: {
       sortable: "#{WorkPackage.table_name}.estimated_hours",
