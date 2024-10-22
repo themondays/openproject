@@ -54,6 +54,10 @@ module Admin
           @edit_item_form_data.fetch(:show, false)
         end
 
+        def children_count
+          pluralize(@hierarchy_item.children.count, "sub-item")
+        end
+
         def deletion_action_item(menu)
           menu.with_item(label: I18n.t(:button_delete),
                          scheme: :danger,
