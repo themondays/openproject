@@ -35,19 +35,42 @@ module Admin
         include OpTurbo::Streamable
         include OpPrimer::ComponentHelpers
 
-        def initialize(custom_field:, new_item_form_data: { show: false })
-          super
-          @custom_field = custom_field
-          @new_item_form_data = new_item_form_data
+        property :children
+
+        def initialize(item:, new_item: nil)
+          super(item)
+          @new_item = new_item
         end
 
-        def items
-          # TODO: This must be context aware (breadcrumbs)
-          @custom_field.hierarchy_root.children
+        def branch_root = model
+        def show_new_item_form? = @new_item
+
+        def root
+          return model if model.root?
+
+          @root ||= model.root
         end
 
-        def show_new_item_form?
-          @new_item_form_data[:show] || false
+        def item_header
+          render(Primer::Beta::Breadcrumbs.new) do |loaf|
+            slices.each do |slice|
+              loaf.with_item(href: slice[:href], target: nil) { slice[:label] }
+            end
+          end
+        end
+
+        private
+
+        def slices
+          nodes = ::CustomFields::Hierarchy::HierarchicalItemService.new.get_branch(item: model).value!
+
+          nodes.map do |item|
+            if item.root?
+              { href: custom_field_items_path(root.custom_field_id), label: root.custom_field.name }
+            else
+              { href: custom_field_item_path(root.custom_field_id, item), label: item.label }
+            end
+          end
         end
       end
     end

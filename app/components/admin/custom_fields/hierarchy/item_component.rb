@@ -35,35 +35,31 @@ module Admin
         include OpTurbo::Streamable
         include OpPrimer::ComponentHelpers
 
-        def initialize(custom_field:, hierarchy_item:, edit_item_form_data: { show: false })
-          super
-          @custom_field = custom_field
-          @hierarchy_item = hierarchy_item
-          @edit_item_form_data = edit_item_form_data
-        end
-
-        def short_text
-          "(#{@hierarchy_item.short})"
+        def initialize(item:, show_edit_form: false)
+          super(item)
+          @show_edit_form = show_edit_form
+          @root = item.root
         end
 
         def wrapper_uniq_by
-          @hierarchy_item.id
+          model.id
         end
 
-        def show_edit_form?
-          @edit_item_form_data.fetch(:show, false)
+        def short_text
+          "(#{model.short})"
         end
+
+        def show_edit_form? = @show_edit_form
 
         def children_count
-          pluralize(@hierarchy_item.children.count, "sub-item")
+          I18n.t("custom_fields.admin.hierarchy.subitems", count: model.children.count)
         end
 
         def deletion_action_item(menu)
           menu.with_item(label: I18n.t(:button_delete),
                          scheme: :danger,
                          tag: :a,
-                         href: deletion_dialog_custom_field_item_path(custom_field_id: @custom_field.id,
-                                                                      id: @hierarchy_item.id),
+                         href: deletion_dialog_custom_field_item_path(custom_field_id: @root.custom_field_id, id: model.id),
                          content_arguments: { data: { controller: "async-dialog" } }) do |item|
             item.with_leading_visual_icon(icon: :trash)
           end
@@ -72,8 +68,7 @@ module Admin
         def edit_action_item(menu)
           menu.with_item(label: I18n.t(:button_edit),
                          tag: :a,
-                         content_arguments: { data: { turbo_stream: true } },
-                         href: edit_custom_field_item_path(@custom_field, @hierarchy_item)) do |item|
+                         href: edit_custom_field_item_path(@root.custom_field_id, model)) do |item|
             item.with_leading_visual_icon(icon: :pencil)
           end
         end
