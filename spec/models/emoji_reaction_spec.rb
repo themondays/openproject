@@ -57,8 +57,6 @@ RSpec.describe EmojiReaction do
   end
 
   describe "Validations" do
-    it { is_expected.to validate_presence_of(:reaction) }
-
     it do
       emoji_reaction = create(:emoji_reaction)
       expect(emoji_reaction).to validate_uniqueness_of(:user_id).scoped_to(%i[reactable_type reactable_id reaction])

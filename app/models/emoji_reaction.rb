@@ -44,7 +44,6 @@ class EmojiReaction < ApplicationRecord
   belongs_to :user
   belongs_to :reactable, polymorphic: true
 
-  validates :reaction, presence: true
   validates :user_id, uniqueness: { scope: %i[reactable_type reactable_id reaction] }
 
   enum :reaction, EMOJI_MAP.each_with_object({}) { |(k, _v), h| h[k] = k.to_s }
