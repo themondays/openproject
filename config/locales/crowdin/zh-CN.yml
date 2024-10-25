@@ -26,20 +26,20 @@ zh-CN:
       no_results_title_text: 在这个时间范围内没有任何项目的活动。
     work_packages:
       activity_tab:
-        no_results_title_text: No activity to display
-        no_results_description_text: "Choose \"Show everything\" to show all activity and comments"
-        label_activity_show_all: "Show everything"
-        label_activity_show_only_comments: "Show comments only"
-        label_activity_show_only_changes: "Show changes only"
-        label_sort_asc: "Newest at the bottom"
-        label_sort_desc: "Newest on top"
-        label_type_to_comment: "Type here to comment"
-        label_submit_comment: "Submit comment"
-        changed_on: "changed on"
-        created_on: "created this on"
-        changed: "changed"
-        created: "created"
-        commented: "commented"
+        no_results_title_text: 没有显示的活动
+        no_results_description_text: "选择 \"显示所有 \"可以显示所有活动和评论"
+        label_activity_show_all: "显示所有"
+        label_activity_show_only_comments: "仅显示评论"
+        label_activity_show_only_changes: "仅显示更改"
+        label_sort_asc: "时间升序"
+        label_sort_desc: "时间降序"
+        label_type_to_comment: "在此输入评论"
+        label_submit_comment: "提交评论"
+        changed_on: "更改于"
+        created_on: "创建于"
+        changed: "已更改"
+        created: "已创建"
+        commented: "已评论"
   admin:
     plugins:
       no_results_title_text: 目前没有安装插件。
@@ -221,7 +221,7 @@ zh-CN:
         blankslate:
           title: "您的条目列表为空"
           description: "首先，将条目添加到类型层次结构的自定义字段中。每个条目都可以用于在其下方创建一个层次结构。要导航并在层次结构中创建子条目，请点击已创建的条目。"
-        actions: "Item actions"
+        actions: "项目操作"
         placeholder:
           label: "项目标签"
           short: "短名"
@@ -517,7 +517,7 @@ zh-CN:
         is_readonly: "只读"
         excluded_from_totals: "不包括在总计中"
   themes:
-    dark: "黑暗（测试版）"
+    dark: "暗黑"
     light: "浅色模式"
     light_high_contrast: "高对比度模式"
   types:
@@ -871,6 +871,7 @@ zh-CN:
         not_a_datetime: "不是有效的日期时间。"
         not_a_number: "不是一个数字。"
         not_allowed: "没有权限使用。"
+        not_json: "不是一个有效的 JSON 对象。"
         not_an_integer: "不是一个整数。"
         not_an_iso_date: "不是有效日期。所需格式：YYYY-MM-DD。"
         not_same_project: "不属于同一个项目。"
@@ -1953,6 +1954,7 @@ zh-CN:
   label_ical_access_key_generation_hint: "订阅日历时自动生成的。"
   label_ical_access_key_latest: "最近"
   label_ical_access_key_revoke: "撤消"
+  label_add_column: "添加列"
   label_applied_status: "应用的状态"
   label_archive_project: "归档项目"
   label_ascending: "升序"
@@ -1979,6 +1981,7 @@ zh-CN:
   label_api_doc: "API 文档"
   label_backup: "备份"
   label_backup_code: "备份代码"
+  label_basic_details: "基本详细信息"
   label_between: "介于"
   label_blocked_by: "阻止于"
   label_blocks: "阻止"
@@ -2121,8 +2124,9 @@ zh-CN:
   label_feeds_access_key_created_on: "RSS 访问密钥创建于 %{value} 前"
   label_feeds_access_key_type: "RSS 订阅"
   label_file_plural: "文件"
-  label_filter_add: "添加筛选器"
   label_filter: "筛选器"
+  label_filter_add: "添加筛选器"
+  label_filter_by: "筛选条件："
   label_filter_plural: "筛选器"
   label_filters_toggle: "显示/隐藏筛选器"
   label_float: "浮点数"
@@ -2211,6 +2215,7 @@ zh-CN:
   label_custom_favicon: "自定义图标"
   label_custom_touch_icon: "自定义触摸图标"
   label_logout: "注销"
+  label_mapping_for: "映射： %{attribute}"
   label_main_menu: "侧边菜单"
   label_manage: "管理"
   label_manage_groups: "组管理"
@@ -2245,6 +2250,8 @@ zh-CN:
   label_months_from: "月份从"
   label_more: "更多"
   label_more_than_ago: "更多天前"
+  label_move_column_left: "左移列"
+  label_move_column_right: "右移列"
   label_move_work_package: "移动工作包"
   label_my_account: "帐户设置"
   label_my_activity: "我的活动"
@@ -2336,7 +2343,7 @@ zh-CN:
   label_project_latest: "最新的项目"
   label_project_default_type: "允许为空类型"
   label_project_hierarchy: "项目层次结构"
-  label_project_mappings: "已在项目中启用"
+  label_project_mappings: "项目"
   label_project_new: "新的项目"
   label_project_plural: "项目"
   label_project_list_plural: "项目列表"
@@ -2367,6 +2374,7 @@ zh-CN:
   label_relation_new: "新的关系"
   label_release_notes: "更新日志"
   label_remaining_work: "剩余工时"
+  label_remove_column: "移除列"
   label_remove_columns: "删除选定的列"
   label_renamed: "重命名"
   label_reply_plural: "答复"
@@ -2407,8 +2415,10 @@ zh-CN:
   label_show_completed_versions: "显示已完成的版本"
   label_columns: "列"
   label_sort: "排序"
+  label_sort_ascending: "升序排列"
   label_sort_by: "排序按 %{value}"
   label_sorted_by: "排序按 %{value}"
+  label_sort_descending: "降序排列"
   label_sort_higher: "向上移动"
   label_sort_highest: "移至顶部"
   label_sort_lower: "向下移动"
@@ -3122,7 +3132,9 @@ zh-CN:
   setting_default_language: "默认语言"
   setting_default_projects_modules: "新项目的默认启用模块"
   setting_default_projects_public: "新项目默认公开"
+  setting_disable_password_login: "禁用密码验证"
   setting_diff_max_lines_displayed: "最大差异显示行数"
+  setting_omniauth_direct_login_provider: "直接登录 SSO 提供商"
   setting_display_subprojects_work_packages: "默认在主项目上显示子项目工作包"
   setting_duration_format: "持续时间格式"
   setting_duration_format_hours_only: "仅限小时"
@@ -3219,6 +3231,10 @@ zh-CN:
   setting_work_package_list_default_highlighted_attributes: "默认内联突出显示属性"
   setting_working_days: "工作日"
   settings:
+    authentication:
+      single_sign_on: "单点登录"
+      omniauth_direct_login_hint_html: >
+        如果激活该选项，登录请求将重定向到已配置的 omniauth 提供商。登录下拉菜单和登录页面将被禁用。 <br/> <strong>注意：</strong>除非同时禁用密码登录，否则启用此选项后，用户仍可通过访问 <code>%{internal_path}</code>登录页面。
     attachments:
       whitelist_text_html: >
         为上传的文件定义有效文件扩展名和/或 MIME 类型列表。<br/>输入文件扩展名（例如 <code>%{ext_example}</code>）或 MIME 类型（例如 <code>%{mime_example}</code>）。<br/>留空以允许上传任何文件类型。允许输入多个值（每个值一行）。
