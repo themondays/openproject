@@ -65,7 +65,7 @@ RSpec.describe EmojiReaction do
 
   describe ".available_emojis" do
     it "returns the available emojis as HTML codes" do
-      expect(described_class.available_emojis).to eq(["👍", "👎", "😄", "😕", "❤", "🎉", "🚀", "👀"])
+      expect(described_class.available_emojis).to eq(["👍", "👎", "😄", "😕", "❤️", "🎉", "🚀", "👀"])
     end
   end
 
