@@ -62,7 +62,8 @@ module WorkPackages
 
         # ARIA-label, show names and emoji type: "{Name of reaction} by {user A}, {user B} and {user C}".
         def aria_label_text(reaction, users)
-          "#{I18n.t('reactions.reaction_by', reaction: reaction.to_s.tr('_', ' '))} #{number_of_user_reactions_text(users)}"
+          "#{I18n.t('reactions.reaction_by',
+                    reaction: reaction.to_s.humanize(capitalize: false))} #{number_of_user_reactions_text(users)}"
         end
 
         # Visually, show just names: "{user A}, {user B} and {user C}"
