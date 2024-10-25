@@ -178,27 +178,17 @@ class BaseTypeService
     type.custom_field_ids = active_cf_ids.uniq
   end
 
-  def active_custom_field_ids
-    @active_custom_field_ids ||= begin
-    end
-  end
+  def set_active_custom_fields_for_project_ids(project_ids)
+    new_project_ids_to_activate_cfs = project_ids.reject(&:empty?).map(&:to_i) - type.project_ids
 
-  def set_active_custom_fields_for_projects(projects, custom_field_ids)
-    values = projects
+    values = Project
+               .where(id: new_project_ids_to_activate_cfs)
                .to_a
-               .product(custom_field_ids)
+               .product(type.custom_field_ids)
                .map { |p, cf_ids| { project_id: p.id, custom_field_id: cf_ids } }
 
     return if values.empty?
 
     CustomFieldsProject.insert_all(values)
-  end
-
-  def set_active_custom_fields_for_project_ids(project_ids)
-    new_project_ids_to_activate_cfs = project_ids.reject(&:empty?).map(&:to_i) - type.project_ids
-    set_active_custom_fields_for_projects(
-      Project.where(id: new_project_ids_to_activate_cfs),
-      type.custom_field_ids
-    )
   end
 end
