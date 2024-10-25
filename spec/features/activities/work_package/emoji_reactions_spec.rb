@@ -167,15 +167,24 @@ RSpec.describe "Emoji reactions on work package activity", :js, :with_cuprite,
          .new(user: admin)
          .call(user: admin, reactable: first_comment_by_member, reaction: :confused_face)
 
-      wait_for do
-        activity_tab.expect_emoji_reactions_for_journal(first_comment_by_member, "😕" => 1)
-      end
+      activity_tab.expect_emoji_reactions_for_journal(first_comment_by_member, "😕" => { count: 1, wait: 3 })
 
       # Current user adds several reactions
       activity_tab.add_first_emoji_reaction_for_journal(first_comment_by_member, "👍")
       activity_tab.add_emoji_reaction_for_journal(first_comment_by_member, "😕")
 
       activity_tab.expect_emoji_reactions_for_journal(first_comment_by_member, "👍" => 1, "😕" => 2)
+
+      # Current user removes reaction and other user removes as well
+      activity_tab.remove_emoji_reaction_for_journal(first_comment_by_member, "👍")
+      activity_tab.remove_emoji_reaction_for_journal(first_comment_by_member, "😕")
+
+      EmojiReactions::DeleteService
+         .new(user: admin,
+              model: first_comment_by_member.emoji_reactions.find_by(user: admin, reaction: :confused_face))
+         .call
+
+      activity_tab.expect_no_emoji_reactions_for_journal(first_comment_by_member)
     end
   end
 

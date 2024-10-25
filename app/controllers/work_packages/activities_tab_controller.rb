@@ -330,12 +330,12 @@ class WorkPackages::ActivitiesTabController < ApplicationController
   end
 
   def generate_work_package_journals_emoji_reactions_update_streams
-    # Current limitation: Only shows added reactions, not removed ones
-    Journal.grouped_work_package_journals_emoji_reactions(@work_package).each do |journal_id, grouped_emoji_reactions|
+    wp_journal_emoji_reactions = Journal.grouped_work_package_journals_emoji_reactions(@work_package)
+    @work_package.journals.each do |journal|
       update_via_turbo_stream(
         component: WorkPackages::ActivitiesTab::Journals::ItemComponent::Reactions.new(
-          journal: @work_package.journals.find(journal_id),
-          grouped_emoji_reactions:
+          journal:,
+          grouped_emoji_reactions: wp_journal_emoji_reactions[journal.id] || {}
         )
       )
     end

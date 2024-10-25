@@ -29,6 +29,8 @@
 module Components
   module WorkPackages
     class EmojiReactions < Activities
+      include RSpec::Wait
+
       def add_first_emoji_reaction_for_journal(journal, emoji)
         within_journal_entry(journal) do
           click_on "Add reaction"
@@ -71,6 +73,12 @@ module Components
               expect(page).to have_selector(:link_or_button, text: "#{emoji} #{expected_emoji_count}", **capybara_options)
             end
           end
+        end
+      end
+
+      def expect_no_emoji_reactions_for_journal(journal)
+        within_journal_entry(journal) do
+          wait(3.seconds).for { page }.not_to have_test_selector("emoji-reactions")
         end
       end
 
