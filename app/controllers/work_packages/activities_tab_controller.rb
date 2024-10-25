@@ -315,8 +315,7 @@ class WorkPackages::ActivitiesTabController < ApplicationController
     end
 
     grouped_emoji_reactions = Journal.grouped_emoji_reactions_by_reactable(
-      reactable_id: journals.pluck(:id),
-      reactable_type: "Journal", last_updated_at: last_update_timestamp
+      reactable_id: journals.pluck(:id), reactable_type: "Journal"
     )
 
     rerender_updated_journals(journals, last_update_timestamp, grouped_emoji_reactions)

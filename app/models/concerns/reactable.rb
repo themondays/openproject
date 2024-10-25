@@ -38,12 +38,12 @@ module Reactable
       grouped_emoji_reactions_by_reactable(reactable_id: journal.id, reactable_type: "Journal")
     end
 
-    def grouped_work_package_journals_emoji_reactions(work_package, last_updated_at: nil)
-      grouped_emoji_reactions_by_reactable(reactable_id: work_package.journal_ids, reactable_type: "Journal", last_updated_at:)
+    def grouped_work_package_journals_emoji_reactions(work_package)
+      grouped_emoji_reactions_by_reactable(reactable_id: work_package.journal_ids, reactable_type: "Journal")
     end
 
-    def grouped_emoji_reactions_by_reactable(reactable_id:, reactable_type:, last_updated_at: nil)
-      grouped_emoji_reactions(reactable_id:, reactable_type:, last_updated_at:).each_with_object({}) do |row, hash|
+    def grouped_emoji_reactions_by_reactable(reactable_id:, reactable_type:)
+      grouped_emoji_reactions(reactable_id:, reactable_type:).each_with_object({}) do |row, hash|
         hash[row.reactable_id] ||= {}
         hash[row.reactable_id][row.reaction.to_sym] = {
           count: row.count,
@@ -52,15 +52,11 @@ module Reactable
       end
     end
 
-    def grouped_emoji_reactions(reactable_id:, reactable_type:, last_updated_at: nil)
-      query = EmojiReaction
+    def grouped_emoji_reactions(reactable_id:, reactable_type:)
+      EmojiReaction
         .select(emoji_reactions_group_selection_sql)
         .joins(:user)
         .where(reactable_id:, reactable_type:)
-
-      query = query.where("emoji_reactions.updated_at > ?", last_updated_at) if last_updated_at
-
-      query
         .group("emoji_reactions.reactable_id, emoji_reactions.reaction")
         .order("first_created_at ASC")
     end
