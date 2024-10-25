@@ -29,14 +29,17 @@
 module Admin
   module CustomFields
     module Hierarchy
-      class NewItemFormComponent < ApplicationComponent
+      class ItemFormComponent < ApplicationComponent
         include OpTurbo::Streamable
 
-        def initialize(custom_field:, label: nil, short: nil)
+        def initialize(custom_field:, hierarchy_item:, url:, method:, label: nil, short: nil)
           super
           @custom_field = custom_field
-          @label = label
-          @short = short
+          @hierarchy_item = hierarchy_item
+          @url = url
+          @method = method
+          @label = label || @hierarchy_item.label
+          @short = short || @hierarchy_item.short
         end
 
         def items_path
