@@ -43,15 +43,15 @@ module EmojiReactions
     private
 
     def validate_user_exists
-      errors.add :user, :error_not_found unless User.exists?(model.user_id)
+      errors.add :user, :not_found unless User.exists?(model.user_id)
     end
 
     def validate_acting_user
-      errors.add :user, :error_unauthorized unless model.user_id == user.id
+      errors.add :user, :invalid unless model.user_id == user.id
     end
 
     def validate_reactable_exists
-      errors.add :reactable, :error_not_found if model.reactable.blank?
+      errors.add :reactable, :not_found if model.reactable.blank?
     end
 
     def manage_emoji_reactions_permission?

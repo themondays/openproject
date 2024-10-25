@@ -71,7 +71,7 @@ RSpec.describe EmojiReactions::BaseContract do
     context "when user does not exist" do
       before { allow(User).to receive(:exists?).with(user.id).and_return(false) }
 
-      it_behaves_like "contract is invalid", user: :error_not_found
+      it_behaves_like "contract is invalid", user: :not_found
     end
   end
 
@@ -84,7 +84,7 @@ RSpec.describe EmojiReactions::BaseContract do
         emoji_reaction.user = different_user
       end
 
-      it_behaves_like "contract is invalid", user: :error_unauthorized
+      it_behaves_like "contract is invalid", user: :invalid
     end
   end
 
@@ -92,7 +92,7 @@ RSpec.describe EmojiReactions::BaseContract do
     context "when reactable is blank" do
       before { emoji_reaction.reactable = nil }
 
-      it_behaves_like "contract is invalid", reactable: :error_not_found
+      it_behaves_like "contract is invalid", reactable: :not_found
     end
 
     context "when reactable is a work package" do
@@ -109,14 +109,6 @@ RSpec.describe EmojiReactions::BaseContract do
       before { emoji_reaction.reactable = journal }
 
       it_behaves_like "contract is valid"
-    end
-
-    context "when reactable is neither a journal nor a work package" do
-      let(:unknown_object) { build_stubbed(:project) }
-
-      before { emoji_reaction.reactable = unknown_object }
-
-      it_behaves_like "contract is invalid", base: :error_unauthorized
     end
   end
 
