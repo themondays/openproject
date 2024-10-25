@@ -27,18 +27,42 @@
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
-#
-module CustomFields
-  class DetailsComponent < ApplicationComponent
-    include OpPrimer::ComponentHelpers
-    include OpTurbo::Streamable
 
-    alias_method :custom_field, :model
+require "support/pages/page"
 
-    def has_no_items_or_projects?
-      custom_field.field_format_hierarchy? &&
-        custom_field.hierarchy_root.children.empty? &&
-        custom_field.projects.empty?
+module Pages
+  module CustomFields
+    class HierarchyPage < Page
+      def path
+        case @tab
+        when "items"
+          "/custom_fields/#{@custom_field.id}/items"
+        when "projects"
+          "/custom_fields/#{@custom_field.id}/projects"
+        else
+          "/custom_fields/#{@custom_field.id}/edit"
+        end
+      end
+
+      def add_custom_field_state(custom_field)
+        @custom_field = custom_field
+      end
+
+      def switch_tab(tab)
+        @tab = tab.downcase
+
+        within_test_selector("custom_field_detail_header") do
+          click_on "Items"
+        end
+      end
+
+      def open_action_menu_for(label)
+        within_test_selector("op-custom-fields--hierarchy-item", text: label) do
+          within_test_selector("op-hierarchy-item--action-menu") do
+            click_on
+          end
+        end
+      end
     end
   end
 end
