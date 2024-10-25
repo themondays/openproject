@@ -56,55 +56,6 @@ module Pages
         end
       end
 
-      def expect_empty_items_banner(visible:)
-        if visible
-          expect(page).to have_test_selector("op-custom-fields--new-hierarchy-banner")
-        else
-          expect(page).not_to have_test_selector("op-custom-fields--new-hierarchy-banner")
-        end
-      end
-
-      def expect_header_text(text)
-        expect(page).to have_css(".PageHeader-title", text: text)
-      end
-
-      def expect_blank_slate(visible:)
-        if visible
-          expect(page).to have_test_selector("op-custom-fields--hierarchy-items-blankslate")
-        else
-          expect(page).not_to have_test_selector("op-custom-fields--hierarchy-items-blankslate")
-        end
-      end
-
-      def expect_items_count(count)
-        expect(page).to have_test_selector("op-custom-fields--hierarchy-item", count:)
-      end
-
-      def expect_hierarchy_item(label:, short: nil, visible: true)
-        if visible
-          expect(page).to have_test_selector("op-custom-fields--hierarchy-item", text: label)
-          expect(page).to have_test_selector("op-custom-fields--hierarchy-item", text: short) unless short.nil?
-        else
-          expect(page).not_to have_test_selector("op-custom-fields--hierarchy-item", text: label)
-        end
-      end
-
-      def expect_inline_form(visible:)
-        if visible
-          expect(page).to have_test_selector("op-custom-fields--new-item-form")
-        else
-          expect(page).not_to have_test_selector("op-custom-fields--new-item-form")
-        end
-      end
-
-      def expect_deletion_dialog(visible:)
-        if visible
-          expect(page).to have_test_selector("op-custom-fields--delete-item-dialog")
-        else
-          expect(page).not_to have_test_selector("op-custom-fields--delete-item-dialog")
-        end
-      end
-
       def open_action_menu_for(label)
         within_test_selector("op-custom-fields--hierarchy-item", text: label) do
           within_test_selector("op-hierarchy-item--action-menu") do

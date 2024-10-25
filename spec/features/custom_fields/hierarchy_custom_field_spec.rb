@@ -29,7 +29,6 @@
 #++
 
 require "spec_helper"
-require "support/pages/custom_fields/hierarchy_page"
 
 RSpec.describe "custom fields of type hierarchy", :js, :with_cuprite do
   let(:user) { create(:admin) }
@@ -41,7 +40,8 @@ RSpec.describe "custom fields of type hierarchy", :js, :with_cuprite do
      with_flag: { custom_field_of_type_hierarchy: true } do
     login_as user
 
-    # First, we create a new custom field of type hierarchy
+    # region CustomField creation
+
     custom_field_index_page.visit!
 
     click_on "New custom field"
@@ -55,7 +55,10 @@ RSpec.describe "custom fields of type hierarchy", :js, :with_cuprite do
     custom_field_index_page.expect_current_path("tab=WorkPackageCustomField")
     expect(page).to have_list_item(hierarchy_name)
 
-    # The next step is to enter the custom field and work on it
+    # endregion
+
+    # region Edit the details of the custom field
+
     CustomField.find_by(name: hierarchy_name).tap do |custom_field|
       hierarchy_page.add_custom_field_state(custom_field)
     end
@@ -63,69 +66,92 @@ RSpec.describe "custom fields of type hierarchy", :js, :with_cuprite do
     click_on hierarchy_name
     hierarchy_page.expect_current_path
 
-    hierarchy_page.expect_empty_items_banner(visible: true)
-    hierarchy_page.expect_header_text(hierarchy_name)
+    expect(page).to have_test_selector("op-custom-fields--new-hierarchy-banner")
+    expect(page).to have_css(".PageHeader-title", text: hierarchy_name)
 
-    # Changing the name is possible
+    # Now, that was the wrong name, so I can change it to the correct one
     hierarchy_name = "Imperial Organisation"
     fill_in "Name", with: "", fill_options: { clear: :backspace }
     fill_in "Name", with: hierarchy_name
     click_on "Save"
-    hierarchy_page.expect_header_text(hierarchy_name)
+    expect(page).to have_css(".PageHeader-title", text: hierarchy_name)
 
-    # Now we want to create hierarchy items
+    # endregion
+
+    # region Adding items to the hierarchy
+
+    # Now we want to create our first hierarchy items
     hierarchy_page.switch_tab "Items"
     hierarchy_page.expect_current_path
-    hierarchy_page.expect_blank_slate(visible: true)
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-items-blankslate")
 
     click_on "Item"
-    hierarchy_page.expect_blank_slate(visible: false)
+    expect(page).not_to have_test_selector("op-custom-fields--hierarchy-items-blankslate")
     fill_in "Label", with: "Stormtroopers"
     fill_in "Short", with: "ST"
     click_on "Save"
-    hierarchy_page.expect_blank_slate(visible: false)
-    hierarchy_page.expect_items_count(1)
-    hierarchy_page.expect_hierarchy_item(label: "Stormtroopers", short: "(ST)")
+    expect(page).not_to have_test_selector("op-custom-fields--hierarchy-items-blankslate")
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", count: 1)
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", text: "Stormtroopers")
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", text: "(ST)")
+
+    # And the inline form should still be there
+    expect(page).to have_test_selector("op-custom-fields--new-item-form")
+
+    # Can I add the same item again?
+    fill_in "Label", with: "Stormtroopers"
+    click_on "Save"
+    within_test_selector("op-custom-fields--new-item-form") do
+      expect(page).to have_css(".FormControl-inlineValidation", text: "Label must be unique within the same hierarchy level")
+    end
 
     # Is the form cancelable?
-    click_on "Item"
-    hierarchy_page.expect_inline_form(visible: true)
     fill_in "Label", with: "Dark Troopers"
     click_on "Cancel"
-    hierarchy_page.expect_inline_form(visible: false)
-    hierarchy_page.expect_items_count(1)
-    hierarchy_page.expect_hierarchy_item(label: "Dark Troopers", visible: false)
+    expect(page).not_to have_test_selector("op-custom-fields--new-item-form")
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", count: 1)
+    expect(page).not_to have_test_selector("op-custom-fields--hierarchy-item", text: "Dark Troopers")
 
-    # What happens if I add a wrong item?
+    # endregion
+
+    # region Deleting items from the hierarchy
+
+    # What happens if I added a wrong item?
     click_on "Item"
     fill_in "Label", with: "Phoenix Squad"
     click_on "Save"
-    hierarchy_page.expect_items_count(2)
-    hierarchy_page.expect_hierarchy_item(label: "Phoenix Squad", visible: true)
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", count: 2)
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", text: "Phoenix Squad")
     hierarchy_page.open_action_menu_for("Phoenix Squad")
     click_on "Delete"
-    hierarchy_page.expect_deletion_dialog(visible: true)
+    expect(page).to have_test_selector("op-custom-fields--delete-item-dialog")
     click_on "Delete"
-    hierarchy_page.expect_deletion_dialog(visible: false)
-    hierarchy_page.expect_items_count(1)
-    hierarchy_page.expect_hierarchy_item(label: "Phoenix Squad", visible: false)
+    expect(page).not_to have_test_selector("op-custom-fields--delete-item-dialog")
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", count: 1)
+    expect(page).not_to have_test_selector("op-custom-fields--hierarchy-item", text: "Phoenix Squad")
 
     # Can I cancel the deletion?
     hierarchy_page.open_action_menu_for("Stormtroopers")
     click_on "Delete"
-    hierarchy_page.expect_deletion_dialog(visible: true)
+    expect(page).to have_test_selector("op-custom-fields--delete-item-dialog")
     click_on "Cancel"
-    hierarchy_page.expect_deletion_dialog(visible: false)
-    hierarchy_page.expect_hierarchy_item(label: "Stormtroopers", visible: true)
+    expect(page).not_to have_test_selector("op-custom-fields--delete-item-dialog")
+    expect(page).to have_test_selector("op-custom-fields--hierarchy-item", text: "Stormtroopers")
+
+    # endregion
+
+    # region Status check and cleanup
 
     # And is the blue banner gone, now that I have added some items?
     hierarchy_page.switch_tab "Details"
-    hierarchy_page.expect_empty_items_banner(visible: false)
+    expect(page).not_to have_test_selector("op-custom-fields--new-hierarchy-banner")
 
     # Finally, we delete the custom field ... I'm done with this ...
     custom_field_index_page.visit!
     expect(page).to have_list_item(hierarchy_name)
     within("tr", text: hierarchy_name) { accept_prompt { click_on "Delete" } }
     expect(page).to have_no_text(hierarchy_name)
+
+    # endregion
   end
 end
