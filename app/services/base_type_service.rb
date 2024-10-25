@@ -165,17 +165,12 @@ class BaseTypeService
   # for this type. If a custom field is not in a group, it is removed from the
   # custom_field_ids list.
   def set_active_custom_fields
-    active_cf_ids = []
-
-    type.attribute_groups.each do |group|
-      group.members.each do |attribute|
-        if CustomField.custom_field_attribute? attribute
-          active_cf_ids << attribute.gsub(/^custom_field_/, "").to_i
-        end
-      end
-    end
-
-    type.custom_field_ids = active_cf_ids.uniq
+    type.custom_field_ids = type
+                              .attribute_groups
+                              .flat_map(&:members)
+                              .select { CustomField.custom_field_attribute? _1 }
+                              .map { _1.gsub(/^custom_field_/, "").to_i }
+                              .uniq
   end
 
   def set_active_custom_fields_for_project_ids(project_ids)
