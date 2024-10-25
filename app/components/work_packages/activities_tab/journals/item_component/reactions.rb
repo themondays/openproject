@@ -74,11 +74,9 @@ module WorkPackages
 
           if user_count <= max_displayed_users_count
             "#{displayed_users[0..-2].join(', ')} #{I18n.t('reactions.and_user', user: displayed_users.last)}"
-          elsif user_count == max_displayed_users_count + 1
-            "#{displayed_users.join(', ')} #{I18n.t('reactions.and_n_others_singular', n: 1)}"
           else
-            "#{displayed_users.join(', ')} #{I18n.t('reactions.and_n_others_plural',
-                                                    n: user_count - max_displayed_users_count)}"
+            "#{displayed_users.join(', ')} #{I18n.t('reactions.and_others',
+                                                    count: user_count - max_displayed_users_count)}"
           end
         end
 

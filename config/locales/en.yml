@@ -551,8 +551,9 @@ en:
     add_reaction: "Add reaction"
     react_with: "React with %{reaction}"
     and_user: "and %{user}"
-    and_n_others_singular: "and %{n} other"
-    and_n_others_plural: "and %{n} others"
+    and_others:
+      one: and 1 other
+      other: and %{count} others
     reaction_by: "%{reaction} by"
 
   reportings:
