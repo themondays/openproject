@@ -80,9 +80,7 @@ class BaseTypeService
     set_milestone_param(params) unless params[:is_milestone].nil?
     set_active_custom_fields
 
-    if params[:project_ids].present?
-      set_active_custom_fields_for_project_ids(params[:project_ids])
-    end
+    set_active_custom_fields_for_project_ids(params[:project_ids]) if params[:project_ids].present?
 
     set_scalar_params(params)
 
@@ -167,24 +165,21 @@ class BaseTypeService
   # for this type. If a custom field is not in a group, it is removed from the
   # custom_field_ids list.
   def set_active_custom_fields
-    new_cf_ids_to_add = active_custom_field_ids - type.custom_field_ids
-    type.custom_field_ids = active_custom_field_ids
-    set_active_custom_fields_for_projects(type.projects,
-                                          new_cf_ids_to_add)
+    active_cf_ids = []
+
+    type.attribute_groups.each do |group|
+      group.members.each do |attribute|
+        if CustomField.custom_field_attribute? attribute
+          active_cf_ids << attribute.gsub(/^custom_field_/, "").to_i
+        end
+      end
+    end
+
+    type.custom_field_ids = active_cf_ids.uniq
   end
 
   def active_custom_field_ids
     @active_custom_field_ids ||= begin
-      active_cf_ids = []
-
-      type.attribute_groups.each do |group|
-        group.members.each do |attribute|
-          if CustomField.custom_field_attribute? attribute
-            active_cf_ids << attribute.gsub(/^custom_field_/, "").to_i
-          end
-        end
-      end
-      active_cf_ids.uniq
     end
   end
 
