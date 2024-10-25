@@ -88,6 +88,15 @@ RSpec.describe Reactable do
         )
       end
     end
+
+    context "when no reactions exist" do
+      it "returns an empty hash" do
+        work_package = build_stubbed(:work_package)
+        result = Journal.grouped_work_package_journals_emoji_reactions(work_package)
+
+        expect(result).to eq({})
+      end
+    end
   end
 
   describe ".grouped_journal_emoji_reactions" do

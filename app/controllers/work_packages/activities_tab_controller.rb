@@ -315,15 +315,10 @@ class WorkPackages::ActivitiesTabController < ApplicationController
       journals = journals.where.not(notes: "")
     end
 
-    grouped_emoji_reactions =
-      if journals.present?
-        Journal.grouped_emoji_reactions_by_reactable(
-          reactable_id: journals.pluck(:id),
-          reactable_type: "Journal", last_updated_at: last_update_timestamp
-        )
-      else
-        {}
-      end
+    grouped_emoji_reactions = Journal.grouped_emoji_reactions_by_reactable(
+      reactable_id: journals.pluck(:id),
+      reactable_type: "Journal", last_updated_at: last_update_timestamp
+    )
 
     rerender_updated_journals(journals, last_update_timestamp, grouped_emoji_reactions)
     rerender_journals_with_updated_notification(journals, last_update_timestamp, grouped_emoji_reactions)
