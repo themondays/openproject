@@ -54,17 +54,29 @@ module Reactable
 
     def grouped_emoji_reactions(reactable_id:, reactable_type:, last_updated_at: nil)
       query = EmojiReaction
-        .select("emoji_reactions.reactable_id, emoji_reactions.reaction, COUNT(emoji_reactions.id) as count, " \
-                "json_agg(json_build_array(users.id, #{user_name_concat_format_sql}) ORDER BY emoji_reactions.created_at) as user_details") # rubocop:disable Layout/LineLength
+        .select(emoji_reactions_group_selection_sql)
         .joins(:user)
         .where(reactable_id:, reactable_type:)
 
       query = query.where("emoji_reactions.updated_at > ?", last_updated_at) if last_updated_at
 
-      query.group("emoji_reactions.reactable_id, emoji_reactions.reaction")
+      query
+        .group("emoji_reactions.reactable_id, emoji_reactions.reaction")
+        .order("first_created_at ASC")
     end
 
     private
+
+    def emoji_reactions_group_selection_sql
+      <<~SQL.squish
+        emoji_reactions.reactable_id, emoji_reactions.reaction, COUNT(emoji_reactions.id) as count,
+        json_agg(
+          json_build_array(users.id, #{user_name_concat_format_sql})
+          ORDER BY emoji_reactions.created_at
+        ) as user_details,
+        MIN(emoji_reactions.created_at) as first_created_at
+      SQL
+    end
 
     def user_name_concat_format_sql
       case Setting.user_format

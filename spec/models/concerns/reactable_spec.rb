@@ -114,13 +114,41 @@ RSpec.describe Reactable do
         )
       end
     end
+
+    context "with multiple reactions from different users at different times" do
+      let(:user3) { create(:user) }
+
+      before do
+        create(:emoji_reaction, reactable: wp_journal1, user: user3, reaction: :thumbs_up, created_at: 1.day.ago)
+        create(:emoji_reaction, reactable: wp_journal1, user: user3, reaction: :thumbs_down, created_at: 2.days.ago)
+      end
+
+      it "groups emoji reactions and users in ascending order" do
+        result = Journal.grouped_journal_emoji_reactions(wp_journal1)
+
+        expect(result).to eq(
+          wp_journal1.id => {
+            thumbs_down: {
+              count: 1,
+              users: [{ id: user3.id, name: user3.name }]
+            },
+            thumbs_up: {
+              count: 3,
+              users: [
+                { id: user3.id, name: user3.name },
+                { id: user1.id, name: user1.name },
+                { id: user2.id, name: user2.name }
+              ]
+            }
+          }
+        )
+      end
+    end
   end
 
   describe ".grouped_emoji_reactions" do
     it "returns grouped emoji reactions" do
       result = Journal.grouped_emoji_reactions(reactable_id: work_package.journal_ids, reactable_type: "Journal")
-
-      expect(result.size).to eq({ "thumbs_up" => 2, "thumbs_down" => 1 })
 
       expect(result[0].reaction).to eq("thumbs_up")
       expect(result[0].count).to eq(2)
