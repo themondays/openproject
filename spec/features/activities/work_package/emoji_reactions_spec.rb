@@ -137,6 +137,48 @@ RSpec.describe "Emoji reactions on work package activity", :js, :with_cuprite,
     end
   end
 
+  describe "reactions updates" do
+    let(:work_package) { create(:work_package, project:, author: admin) }
+    let(:first_comment_by_member) do
+      create(:work_package_journal, user: member, notes: "Second comment by member", journable: work_package,
+                                    version: 2)
+    end
+
+    current_user { member }
+
+    before do
+      # set WORK_PACKAGES_ACTIVITIES_TAB_POLLING_INTERVAL_IN_MS to 1000
+      # to speed up the polling interval for test duration
+      ENV["WORK_PACKAGES_ACTIVITIES_TAB_POLLING_INTERVAL_IN_MS"] = "1000"
+
+      wp_page.visit!
+      wp_page.wait_for_activity_tab
+    end
+
+    after do
+      ENV.delete("WORK_PACKAGES_ACTIVITIES_TAB_POLLING_INTERVAL_IN_MS")
+    end
+
+    it "shows the updated reactions without reload", :aggregate_failures do
+      activity_tab.expect_journal_notes(text: first_comment_by_member.notes)
+
+      # Simulate another user adding a reaction
+      EmojiReactions::CreateService
+         .new(user: admin)
+         .call(user: admin, reactable: first_comment_by_member, reaction: :confused_face)
+
+      wait_for do
+        activity_tab.expect_emoji_reactions_for_journal(first_comment_by_member, "😕" => 1)
+      end
+
+      # Current user adds several reactions
+      activity_tab.add_first_emoji_reaction_for_journal(first_comment_by_member, "👍")
+      activity_tab.add_emoji_reaction_for_journal(first_comment_by_member, "😕")
+
+      activity_tab.expect_emoji_reactions_for_journal(first_comment_by_member, "👍" => 1, "😕" => 2)
+    end
+  end
+
   def create_user_as_project_member
     member_role = create(:project_role,
                          permissions: %i[view_work_packages edit_work_packages add_work_packages work_package_assigned

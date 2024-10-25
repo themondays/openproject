@@ -41,10 +41,6 @@ module WorkPackages
           @grouped_emoji_reactions = grouped_emoji_reactions
         end
 
-        def render?
-          grouped_emoji_reactions.present?
-        end
-
         private
 
         attr_reader :journal, :grouped_emoji_reactions

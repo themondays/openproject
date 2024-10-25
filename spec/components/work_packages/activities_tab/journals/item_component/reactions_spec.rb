@@ -61,10 +61,12 @@ RSpec.describe WorkPackages::ActivitiesTab::Journals::ItemComponent::Reactions, 
   end
 
   context "with no reactions" do
-    it "does not render" do
+    it "renders just the component node" do
+      # NB: This is so that there is always a node to update during WorkPackages::ActivitiesTabController#update_streams polling
       render_inline(described_class.new(journal:, grouped_emoji_reactions: {}))
 
-      expect(page.text).to be_empty
+      component = page.find("#work-packages-activities-tab-journals-item-component-reactions-#{journal.id}")
+      expect(component.text).to be_empty
     end
   end
 

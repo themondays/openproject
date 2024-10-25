@@ -256,6 +256,7 @@ class WorkPackages::ActivitiesTabController < ApplicationController
   def perform_update_streams_from_last_update_timestamp
     if params[:last_update_timestamp].present? && (last_updated_at = Time.zone.parse(params[:last_update_timestamp]))
       generate_time_based_update_streams(last_updated_at)
+      generate_work_package_journals_emoji_reactions_update_streams
     else
       @turbo_status = :bad_request
     end
@@ -325,6 +326,18 @@ class WorkPackages::ActivitiesTabController < ApplicationController
     if journals.present?
       remove_potential_empty_state
       update_activity_counter
+    end
+  end
+
+  def generate_work_package_journals_emoji_reactions_update_streams
+    # Current limitation: Only shows added reactions, not removed ones
+    Journal.grouped_work_package_journals_emoji_reactions(@work_package).each do |journal_id, grouped_emoji_reactions|
+      update_via_turbo_stream(
+        component: WorkPackages::ActivitiesTab::Journals::ItemComponent::Reactions.new(
+          journal: @work_package.journals.find(journal_id),
+          grouped_emoji_reactions:
+        )
+      )
     end
   end
 
