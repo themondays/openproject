@@ -33,10 +33,10 @@ module Components::Autocompleter
       retry_block do
         if results_selector
           results_selector = "#{results_selector} .ng-dropdown-panel" if results_selector == "body"
-          page.find(results_selector)
+          page.find(results_selector, wait: 5)
         else
           within(element) do
-            page.find("ng-select .ng-dropdown-panel")
+            page.find("ng-select .ng-dropdown-panel", wait: 5)
           end
         end
       rescue StandardError => e
