@@ -135,19 +135,19 @@ RSpec.describe Reactable do
       result = Journal.grouped_emoji_reactions(reactable_id: work_package.journal_ids, reactable_type: "Journal")
 
       expect(result[0].reaction).to eq("thumbs_up")
-      expect(result[0].count).to eq(2)
-      expect(result[0].user_details).to eq([[user1.id, user1.name], [user2.id, user2.name]])
+      expect(result[0].reactions_count).to eq(2)
+      expect(result[0].reacting_users).to eq([[user1.id, user1.name], [user2.id, user2.name]])
 
       expect(result[1].reaction).to eq("thumbs_down")
-      expect(result[1].count).to eq(1)
-      expect(result[1].user_details).to eq([[user2.id, user2.name]])
+      expect(result[1].reactions_count).to eq(1)
+      expect(result[1].reacting_users).to eq([[user2.id, user2.name]])
     end
 
     context "when user format is set to :username", with_settings: { user_format: :username } do
       it "returns grouped emoji reactions with usernames" do
         result = Journal.grouped_emoji_reactions(reactable_id: work_package.journal_ids, reactable_type: "Journal")
 
-        expect(result[0].user_details).to eq([[user1.id, user1.login], [user2.id, user2.login]])
+        expect(result[0].reacting_users).to eq([[user1.id, user1.login], [user2.id, user2.login]])
       end
     end
 
@@ -155,7 +155,7 @@ RSpec.describe Reactable do
       it "returns grouped emoji reactions with first and last names" do
         result = Journal.grouped_emoji_reactions(reactable_id: wp_journal2.id, reactable_type: "Journal")
 
-        expect(result[0].user_details).to eq([[user2.id, user2.firstname]])
+        expect(result[0].reacting_users).to eq([[user2.id, user2.firstname]])
       end
     end
 
@@ -163,7 +163,7 @@ RSpec.describe Reactable do
       it "returns grouped emoji reactions with last coma firstname" do
         result = Journal.grouped_emoji_reactions(reactable_id: wp_journal1.id, reactable_type: "Journal")
 
-        expect(result[0].user_details).to eq(
+        expect(result[0].reacting_users).to eq(
           [
             [user1.id, "#{user1.lastname}, #{user1.firstname}"],
             [user2.id, "#{user2.lastname}, #{user2.firstname}"]
@@ -176,7 +176,7 @@ RSpec.describe Reactable do
       it "returns grouped emoji reactions with last firstname" do
         result = Journal.grouped_emoji_reactions(reactable_id: wp_journal1.id, reactable_type: "Journal")
 
-        expect(result[0].user_details).to eq(
+        expect(result[0].reacting_users).to eq(
           [
             [user1.id, "#{user1.lastname}#{user1.firstname}"],
             [user2.id, "#{user2.lastname}#{user2.firstname}"]

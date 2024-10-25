@@ -46,8 +46,8 @@ module Reactable
       grouped_emoji_reactions(reactable_id:, reactable_type:).each_with_object({}) do |row, hash|
         hash[row.reactable_id] ||= {}
         hash[row.reactable_id][row.reaction.to_sym] = {
-          count: row.count,
-          users: row.user_details.map { |(id, name)| { id:, name: } }
+          count: row.reactions_count,
+          users: row.reacting_users.map { |(id, name)| { id:, name: } }
         }
       end
     end
@@ -65,11 +65,12 @@ module Reactable
 
     def emoji_reactions_group_selection_sql
       <<~SQL.squish
-        emoji_reactions.reactable_id, emoji_reactions.reaction, COUNT(emoji_reactions.id) as count,
+        emoji_reactions.reactable_id, emoji_reactions.reaction,
+        COUNT(emoji_reactions.id) as reactions_count,
         json_agg(
           json_build_array(users.id, #{user_name_concat_format_sql})
           ORDER BY emoji_reactions.created_at
-        ) as user_details,
+        ) as reacting_users,
         MIN(emoji_reactions.created_at) as first_created_at
       SQL
     end
