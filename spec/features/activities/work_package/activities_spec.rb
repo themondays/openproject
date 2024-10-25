@@ -902,6 +902,7 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
   end
 
   describe "images in the comment",
+           with_cuprite: false,
            with_settings: { journal_aggregation_time_minutes: 0, show_work_package_attachments: false } do
     let(:work_package) { create(:work_package, project:, author: admin) }
     let(:image_fixture) { UploadedFile.load_from("spec/fixtures/files/image.png") }
@@ -915,7 +916,7 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
         wp_page.wait_for_activity_tab
 
         page.find_test_selector("op-open-work-package-journal-form-trigger").click
-        editor.drag_attachment(image_fixture.path, "")
+        editor.drag_attachment(image_fixture.path, "", scroll: false)
         editor.wait_until_upload_progress_toaster_cleared
 
         page.find_test_selector("op-submit-work-package-journal-form").click
