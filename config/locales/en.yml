@@ -546,6 +546,16 @@ en:
         Click to assign or change the color of this priority.
         It can be used for highlighting work packages in the table.
 
+  reactions:
+    action_title: "React"
+    add_reaction: "Add reaction"
+    react_with: "React with %{reaction}"
+    and_user: "and %{user}"
+    and_others:
+      one: and 1 other
+      other: and %{count} others
+    reaction_by: "%{reaction} by"
+
   reportings:
     index:
       no_results_title_text: There are currently no status reportings.
@@ -958,6 +968,7 @@ en:
         not_available: "is not available due to a system configuration."
         not_deletable: "cannot be deleted."
         not_current_user: "is not the current user."
+        not_found: "not found."
         not_a_date: "is not a valid date."
         not_a_datetime: "is not a valid date time."
         not_a_number: "is not a number."

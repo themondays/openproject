@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2023 the OpenProject GmbH
+# Copyright (C) 2012-2024 the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -26,31 +26,48 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module WorkPackages
-  module ActivitiesTab
-    module Journals
-      class ItemComponent::Show < ApplicationComponent
-        include ApplicationHelper
-        include AvatarHelper
-        include JournalFormatter
-        include OpPrimer::ComponentHelpers
-        include OpTurbo::Streamable
+module EmojiReactions
+  class BaseContract < ::ModelContract
+    attribute :reaction
+    attribute :user_id
+    attribute :reactable_id
+    attribute :reactable_type
 
-        def initialize(journal:, filter:, grouped_emoji_reactions:)
-          super
+    validate :manage_emoji_reactions_permission?
+    validate :validate_user_exists
+    validate :validate_acting_user
+    validate :validate_reactable_exists
 
-          @journal = journal
-          @filter = filter
-          @grouped_emoji_reactions = grouped_emoji_reactions
-        end
+    def self.model = EmojiReaction
 
-        private
+    private
 
-        attr_reader :journal, :filter, :grouped_emoji_reactions
+    def validate_user_exists
+      errors.add :user, :not_found unless User.exists?(model.user_id)
+    end
 
-        def wrapper_uniq_by
-          journal.id
-        end
+    def validate_acting_user
+      errors.add :user, :invalid unless model.user_id == user.id
+    end
+
+    def validate_reactable_exists
+      errors.add :reactable, :not_found if model.reactable.blank?
+    end
+
+    def manage_emoji_reactions_permission?
+      unless manage_emoji_reactions?
+        errors.add :base, :error_unauthorized
+      end
+    end
+
+    def manage_emoji_reactions?
+      case model.reactable
+      when WorkPackage
+        user.allowed_in_work_package?(:add_work_package_notes, model.reactable)
+      when Journal
+        user.allowed_in_work_package?(:add_work_package_notes, model.reactable.journable)
+      else
+        false
       end
     end
   end
