@@ -221,10 +221,10 @@ ro:
           heading: For all projects
           description: This custom field is enabled in all projects since the "For all projects" option is checked. It cannot be deactivated for individual projects.
       items:
+        actions: "Item actions"
         blankslate:
           title: "Your list of items is empty"
           description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
-        actions: "Item actions"
         placeholder:
           label: "Item label"
           short: "Short name"
@@ -501,6 +501,16 @@ ro:
       priority_color_text: |
         Faceți click pentru a desemna sau schimba culoarea acestui nivel de prioritate.
         Poate fi utilizate pentru a evidenția pachetele de lucru dintr-un tabel.
+  reactions:
+    action_title: "React"
+    add_reaction: "Add reaction"
+    react_with: "React with %{reaction}"
+    and_user: "and %{user}"
+    and_others:
+      one: and 1 other
+      few: and %{count} others
+      other: and %{count} others
+    reaction_by: "%{reaction} by"
   reportings:
     index:
       no_results_title_text: În acest moment nu există rapoarte de stare.
@@ -886,6 +896,7 @@ ro:
         not_available: "nu este disponibil din cauza unei configurații a sistemului."
         not_deletable: "%s nu poate fi șters."
         not_current_user: "nu este utilizatorul curent."
+        not_found: "not found."
         not_a_date: "Acest câmp trebuie să conțină o dată validă."
         not_a_datetime: "nu este o dată-ora validă."
         not_a_number: "nu este un număr."
