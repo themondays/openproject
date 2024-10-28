@@ -132,12 +132,16 @@ module Components::Autocompleter
     #
     # The order of elements in the Array is equal to the visible order on the website.
     def visible_user_auto_completer_options
-      find(".ng-dropdown-panel [role='listbox']").all(".ng-option[role='option']").map do |opt|
+      find(".ng-dropdown-panel [role='listbox']").all(".ng-option[role='option']").filter_map do |opt|
         name = opt.find(".op-user-autocompleter--name").text
         email_element = opt.all(".op-autocompleter__option-principal-email").first
         email = email_element&.text
 
         { name:, email: }
+      rescue Capybara::ElementNotFound
+        # In rare cases, the auto completer result body includes additional elements that do not contain all of the
+        # expected information. For example in the share modal. We will omit these entries.
+        nil
       end
     end
   end

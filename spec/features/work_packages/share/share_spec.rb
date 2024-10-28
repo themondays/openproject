@@ -460,7 +460,7 @@ RSpec.describe "Work package sharing",
 
         it "allows filtering by and displaying user emails" do
           share_modal.search_user(richard.mail)
-          share_modal.expect_ng_option("", "Richard Hendricks#{richard.mail}", results_selector: "body")
+          share_modal.expect_ng_option("", "Richard Hendricks #{richard.mail}", results_selector: "body")
         end
       end
 
@@ -469,7 +469,7 @@ RSpec.describe "Work package sharing",
           # does not display any email addresses
           share_modal.search_user("Richard Hendricks")
           share_modal.expect_ng_option("", "Richard Hendricks", results_selector: "body")
-          share_modal.expect_no_ng_option("", "Richard Hendricks#{richard.mail}", results_selector: "body")
+          share_modal.expect_no_ng_option("", "Richard Hendricks #{richard.mail}", results_selector: "body")
 
           # does not allow filtering by email
           share_modal.search_user(richard.mail)
