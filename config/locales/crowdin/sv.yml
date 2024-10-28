@@ -497,12 +497,12 @@ sv:
         Den kan användas för att markera arbetspaket i tabellen.
   reactions:
     action_title: "React"
-    add_reaction: "Add reaction"
-    react_with: "React with %{reaction}"
-    and_user: "and %{user}"
+    add_reaction: "Lägg till reaktion"
+    react_with: "Reagera med %{reaction}"
+    and_user: "och %{user}"
     and_others:
-      one: and 1 other
-      other: and %{count} others
+      one: och 1 annan
+      other: och %{count} andra
     reaction_by: "%{reaction} by"
   reportings:
     index:
@@ -2003,7 +2003,7 @@ sv:
   label_ical_access_key_generation_hint: "Automatically generated when subscribing to a calendar."
   label_ical_access_key_latest: "latest"
   label_ical_access_key_revoke: "Återkalla"
-  label_add_column: "Add column"
+  label_add_column: "Lägg till kolumn"
   label_applied_status: "Tillämpad status"
   label_archive_project: "Arkivera projekt"
   label_ascending: "Stigande"
@@ -2392,7 +2392,7 @@ sv:
   label_project_latest: "Senaste projekt"
   label_project_default_type: "Tillåta tom typ"
   label_project_hierarchy: "Projekthierarki"
-  label_project_mappings: "Projects"
+  label_project_mappings: "Projekt"
   label_project_new: "Nytt projekt"
   label_project_plural: "Projekt"
   label_project_list_plural: "Projektlistor"
