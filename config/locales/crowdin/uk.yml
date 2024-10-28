@@ -216,10 +216,10 @@ uk:
           heading: Для всіх проєктів
           description: Це користувацьке поле активовано в усіх проєктах, оскільки встановлено прапорець «Для всіх проєктів». Його не можна деактивувати для окремих проєктів.
       items:
+        actions: "Item actions"
         blankslate:
           title: "Ваш список елементів порожній"
           description: "Спочатку додайте елементи до користувацького поля ієрархії типів. Створити ієрархію можна для кожного елемента. Щоб переходити між піделементами ієрархії і додавати\nїх, натисніть створений елемент."
-        actions: "Item actions"
         placeholder:
           label: "Item label"
           short: "Short name"
@@ -502,6 +502,17 @@ uk:
       priority_color_text: |
         Натисніть, щоб призначити або змінити колір цього пріоритету.
         Його можна використовувати для виділення робочих пакетів у таблиці.
+  reactions:
+    action_title: "React"
+    add_reaction: "Add reaction"
+    react_with: "React with %{reaction}"
+    and_user: "and %{user}"
+    and_others:
+      one: and 1 other
+      few: and %{count} others
+      many: and %{count} others
+      other: and %{count} others
+    reaction_by: "%{reaction} by"
   reportings:
     index:
       no_results_title_text: Наразі немає повідомлень про статус.
@@ -533,7 +544,7 @@ uk:
         is_readonly: "Лише для перегляду"
         excluded_from_totals: "Виключено з підсумків"
   themes:
-    dark: "Темна (бета)"
+    dark: "Dark"
     light: "Світла"
     light_high_contrast: "Світла, високий контраст"
   types:
@@ -887,10 +898,12 @@ uk:
         not_available: "– недоступно через налаштування системи."
         not_deletable: "не можна видалити."
         not_current_user: "не поточний користувач."
+        not_found: "not found."
         not_a_date: "не є дійсною датою."
         not_a_datetime: "не є дійсним датою."
         not_a_number: "не є числом"
         not_allowed: "недійсний через відсутність дозволів."
+        not_json: "is not a valid JSON object."
         not_an_integer: "не є цілим числом"
         not_an_iso_date: "не є дійсною датою. Необхідний формат: YYYY-MM-DD."
         not_same_project: "не належить до одного проекту."
@@ -2057,6 +2070,7 @@ uk:
   label_ical_access_key_generation_hint: "Автоматично створено під час оформлення підписки на календар."
   label_ical_access_key_latest: "останні"
   label_ical_access_key_revoke: "Скасувати"
+  label_add_column: "Add column"
   label_applied_status: "Застосовний статус"
   label_archive_project: "Архівний проект"
   label_ascending: "За зростанням"
@@ -2083,6 +2097,7 @@ uk:
   label_api_doc: "Документація API"
   label_backup: "Резервна копія"
   label_backup_code: "Код резервної копії"
+  label_basic_details: "Basic details"
   label_between: "між ними"
   label_blocked_by: "заблоковано"
   label_blocks: "блоки"
@@ -2225,8 +2240,9 @@ uk:
   label_feeds_access_key_created_on: "Створено ключ доступу RSS %{value} тому"
   label_feeds_access_key_type: "RSS"
   label_file_plural: "Файли"
-  label_filter_add: "Додати фільтр"
   label_filter: "Фільтри"
+  label_filter_add: "Додати фільтр"
+  label_filter_by: "Filter by"
   label_filter_plural: "Фільтри"
   label_filters_toggle: "Показати / приховати фільтри"
   label_float: "З плаваючою крапкою"
@@ -2315,6 +2331,7 @@ uk:
   label_custom_favicon: "призначені для користувача іконки"
   label_custom_touch_icon: "Призначений для користувача значок логотипу"
   label_logout: "Вийти"
+  label_mapping_for: "Mapping for: %{attribute}"
   label_main_menu: "Бокове меню"
   label_manage: "Керувати"
   label_manage_groups: "Керувати групами"
@@ -2349,6 +2366,8 @@ uk:
   label_months_from: "місяців(ця) з"
   label_more: "Більше"
   label_more_than_ago: "більш ніж днів(я) назад"
+  label_move_column_left: "Move column left"
+  label_move_column_right: "Move column right"
   label_move_work_package: "Перемістити робочий пакет"
   label_my_account: "Налаштування облікового запису"
   label_my_activity: "Мої дії"
@@ -2440,7 +2459,7 @@ uk:
   label_project_latest: "Останні проекти"
   label_project_default_type: "Дозволити порожній тип"
   label_project_hierarchy: "Ієрархія проектів"
-  label_project_mappings: "Увімкнено в проєктах"
+  label_project_mappings: "Projects"
   label_project_new: "Новий проект"
   label_project_plural: "Проекти"
   label_project_list_plural: "Списки проєкту"
@@ -2471,6 +2490,7 @@ uk:
   label_relation_new: "Новий зв'язок"
   label_release_notes: "Примітки до випуску"
   label_remaining_work: "Залишок роботи"
+  label_remove_column: "Remove column"
   label_remove_columns: "Видалити вибрані стовпці"
   label_renamed: "перейменовано"
   label_reply_plural: "Відповіді"
@@ -2511,8 +2531,10 @@ uk:
   label_show_completed_versions: "Показати завершені версії"
   label_columns: "Стовпці"
   label_sort: "Сортувати"
+  label_sort_ascending: "Sort ascending"
   label_sort_by: "Сортувати за %{value}"
   label_sorted_by: "відсортовані за %{value}"
+  label_sort_descending: "Sort descending"
   label_sort_higher: "Рухатися вгору"
   label_sort_highest: "Помістити на верх"
   label_sort_lower: "Пересунути нижче"
@@ -3235,7 +3257,9 @@ uk:
   setting_default_language: "Мова за замовчуванням"
   setting_default_projects_modules: "Включені по замовчуванню модулі для нових проектів"
   setting_default_projects_public: "Нові проекти є загальнодоступними"
+  setting_disable_password_login: "Disable password authentication"
   setting_diff_max_lines_displayed: "Відображається максимальна кількість рядків diff"
+  setting_omniauth_direct_login_provider: "Direct login SSO provider"
   setting_display_subprojects_work_packages: "Дисплей підпроекти пакети робіт на основні проекти за замовчуванням"
   setting_duration_format: "Формат тривалості"
   setting_duration_format_hours_only: "Тільки години"
@@ -3332,6 +3356,10 @@ uk:
   setting_work_package_list_default_highlighted_attributes: "Стандартні вбудовані виділені атрибути"
   setting_working_days: "Робочі дні"
   settings:
+    authentication:
+      single_sign_on: "Single Sign-On"
+      omniauth_direct_login_hint_html: >
+        If this option is active, login requests will redirect to the configured omniauth provider. The login dropdown and sign-in page will be disabled. <br/> <strong>Note:</strong> Unless you also disable password logins, with this option enabled, users can still log in internally by visiting the <code>%{internal_path}</code> login page.
     attachments:
       whitelist_text_html: >
         Визначте список дійсних розширень файлів і/або типів MIME для завантажених файлів. <br/>Введіть розширення файлу (напр., <code>%{ext_example}</code>) або типи MIME (напр., <code>%{mime_example}</code>). Не вказуйте нічого, щоб дозволити завантаження будь-яких типів файлів. Ви можете вводити кілька значень (по одному в кожному рядку).

@@ -245,10 +245,10 @@ en:
           heading: For all projects
           description: This custom field is enabled in all projects since the "For all projects" option is checked. It cannot be deactivated for individual projects.
       items:
+        actions: "Item actions"
         blankslate:
           title: "Your list of items is empty"
           description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
-        actions: "Item actions"
         placeholder:
           label: "Item label"
           short: "Short name"
@@ -546,6 +546,16 @@ en:
         Click to assign or change the color of this priority.
         It can be used for highlighting work packages in the table.
 
+  reactions:
+    action_title: "React"
+    add_reaction: "Add reaction"
+    react_with: "React with %{reaction}"
+    and_user: "and %{user}"
+    and_others:
+      one: and 1 other
+      other: and %{count} others
+    reaction_by: "%{reaction} by"
+
   reportings:
     index:
       no_results_title_text: There are currently no status reportings.
@@ -580,7 +590,7 @@ en:
         excluded_from_totals: "Excluded from totals"
 
   themes:
-    dark: "Dark (Beta)"
+    dark: "Dark"
     light: "Light"
     light_high_contrast: "Light high contrast"
 
@@ -867,7 +877,6 @@ en:
         consented_at: "Consented at"
       user_preference:
         comments_sorting: "Display comments"
-        hide_mail: "Hide my email address"
         impaired: "Accessibility mode"
         time_zone: "Time zone"
         auto_hide_popups: "Auto-hide success notifications"
@@ -958,10 +967,12 @@ en:
         not_available: "is not available due to a system configuration."
         not_deletable: "cannot be deleted."
         not_current_user: "is not the current user."
+        not_found: "not found."
         not_a_date: "is not a valid date."
         not_a_datetime: "is not a valid date time."
         not_a_number: "is not a number."
         not_allowed: "is invalid because of missing permissions."
+        not_json: "is not a valid JSON object."
         not_an_integer: "is not an integer."
         not_an_iso_date: "is not a valid date. Required format: YYYY-MM-DD."
         not_same_project: "doesn't belong to the same project."
@@ -2114,6 +2125,7 @@ en:
   label_ical_access_key_generation_hint: "Automatically generated when subscribing to a calendar."
   label_ical_access_key_latest: "latest"
   label_ical_access_key_revoke: "Revoke"
+  label_add_column: "Add column"
   label_applied_status: "Applied status"
   label_archive_project: "Archive project"
   label_ascending: "Ascending"
@@ -2140,6 +2152,7 @@ en:
   label_api_doc: "API documentation"
   label_backup: "Backup"
   label_backup_code: "Backup code"
+  label_basic_details: "Basic details"
   label_between: "between"
   label_blocked_by: "blocked by"
   label_blocks: "blocks"
@@ -2282,8 +2295,9 @@ en:
   label_feeds_access_key_created_on: "RSS access key created %{value} ago"
   label_feeds_access_key_type: "RSS"
   label_file_plural: "Files"
-  label_filter_add: "Add filter"
   label_filter: "Filters"
+  label_filter_add: "Add filter"
+  label_filter_by: "Filter by"
   label_filter_plural: "Filters"
   label_filters_toggle: "Show/hide filters"
   label_float: "Float"
@@ -2372,6 +2386,7 @@ en:
   label_custom_favicon: "Custom favicon"
   label_custom_touch_icon: "Custom touch icon"
   label_logout: "Sign out"
+  label_mapping_for: "Mapping for: %{attribute}"
   label_main_menu: "Side Menu"
   label_manage: "Manage"
   label_manage_groups: "Manage groups"
@@ -2406,6 +2421,8 @@ en:
   label_months_from: "months from"
   label_more: "More"
   label_more_than_ago: "more than days ago"
+  label_move_column_left: "Move column left"
+  label_move_column_right: "Move column right"
   label_move_work_package: "Move work package"
   label_my_account: "Account settings"
   label_my_activity: "My activity"
@@ -2497,7 +2514,7 @@ en:
   label_project_latest: "Latest projects"
   label_project_default_type: "Allow empty type"
   label_project_hierarchy: "Project hierarchy"
-  label_project_mappings: "Enabled in projects"
+  label_project_mappings: "Projects"
   label_project_new: "New project"
   label_project_plural: "Projects"
   label_project_list_plural: "Project lists"
@@ -2528,6 +2545,7 @@ en:
   label_relation_new: "New relation"
   label_release_notes: "Release notes"
   label_remaining_work: "Remaining work"
+  label_remove_column: "Remove column"
   label_remove_columns: "Remove selected columns"
   label_renamed: "renamed"
   label_reply_plural: "Replies"
@@ -2568,8 +2586,10 @@ en:
   label_show_completed_versions: "Show completed versions"
   label_columns: "Columns"
   label_sort: "Sort"
+  label_sort_ascending: "Sort ascending"
   label_sort_by: "Sort by %{value}"
   label_sorted_by: "sorted by %{value}"
+  label_sort_descending: "Sort descending"
   label_sort_higher: "Move up"
   label_sort_highest: "Move to top"
   label_sort_lower: "Move down"
@@ -2950,9 +2970,6 @@ en:
   notice_successful_update_custom_fields_added_to_project: |
     Successful update. The custom fields of the activated types are automatically activated
     on the work package form. <a href="%{url}" target="_blank">See more</a>.
-  notice_successful_update_custom_fields_added_to_type: |
-    Successful update. The active custom fields are automatically activated for
-    the associated projects of this type.
   notice_to_many_principals_to_display: "There are too many results.\nNarrow down the search by typing in the name of the new member (or group)."
   notice_user_missing_authentication_method: User has yet to choose a password or another way to sign in.
   notice_user_invitation_resent: An invitation has been sent to %{email}.
@@ -3333,7 +3350,9 @@ en:
   setting_default_language: "Default language"
   setting_default_projects_modules: "Default enabled modules for new projects"
   setting_default_projects_public: "New projects are public by default"
+  setting_disable_password_login: "Disable password authentication"
   setting_diff_max_lines_displayed: "Max number of diff lines displayed"
+  setting_omniauth_direct_login_provider: "Direct login SSO provider"
   setting_display_subprojects_work_packages: "Display subprojects work packages on main projects by default"
   setting_duration_format: "Duration format"
   setting_duration_format_hours_only: "Hours only"
@@ -3400,7 +3419,6 @@ en:
   setting_registration_footer: "Registration footer"
   setting_repositories_automatic_managed_vendor: "Automatic repository vendor type"
   setting_repositories_encodings: "Repositories encodings"
-  setting_repository_authentication_caching_enabled: "Enable caching for authentication request of version control software"
   setting_repository_storage_cache_minutes: "Repository disk size cache"
   setting_repository_checkout_display: "Show checkout instructions"
   setting_repository_checkout_base_url: "Checkout base URL"
@@ -3437,6 +3455,14 @@ en:
   setting_working_days: "Working days"
 
   settings:
+    authentication:
+      single_sign_on: "Single Sign-On"
+      omniauth_direct_login_hint_html: >
+        If this option is active, login requests will redirect to the configured omniauth provider.
+        The login dropdown and sign-in page will be disabled.
+        <br/>
+        <strong>Note:</strong> Unless you also disable password logins, with this option enabled, 
+        users can still log in internally by visiting the <code>%{internal_path}</code> login page.
     attachments:
       whitelist_text_html: >
         Define a list of valid file extensions and/or mime types for uploaded files.

@@ -221,10 +221,10 @@ si:
           heading: For all projects
           description: This custom field is enabled in all projects since the "For all projects" option is checked. It cannot be deactivated for individual projects.
       items:
+        actions: "Item actions"
         blankslate:
           title: "Your list of items is empty"
           description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
-        actions: "Item actions"
         placeholder:
           label: "Item label"
           short: "Short name"
@@ -495,6 +495,15 @@ si:
       priority_color_text: |
         මෙම ප්රමුඛතාවයේ වර්ණය පැවරීම හෝ වෙනස් කිරීම සඳහා ක්ලික් කරන්න.
         වගුවේ වැඩ පැකේජ අවධාරණය කිරීම සඳහා එය භාවිතා කළ හැකිය.
+  reactions:
+    action_title: "React"
+    add_reaction: "Add reaction"
+    react_with: "React with %{reaction}"
+    and_user: "and %{user}"
+    and_others:
+      one: and 1 other
+      other: and %{count} others
+    reaction_by: "%{reaction} by"
   reportings:
     index:
       no_results_title_text: දැනට තත්ව වාර්තා නොමැත.
@@ -527,7 +536,7 @@ si:
         is_readonly: "කියවීමට-පමණි"
         excluded_from_totals: "Excluded from totals"
   themes:
-    dark: "Dark (Beta)"
+    dark: "Dark"
     light: "Light"
     light_high_contrast: "Light high contrast"
   types:
@@ -879,10 +888,12 @@ si:
         not_available: "is not available due to a system configuration."
         not_deletable: "cannot be deleted."
         not_current_user: "is not the current user."
+        not_found: "not found."
         not_a_date: "වලංගු දිනයක් නොවේ."
         not_a_datetime: "වලංගු දිනය කාලය නොවේ."
         not_a_number: "අංකයක් නොවේ."
         not_allowed: "අතුරුදහන් අවසරයන් නිසා අවලංගු වේ."
+        not_json: "is not a valid JSON object."
         not_an_integer: "පූර්ණ සංඛ්යාලයක් නොවේ."
         not_an_iso_date: "වලංගු දිනයක් නොවේ. අවශ්ය ආකෘතිය: YYY-MM-DD."
         not_same_project: "එකම ව්යාපෘතියට අයත් නොවේ."
@@ -1993,6 +2004,7 @@ si:
   label_ical_access_key_generation_hint: "Automatically generated when subscribing to a calendar."
   label_ical_access_key_latest: "latest"
   label_ical_access_key_revoke: "අවලංගු"
+  label_add_column: "Add column"
   label_applied_status: "ව්යවහාරික තත්ත්වය"
   label_archive_project: "සංරක්ෂිත ව්යාපෘතිය"
   label_ascending: "නැගීම"
@@ -2019,6 +2031,7 @@ si:
   label_api_doc: "API ප්රලේඛනය"
   label_backup: "Backup"
   label_backup_code: "Backup code"
+  label_basic_details: "Basic details"
   label_between: "අතර"
   label_blocked_by: "විසින් අවහිර"
   label_blocks: "කුට්ටි"
@@ -2161,8 +2174,9 @@ si:
   label_feeds_access_key_created_on: "%{value} පෙර නිර්මාණය කරන ලද RSS ප්රවේශ යතුර"
   label_feeds_access_key_type: "RSS"
   label_file_plural: "ගොනු"
-  label_filter_add: "පෙරහන් එකතු කරන්න"
   label_filter: "පෙරහන්"
+  label_filter_add: "පෙරහන් එකතු කරන්න"
+  label_filter_by: "Filter by"
   label_filter_plural: "පෙරහන්"
   label_filters_toggle: "පෙරහන් පෙන්වන්න/සඟවන්න"
   label_float: "පාවෙන"
@@ -2251,6 +2265,7 @@ si:
   label_custom_favicon: "අභිරුචි ප්රියතම"
   label_custom_touch_icon: "අභිරුචි ස්පර්ශ අයිකනය"
   label_logout: "ලියාපදිංචි වන්න"
+  label_mapping_for: "Mapping for: %{attribute}"
   label_main_menu: "පැති මෙනුව"
   label_manage: "Manage"
   label_manage_groups: "කණ්ඩායම් කළමනාකරණය කරන්න"
@@ -2285,6 +2300,8 @@ si:
   label_months_from: "මාස සිට"
   label_more: "තවත්"
   label_more_than_ago: "දින කිහිපයකට පෙර"
+  label_move_column_left: "Move column left"
+  label_move_column_right: "Move column right"
   label_move_work_package: "වැඩ පැකේජය ගෙනයාම"
   label_my_account: "Account settings"
   label_my_activity: "My activity"
@@ -2376,7 +2393,7 @@ si:
   label_project_latest: "නවතම ව්යාපෘති"
   label_project_default_type: "හිස් වර්ගය ඉඩ"
   label_project_hierarchy: "ව්යාපෘති ධූරාවලිය"
-  label_project_mappings: "Enabled in projects"
+  label_project_mappings: "Projects"
   label_project_new: "නව ව්යාපෘතිය"
   label_project_plural: "ව්‍යාපෘති"
   label_project_list_plural: "Project lists"
@@ -2407,6 +2424,7 @@ si:
   label_relation_new: "නව සම්බන්ධතාවය"
   label_release_notes: "සටහන් නිකුත් කිරීම"
   label_remaining_work: "Remaining work"
+  label_remove_column: "Remove column"
   label_remove_columns: "තෝරාගත් තීරු ඉවත් කරන්න"
   label_renamed: "නම් කරන ලද"
   label_reply_plural: "පිළිතුරු"
@@ -2447,8 +2465,10 @@ si:
   label_show_completed_versions: "සම්පූර්ණ කළ අනුවාද පෙන්වන්න"
   label_columns: "තීරු"
   label_sort: "වර්ග"
+  label_sort_ascending: "Sort ascending"
   label_sort_by: "%{value}විසින් වර්ග කරන්න"
   label_sorted_by: "%{value}විසින් වර්ග කර ඇත"
+  label_sort_descending: "Sort descending"
   label_sort_higher: "ඉහළට ගෙනයන්න"
   label_sort_highest: "ඉහළට ගෙනයන්න"
   label_sort_lower: "පහළට ගෙනයන්න"
@@ -3170,7 +3190,9 @@ si:
   setting_default_language: "පෙරනිමි භාෂාව"
   setting_default_projects_modules: "නව ව්යාපෘති සඳහා පෙරනිමි සක්රීය මොඩියුල"
   setting_default_projects_public: "නව ව්යාපෘති පෙරනිමියෙන් පොදු වේ"
+  setting_disable_password_login: "Disable password authentication"
   setting_diff_max_lines_displayed: "ප්රදර්ශනය diff රේඛා උපරිම සංඛ්යාව"
+  setting_omniauth_direct_login_provider: "Direct login SSO provider"
   setting_display_subprojects_work_packages: "පෙරනිමියෙන් ප්රධාන ව්යාපෘතිවල උප ව්යාපෘති වැඩ පැකේජ ප්රදර්ශනය කරන්න"
   setting_duration_format: "Duration format"
   setting_duration_format_hours_only: "Hours only"
@@ -3267,6 +3289,10 @@ si:
   setting_work_package_list_default_highlighted_attributes: "පෙරනිමි පේළිගත උද්දීපිත ගුණාංග"
   setting_working_days: "Working days"
   settings:
+    authentication:
+      single_sign_on: "Single Sign-On"
+      omniauth_direct_login_hint_html: >
+        If this option is active, login requests will redirect to the configured omniauth provider. The login dropdown and sign-in page will be disabled. <br/> <strong>Note:</strong> Unless you also disable password logins, with this option enabled, users can still log in internally by visiting the <code>%{internal_path}</code> login page.
     attachments:
       whitelist_text_html: >
         Define a list of valid file extensions and/or mime types for uploaded files. <br/> Enter file extensions (e.g., <code>%{ext_example}</code>) or mime types (e.g., <code>%{mime_example}</code>). <br/> Leave empty to allow any file type to be uploaded. Multiple values allowed (one line for each value).

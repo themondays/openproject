@@ -219,10 +219,10 @@ da:
           heading: For all projects
           description: This custom field is enabled in all projects since the "For all projects" option is checked. It cannot be deactivated for individual projects.
       items:
+        actions: "Item actions"
         blankslate:
           title: "Your list of items is empty"
           description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
-        actions: "Item actions"
         placeholder:
           label: "Item label"
           short: "Short name"
@@ -493,6 +493,15 @@ da:
       priority_color_text: |
         Click to assign or change the color of this priority.
         It can be used for highlighting work packages in the table.
+  reactions:
+    action_title: "React"
+    add_reaction: "Add reaction"
+    react_with: "React with %{reaction}"
+    and_user: "and %{user}"
+    and_others:
+      one: and 1 other
+      other: and %{count} others
+    reaction_by: "%{reaction} by"
   reportings:
     index:
       no_results_title_text: There are currently no status reportings.
@@ -525,7 +534,7 @@ da:
         is_readonly: "Skrivebeskyttet"
         excluded_from_totals: "Excluded from totals"
   themes:
-    dark: "Dark (Beta)"
+    dark: "Dark"
     light: "Light"
     light_high_contrast: "Light high contrast"
   types:
@@ -877,10 +886,12 @@ da:
         not_available: "is not available due to a system configuration."
         not_deletable: "Kan ikke slettes"
         not_current_user: "er ikke den aktuelle bruger."
+        not_found: "not found."
         not_a_date: "is not a valid date."
         not_a_datetime: "is not a valid date time."
         not_a_number: "er ikke et tal."
         not_allowed: "is invalid because of missing permissions."
+        not_json: "is not a valid JSON object."
         not_an_integer: "er ikke et heltal."
         not_an_iso_date: "is not a valid date. Required format: YYYY-MM-DD."
         not_same_project: "hører ikke til samme projekt."
@@ -1991,6 +2002,7 @@ da:
   label_ical_access_key_generation_hint: "Automatically generated when subscribing to a calendar."
   label_ical_access_key_latest: "latest"
   label_ical_access_key_revoke: "Revoke"
+  label_add_column: "Add column"
   label_applied_status: "Tildelt status"
   label_archive_project: "Archive project"
   label_ascending: "Stigende"
@@ -2017,6 +2029,7 @@ da:
   label_api_doc: "API-dokumentation"
   label_backup: "Backup"
   label_backup_code: "Backup code"
+  label_basic_details: "Basic details"
   label_between: "mellem"
   label_blocked_by: "spærret af"
   label_blocks: "spærringer"
@@ -2159,8 +2172,9 @@ da:
   label_feeds_access_key_created_on: "RSS adgangsnøgle lavet for %{value} siden"
   label_feeds_access_key_type: "RSS"
   label_file_plural: "Filer"
-  label_filter_add: "Tilføj filter"
   label_filter: "Filtre"
+  label_filter_add: "Tilføj filter"
+  label_filter_by: "Filter by"
   label_filter_plural: "Filtre"
   label_filters_toggle: "Show/hide filters"
   label_float: "Flyd"
@@ -2249,6 +2263,7 @@ da:
   label_custom_favicon: "Custom favicon"
   label_custom_touch_icon: "Custom touch icon"
   label_logout: "Log ud"
+  label_mapping_for: "Mapping for: %{attribute}"
   label_main_menu: "Sidemenu"
   label_manage: "Manage"
   label_manage_groups: "Administrér grupper"
@@ -2283,6 +2298,8 @@ da:
   label_months_from: "måneder fra"
   label_more: "mere"
   label_more_than_ago: "mere end dage siden"
+  label_move_column_left: "Move column left"
+  label_move_column_right: "Move column right"
   label_move_work_package: "Flyt arbejdspakke"
   label_my_account: "Account settings"
   label_my_activity: "My activity"
@@ -2374,7 +2391,7 @@ da:
   label_project_latest: "Seneste projekter"
   label_project_default_type: "Tillad tom typebetegnelse"
   label_project_hierarchy: "Projekthierarki"
-  label_project_mappings: "Enabled in projects"
+  label_project_mappings: "Projects"
   label_project_new: "Nyt projekt"
   label_project_plural: "Projekter"
   label_project_list_plural: "Project lists"
@@ -2405,6 +2422,7 @@ da:
   label_relation_new: "Ny forbindelse"
   label_release_notes: "Udgivelsesnoter"
   label_remaining_work: "Remaining work"
+  label_remove_column: "Remove column"
   label_remove_columns: "Fjern valgte kolonner"
   label_renamed: "omdøbt"
   label_reply_plural: "Svar"
@@ -2445,8 +2463,10 @@ da:
   label_show_completed_versions: "Vis færdige versioner"
   label_columns: "Kolonner"
   label_sort: "Sorter"
+  label_sort_ascending: "Sort ascending"
   label_sort_by: "Sorter efter %{value}"
   label_sorted_by: "er sorteret efter %{value}"
+  label_sort_descending: "Sort descending"
   label_sort_higher: "Flyt op"
   label_sort_highest: "Flyt til toppen"
   label_sort_lower: "Flyt ned"
@@ -3166,7 +3186,9 @@ da:
   setting_default_language: "Forhåndsvalgt sprog"
   setting_default_projects_modules: "Forhåndsvalgt aktive moduler for nye projekter"
   setting_default_projects_public: "Nye projekter er på forhånd sat som offentlige"
+  setting_disable_password_login: "Disable password authentication"
   setting_diff_max_lines_displayed: "Højeste antal viste linjer for afvigelser"
+  setting_omniauth_direct_login_provider: "Direct login SSO provider"
   setting_display_subprojects_work_packages: "Vælg altid at vise underprojekters arbejdspakker ved hovedprojektet"
   setting_duration_format: "Duration format"
   setting_duration_format_hours_only: "Hours only"
@@ -3263,6 +3285,10 @@ da:
   setting_work_package_list_default_highlighted_attributes: "Default inline highlighted attributes"
   setting_working_days: "Working days"
   settings:
+    authentication:
+      single_sign_on: "Single Sign-On"
+      omniauth_direct_login_hint_html: >
+        If this option is active, login requests will redirect to the configured omniauth provider. The login dropdown and sign-in page will be disabled. <br/> <strong>Note:</strong> Unless you also disable password logins, with this option enabled, users can still log in internally by visiting the <code>%{internal_path}</code> login page.
     attachments:
       whitelist_text_html: >
         Define a list of valid file extensions and/or mime types for uploaded files. <br/> Enter file extensions (e.g., <code>%{ext_example}</code>) or mime types (e.g., <code>%{mime_example}</code>). <br/> Leave empty to allow any file type to be uploaded. Multiple values allowed (one line for each value).
