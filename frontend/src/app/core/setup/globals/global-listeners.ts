@@ -87,12 +87,8 @@ export function initializeGlobalListeners():void {
   // Listen for 'zenModeToggled' event to toggle Zen Mode styling on the body.
   // Adds 'zen-mode' class if active; removes it if not.
   window.addEventListener('zenModeToggled', (event:CustomEvent) => {
-    const isActive = event.detail.active;
-    if (isActive) {
-      document.body.classList.add('zen-mode');
-    } else {
-      document.body.classList.remove('zen-mode');
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
+    document.body.classList.toggle('zen-mode', event.detail.active);
   });
 
   // Jump to the element given by location.hash, if present
