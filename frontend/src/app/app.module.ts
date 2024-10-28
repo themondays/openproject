@@ -235,22 +235,26 @@ import {
 } from 'core-app/shared/components/attribute-help-texts/static-attribute-help-text.component';
 import { appBaseSelector, ApplicationBaseComponent } from 'core-app/core/routing/base/application-base.component';
 import { SpotSwitchComponent } from 'core-app/spot/components/switch/switch.component';
+import { OPContextMenuService } from 'core-app/shared/components/op-context-menu/op-context-menu.service';
 
 export function initializeServices(injector:Injector) {
   return () => {
     const PreviewTrigger = injector.get(HoverCardTriggerService);
     const topMenuService = injector.get(TopMenuService);
     const keyboardShortcuts = injector.get(KeyboardShortcutService);
+    const contextMenu = injector.get(OPContextMenuService);
     // Conditionally add the Revit Add-In settings button
     injector.get(RevitAddInSettingsButtonService);
 
     topMenuService.register();
     PreviewTrigger.setupListener();
+    contextMenu.register();
 
     // Re-register on turbo:load
     document.addEventListener('turbo:load', () => {
       topMenuService.register();
       PreviewTrigger.setupListener();
+      contextMenu.register();
     });
 
     keyboardShortcuts.register();
