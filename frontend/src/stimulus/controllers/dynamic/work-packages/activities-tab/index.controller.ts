@@ -239,7 +239,7 @@ export default class IndexController extends Controller {
         if (this.isMobile()) {
           this.scrollInputContainerIntoView(300);
         } else {
-          this.scrollJournalContainer(this.journalsContainerTarget, true, true);
+          this.scrollJournalContainer(true, true);
         }
       }
     }, 100);
@@ -379,13 +379,13 @@ export default class IndexController extends Controller {
     return atBottom;
   }
 
-  private scrollJournalContainer(journalsContainer:HTMLElement, toBottom:boolean, smooth:boolean = false) {
+  private scrollJournalContainer(toBottom:boolean, smooth:boolean = false) {
     const scrollableContainer = this.getScrollableContainer();
     if (scrollableContainer) {
       if (smooth) {
         scrollableContainer.scrollTo({
           top: toBottom ? scrollableContainer.scrollHeight : 0,
-        behavior: 'smooth',
+          behavior: 'smooth',
         });
       } else {
         scrollableContainer.scrollTop = toBottom ? scrollableContainer.scrollHeight : 0;
@@ -427,7 +427,7 @@ export default class IndexController extends Controller {
       this.focusEditor(400); // wait before focusing to avoid interference with the auto scroll
     } else if (this.sortingValue === 'asc' && journalsContainerAtBottom) {
       // scroll to (new) bottom if sorting is ascending and journals container was already at bottom before showing the form
-      this.scrollJournalContainer(this.journalsContainerTarget, true);
+      this.scrollJournalContainer(true);
       this.focusEditor();
     }
   }
@@ -561,15 +561,15 @@ export default class IndexController extends Controller {
     this.adjustJournalsContainer();
 
     setTimeout(() => {
-      this.scrollJournalContainer(
-        this.journalsContainerTarget,
-        this.sortingValue === 'asc',
-        true,
-      );
-      if (this.isMobile()) {
+      if (this.isMobile() && !this.isWithinNotificationCenter()) {
         // wait for the keyboard to be fully down before scrolling further
         // timeout amount tested on mobile devices for best possible user experience
         this.scrollInputContainerIntoView(800);
+      } else {
+        this.scrollJournalContainer(
+          this.sortingValue === 'asc',
+          true,
+        );
       }
     }, 10);
 
