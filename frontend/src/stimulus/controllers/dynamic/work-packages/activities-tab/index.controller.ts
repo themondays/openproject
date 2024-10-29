@@ -418,22 +418,20 @@ export default class IndexController extends Controller {
     this.addEventListenersToCkEditorInstance();
 
     if (this.isMobile()) {
-      this.scrollInputContainerIntoView(300);
+      // timeout amount tested on mobile devices for best possible user experience
+      this.scrollInputContainerIntoView(100); // first bring the input container fully into view (before focusing!)
+      this.focusEditor(400); // wait before focusing to avoid interference with the auto scroll
     } else if (this.sortingValue === 'asc' && journalsContainerAtBottom) {
       // scroll to (new) bottom if sorting is ascending and journals container was already at bottom before showing the form
       this.scrollJournalContainer(this.journalsContainerTarget, true);
-    }
-
-    const ckEditorInstance = this.getCkEditorInstance();
-    if (ckEditorInstance) {
-      setTimeout(() => ckEditorInstance.editing.view.focus(), 10);
+      this.focusEditor();
     }
   }
 
-  focusEditor() {
+  focusEditor(timeout:number = 10) {
     const ckEditorInstance = this.getCkEditorInstance();
     if (ckEditorInstance) {
-      setTimeout(() => ckEditorInstance.editing.view.focus(), 10);
+      setTimeout(() => ckEditorInstance.editing.view.focus(), timeout);
     }
   }
 
@@ -481,7 +479,11 @@ export default class IndexController extends Controller {
         this.journalsContainerTarget.classList.remove('work-packages-activities-tab-index-component--journals-container_with-input-compensation');
       }
 
-      if (this.isMobile()) { this.scrollInputContainerIntoView(300); }
+      if (this.isMobile()) {
+        // wait for the keyboard to be fully down before scrolling further
+        // timeout amount tested on mobile devices for best possible user experience
+        this.scrollInputContainerIntoView(500);
+      }
     }
   }
 
@@ -543,7 +545,9 @@ export default class IndexController extends Controller {
         true,
       );
       if (this.isMobile()) {
-        this.scrollInputContainerIntoView(300);
+        // wait for the keyboard to be fully down before scrolling further
+        // timeout amount tested on mobile devices for best possible user experience
+        this.scrollInputContainerIntoView(800);
       }
     }, 10);
 
