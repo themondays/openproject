@@ -370,7 +370,7 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
                                                     version: 2)
 
       # the comment is shown without browser reload
-      activity_tab.expect_journal_notes(text: "First comment by member")
+      wait_for { page }.to have_test_selector("op-journal-notes-body", text: "First comment by member")
 
       # simulate comments made within the polling interval
       create(:work_package_journal, user: member, notes: "Second comment by member", journable: work_package, version: 3)
@@ -387,10 +387,8 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
 
       first_journal.update!(notes: "First comment by member updated")
 
-      sleep 1 # avoid flaky test
-
       # properly updates the comment when the comment is updated
-      activity_tab.expect_journal_notes(text: "First comment by member updated")
+      wait_for { page }.to have_test_selector("op-journal-notes-body", text: "First comment by member updated")
     end
   end
 
@@ -872,7 +870,6 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
         # auto-scrolls to the bottom when a new comment is added by the user
         # add a comment
         activity_tab.add_comment(text: "New comment by admin")
-        activity_tab.expect_journal_notes(text: "New comment by admin") # wait for the comment to be added
         activity_tab.expect_journal_container_at_bottom
 
         # auto-scrolls to the bottom when a new comment is added by another user
@@ -880,7 +877,8 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
         latest_journal_version = work_package.journals.last.version
         create(:work_package_journal, user: member, notes: "New comment by member", journable: work_package,
                                       version: latest_journal_version + 1)
-        activity_tab.expect_journal_notes(text: "New comment by member") # wait for the comment to be added
+        # wait for the comment to be added
+        wait_for { page }.to have_test_selector("op-journal-notes-body", text: "New comment by member")
         sleep 1 # wait for auto scrolling to finish
         activity_tab.expect_journal_container_at_bottom
       end
