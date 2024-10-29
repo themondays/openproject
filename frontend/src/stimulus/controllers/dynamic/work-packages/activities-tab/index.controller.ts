@@ -48,7 +48,8 @@ export default class IndexController extends Controller {
 
   private onSubmitBound:EventListener;
   private adjustMarginBound:EventListener;
-  private hideEditorBound:EventListener;
+  private onBlurEditorBound:EventListener;
+  private onFocusEditorBound:EventListener;
 
   private saveInProgress:boolean;
   private updateInProgress:boolean;
@@ -338,13 +339,15 @@ export default class IndexController extends Controller {
   private addEventListenersToCkEditorInstance() {
     this.onSubmitBound = () => { void this.onSubmit(); };
     this.adjustMarginBound = () => { void this.adjustJournalContainerMargin(); };
-    this.hideEditorBound = () => { void this.hideEditorIfEmpty(); };
+    this.onBlurEditorBound = () => { void this.onBlurEditor(); };
+    this.onFocusEditorBound = () => { void this.onFocusEditor(); };
 
     const editorElement = this.getCkEditorElement();
     if (editorElement) {
       editorElement.addEventListener('saveRequested', this.onSubmitBound);
       editorElement.addEventListener('editorKeyup', this.adjustMarginBound);
-      editorElement.addEventListener('editorBlur', this.hideEditorBound);
+      editorElement.addEventListener('editorBlur', this.onBlurEditorBound);
+      editorElement.addEventListener('editorFocus', this.onFocusEditorBound);
     }
   }
 
@@ -353,7 +356,8 @@ export default class IndexController extends Controller {
     if (editorElement) {
       editorElement.removeEventListener('saveRequested', this.onSubmitBound);
       editorElement.removeEventListener('editorKeyup', this.adjustMarginBound);
-      editorElement.removeEventListener('editorBlur', this.hideEditorBound);
+      editorElement.removeEventListener('editorBlur', this.onBlurEditorBound);
+      editorElement.removeEventListener('editorFocus', this.onFocusEditorBound);
     }
   }
 
@@ -468,23 +472,41 @@ export default class IndexController extends Controller {
     const ckEditorInstance = this.getCkEditorInstance();
 
     if (ckEditorInstance && ckEditorInstance.getData({ trim: false }).length === 0) {
-      this.clearEditor(); // remove potentially empty lines
-      this.removeEventListenersFromCkEditorInstance();
-      this.buttonRowTarget.classList.remove('d-none');
-      this.formRowTarget.classList.add('d-none');
-
-      if (this.journalsContainerTarget) {
-        this.journalsContainerTarget.style.marginBottom = '';
-        this.journalsContainerTarget.classList.add('work-packages-activities-tab-index-component--journals-container_with-initial-input-compensation');
-        this.journalsContainerTarget.classList.remove('work-packages-activities-tab-index-component--journals-container_with-input-compensation');
-      }
-
-      if (this.isMobile()) {
-        // wait for the keyboard to be fully down before scrolling further
-        // timeout amount tested on mobile devices for best possible user experience
-        this.scrollInputContainerIntoView(500);
-      }
+      this.hideEditor();
     }
+  }
+
+  hideEditor() {
+    this.clearEditor(); // remove potentially empty lines
+    this.removeEventListenersFromCkEditorInstance();
+    this.buttonRowTarget.classList.remove('d-none');
+    this.formRowTarget.classList.add('d-none');
+
+    if (this.journalsContainerTarget) {
+      this.journalsContainerTarget.style.marginBottom = '';
+      this.journalsContainerTarget.classList.add('work-packages-activities-tab-index-component--journals-container_with-initial-input-compensation');
+      this.journalsContainerTarget.classList.remove('work-packages-activities-tab-index-component--journals-container_with-input-compensation');
+    }
+
+    if (this.isMobile()) {
+      // wait for the keyboard to be fully down before scrolling further
+      // timeout amount tested on mobile devices for best possible user experience
+      this.scrollInputContainerIntoView(500);
+    }
+  }
+
+  onBlurEditor() {
+    const ckEditorInstance = this.getCkEditorInstance();
+
+    if (ckEditorInstance && ckEditorInstance.getData({ trim: false }).length === 0) {
+      this.hideEditor();
+    } else {
+      this.adjustJournalContainerMargin();
+    }
+  }
+
+  onFocusEditor() {
+    this.adjustJournalContainerMargin();
   }
 
   async onSubmit(event:Event | null = null) {
