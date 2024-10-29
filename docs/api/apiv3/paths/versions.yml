@@ -14,6 +14,19 @@ get:
       required: false
       schema:
         type: string
+    - description: |-
+        JSON specifying sort criteria.
+        Accepts the same format as returned by the [queries](https://www.openproject.org/docs/api/endpoints/queries/) endpoint. Currently supported attributes are:
+
+        + id: Sort by the version id
+        + name: Sort by the version name using numeric collation, comparing sequences of decimal digits by their numeric value
+        + semver_name: Deprecated, use name instead
+      example: '[["name", "desc"]]'
+      in: query
+      name: sortBy
+      required: false
+      schema:
+        type: string
   responses:
     '200':
       content:
