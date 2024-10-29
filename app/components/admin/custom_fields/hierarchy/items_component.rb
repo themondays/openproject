@@ -42,7 +42,6 @@ module Admin
           @new_item = new_item
         end
 
-        def branch_root = model
         def show_new_item_form? = @new_item
 
         def root
