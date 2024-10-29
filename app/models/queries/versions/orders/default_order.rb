@@ -26,22 +26,20 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-class Queries::Versions::Orders::SemverNameOrder < Queries::Orders::Base
+class Queries::Versions::Orders::DefaultOrder < Queries::Orders::Base
   self.model = Version
 
   def self.key
-    :semver_name
+    /\A(id|name|semver_name)\z/
   end
 
-  private
+  def initialize(attribute)
+    if attribute == :semver_name
+      OpenProject::Deprecation.warn("Sorting by semver_name is deprecated, name should be used instead")
 
-  def order(scope)
-    ordered = scope.order_by_semver_name
-
-    if direction == :desc
-      ordered = ordered.reverse_order
+      super(:name)
+    else
+      super
     end
-
-    ordered
   end
 end

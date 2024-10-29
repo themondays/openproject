@@ -30,6 +30,6 @@ module Queries::Versions
   ::Queries::Register.register(VersionQuery) do
     filter Filters::SharingFilter
 
-    order Orders::SemverNameOrder
+    order Orders::DefaultOrder
   end
 end
