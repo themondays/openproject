@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -32,18 +34,10 @@ module Admin
       class ItemFormComponent < ApplicationComponent
         include OpTurbo::Streamable
 
-        def initialize(custom_field:, hierarchy_item:, url:, method:, label: nil, short: nil)
-          super
-          @custom_field = custom_field
-          @hierarchy_item = hierarchy_item
+        def initialize(target_item:, url:, method:)
+          super(target_item)
           @url = url
           @method = method
-          @label = label || @hierarchy_item.label
-          @short = short || @hierarchy_item.short
-        end
-
-        def items_path
-          custom_field_items_path(@custom_field)
         end
       end
     end

@@ -27,8 +27,8 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<%=
-  primer_form_with(url: @url, method: @method, test_selector: "op-custom-fields--new-item-form") do |f|
-    render(CustomFields::Hierarchy::ItemForm.new(f, target_item: model))
-  end
-%>
+<% html_title t(:label_administration), "#{CustomField.model_name.human} #{h @custom_field.name}", t(:label_item_plural) %>
+
+<%= render(Admin::CustomFields::EditFormHeaderComponent.new(custom_field: @custom_field, selected: :items)) %>
+
+<%= render(Admin::CustomFields::Hierarchy::ItemsComponent.new(item: @active_item, new_item: @new_item)) %>
