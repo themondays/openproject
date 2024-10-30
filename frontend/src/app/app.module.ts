@@ -236,6 +236,7 @@ import {
 import { appBaseSelector, ApplicationBaseComponent } from 'core-app/core/routing/base/application-base.component';
 import { SpotSwitchComponent } from 'core-app/spot/components/switch/switch.component';
 import { OPContextMenuService } from 'core-app/shared/components/op-context-menu/op-context-menu.service';
+import { CurrentProjectService } from 'core-app/core/current-project/current-project.service';
 
 export function initializeServices(injector:Injector) {
   return () => {
@@ -243,6 +244,8 @@ export function initializeServices(injector:Injector) {
     const topMenuService = injector.get(TopMenuService);
     const keyboardShortcuts = injector.get(KeyboardShortcutService);
     const contextMenu = injector.get(OPContextMenuService);
+    const currentProject = injector.get(CurrentProjectService);
+
     // Conditionally add the Revit Add-In settings button
     injector.get(RevitAddInSettingsButtonService);
 
@@ -255,6 +258,7 @@ export function initializeServices(injector:Injector) {
       topMenuService.register();
       PreviewTrigger.setupListener();
       contextMenu.register();
+      currentProject.detect();
     });
 
     keyboardShortcuts.register();
