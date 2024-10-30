@@ -229,6 +229,11 @@ pt-BR:
           short: "Short name"
       notice:
         remember_items_and_projects: "Lembre-se de configurar itens e projetos nas respectivas abas para este campo personalizado."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Para adicionar campos personalizados a um projeto é necessário criá-los primeiro para depois adicioná-los a este projeto.
     is_enabled_globally: "Está habilitado globalmente"

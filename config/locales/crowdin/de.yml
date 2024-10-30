@@ -227,6 +227,11 @@ de:
           short: "Short name"
       notice:
         remember_items_and_projects: "Denken Sie daran, Einträge und Projekte in den jeweiligen Registerkarten für dieses benutzerdefinierte Feld festzulegen."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Um neue benutzerdefinierte Felder einem Projekt zuzuweisen, müssen Sie diese erst global erstellen, um Sie dann an dieser Stelle aktivieren zu können.
     is_enabled_globally: "Für alle Projekte aktiviert"

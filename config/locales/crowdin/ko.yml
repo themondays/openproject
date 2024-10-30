@@ -230,6 +230,11 @@ ko:
           short: "Short name"
       notice:
         remember_items_and_projects: "이 사용자 지정 필드의 각 탭에서 항목과 프로젝트를 설정해야 합니다."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       프로젝트에 새 사용자 지정 필드를 추가하려면 먼저 해당 필드를 만들어야 합니다. 그래야 이 프로젝트에 해당 필드를 추가할 수 있습니다.
     is_enabled_globally: "는 세계적으로 사용 가능합니다."

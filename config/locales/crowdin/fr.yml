@@ -230,6 +230,11 @@ fr:
           short: "Short name"
       notice:
         remember_items_and_projects: "N'oubliez pas de définir les éléments et les projets dans les onglets respectifs de ce champ personnalisé."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Pour ajouter de nouveaux champs personnalisés à un projet, vous devez d’abord les créer avant de pouvoir les ajouter à ce projet.
     is_enabled_globally: "Est activé globalement"

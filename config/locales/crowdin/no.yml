@@ -230,6 +230,11 @@
           short: "Short name"
       notice:
         remember_items_and_projects: "Husk å angi elementer og prosjekter i de respektive fanene for dette egendefinerte feltet."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       For å legge til nye egendefinerte felt i et prosjekt må du først opprette dem før du kan legge dem til i dette prosjektet.
     is_enabled_globally: "Er aktivert globalt"
