@@ -267,7 +267,7 @@ RSpec.describe "Copy work packages through Rails view", :js, :with_cuprite do
       # We cannot access the navigator.clipboard from a headless browser.
       # This test makes sure the copy to clipboard logic is working,
       # regardless of the browser permissions.
-      expect(page).to have_content("/wp/#{work_package.id}")
+      expect(page).to have_text("Successfully copied to clipboard!")
     end
   end
 
