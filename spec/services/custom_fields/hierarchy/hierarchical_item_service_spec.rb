@@ -182,12 +182,52 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
     let!(:lando) { service.insert_item(parent: root, label: "lando").value! }
     let!(:chewbacca) { service.insert_item(parent: root, label: "AWOOO").value! }
 
-    it "moves the note to the requested position" do
+    it "reorders the item to the target position" do
       service.reorder_item(item: chewbacca, new_sort_order: 1)
 
       expect(luke.reload.sort_order).to eq(0)
       expect(chewbacca.reload.sort_order).to eq(1)
       expect(lando.reload.sort_order).to eq(2)
+    end
+
+    it "reorders the item to the last position" do
+      service.reorder_item(item: lando, new_sort_order: root.children.length)
+
+      expect(luke.reload.sort_order).to eq(0)
+      expect(chewbacca.reload.sort_order).to eq(1)
+      expect(lando.reload.sort_order).to eq(2)
+    end
+
+    it "reorders the item to the first position" do
+      service.reorder_item(item: chewbacca, new_sort_order: 0)
+
+      expect(chewbacca.reload.sort_order).to eq(0)
+      expect(luke.reload.sort_order).to eq(1)
+      expect(lando.reload.sort_order).to eq(2)
+    end
+
+    it "does not reorder before first" do
+      service.reorder_item(item: lando, new_sort_order: -10)
+
+      expect(lando.reload.sort_order).to eq(0)
+      expect(luke.reload.sort_order).to eq(1)
+      expect(chewbacca.reload.sort_order).to eq(2)
+    end
+
+    it "does not reorder after last" do
+      service.reorder_item(item: chewbacca, new_sort_order: 99)
+
+      expect(luke.reload.sort_order).to eq(0)
+      expect(lando.reload.sort_order).to eq(1)
+      expect(chewbacca.reload.sort_order).to eq(2)
+    end
+
+    it "does not reorder when changing self" do
+      service.reorder_item(item: lando, new_sort_order: lando.sort_order)
+
+      expect(luke.reload.sort_order).to eq(0)
+      expect(lando.reload.sort_order).to eq(1)
+      expect(chewbacca.reload.sort_order).to eq(2)
     end
   end
 end

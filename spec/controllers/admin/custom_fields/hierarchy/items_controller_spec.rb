@@ -124,7 +124,7 @@ RSpec.describe Admin::CustomFields::Hierarchy::ItemsController do
         end.to change { luke.reload.label }.from("luke").to(updated_name)
       end
 
-      it "renders the update page" do
+      it "redirects" do
         post :update, params: { custom_field_id: custom_field.id, id: luke.id, label: "luke s." }
         expect(response).to be_redirect
       end
@@ -136,6 +136,25 @@ RSpec.describe Admin::CustomFields::Hierarchy::ItemsController do
         expect(response).to be_successful
         expect(response).to render_template "edit"
       end
+    end
+  end
+
+  describe "PUT #move" do
+    before do
+      service.insert_item(parent: root, label: "not relevant")
+      service.insert_item(parent: root, label: "not important")
+      service.insert_item(parent: root, label: "unused")
+    end
+
+    it "redirects to the index" do
+      put :move, params: { custom_field_id: custom_field.id, id: luke.id, new_sort_order: 3 }
+      expect(response).to be_redirect
+    end
+
+    it "moves the item to the new position" do
+      expect do
+        put :move, params: { custom_field_id: custom_field.id, id: luke.id, new_sort_order: 2 }
+      end.to change { luke.reload.sort_order }.from(0).to(1)
     end
   end
 
