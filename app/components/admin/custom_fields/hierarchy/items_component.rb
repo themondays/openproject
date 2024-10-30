@@ -45,9 +45,11 @@ module Admin
         def show_new_item_form? = @new_item
 
         def root
-          return model if model.root?
+          @root ||= model.root? ? model : model.root
+        end
 
-          @root ||= model.root
+        def new_item_path
+          new_child_custom_field_item_path(root.custom_field_id, model)
         end
 
         def item_header
