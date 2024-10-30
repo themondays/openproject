@@ -6,6 +6,15 @@ import { CurrentUserQuery } from './current-user.query';
 import { ErrorReporterBase } from 'core-app/core/errors/error-reporter-base';
 import { firstValueFrom } from 'rxjs';
 
+function loadUserMetadata(currentUserService:CurrentUserService) {
+  const userMeta = document.querySelectorAll('meta[name=current_user]')[0] as HTMLElement|undefined;
+  currentUserService.setUser({
+    id: userMeta?.dataset.id || null,
+    name: userMeta?.dataset.name || null,
+    loggedIn: userMeta?.dataset.loggedIn === 'true',
+  });
+}
+
 export function bootstrapModule(injector:Injector):void {
   const currentUserService = injector.get(CurrentUserService);
 
@@ -15,12 +24,9 @@ export function bootstrapModule(injector:Injector):void {
         .then(({ id }) => ({ user: id || 'anon' })),
     );
 
-  const userMeta = document.querySelectorAll('meta[name=current_user]')[0] as HTMLElement|undefined;
-  currentUserService.setUser({
-    id: userMeta?.dataset.id || null,
-    name: userMeta?.dataset.name || null,
-    loggedIn: userMeta?.dataset.loggedIn === 'true',
-  });
+
+  loadUserMetadata(currentUserService);
+  document.addEventListener('turbo:load', () => loadUserMetadata(currentUserService));
 }
 
 @NgModule({
