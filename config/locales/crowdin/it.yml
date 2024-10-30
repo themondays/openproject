@@ -227,6 +227,11 @@ it:
           short: "Short name"
       notice:
         remember_items_and_projects: "Ricorda di impostare elementi e progetti nelle rispettive schede per questo campo personalizzato."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Per aggiungere nuovi campi personalizzati a un progetto, è necessario prima crearli.
     is_enabled_globally: "Abilitato a livello globale"

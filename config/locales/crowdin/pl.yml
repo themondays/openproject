@@ -227,6 +227,11 @@ pl:
           short: "Short name"
       notice:
         remember_items_and_projects: "Pamiętaj, aby ustawić elementy i projekty w odpowiednich zakładkach dla tego pola niestandardowego."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Aby dodać do projektu nowe pola niestandardowe, najpierw należy je utworzyć.
     is_enabled_globally: "Jest włączony globalnie"

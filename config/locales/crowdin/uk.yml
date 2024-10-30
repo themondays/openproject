@@ -225,6 +225,11 @@ uk:
           short: "Short name"
       notice:
         remember_items_and_projects: "Обов’язково задайте елементи й проєкти на відповідних вкладках для цього користувацького поля."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Щоб додати нові користувальницькі поля до проекту, спочатку потрібно створити їх, перш ніж ви зможете додати їх до цього проекту.
     is_enabled_globally: "Увімкнено у всьому світі"
