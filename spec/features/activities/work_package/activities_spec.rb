@@ -370,7 +370,7 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
                                                     version: 2)
 
       # the comment is shown without browser reload
-      activity_tab.expect_journal_notes(text: "First comment by member")
+      wait_for { page }.to have_test_selector("op-journal-notes-body", text: "First comment by member")
 
       # simulate comments made within the polling interval
       create(:work_package_journal, user: member, notes: "Second comment by member", journable: work_package, version: 3)
@@ -387,10 +387,8 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
 
       first_journal.update!(notes: "First comment by member updated")
 
-      sleep 1 # avoid flaky test
-
       # properly updates the comment when the comment is updated
-      activity_tab.expect_journal_notes(text: "First comment by member updated")
+      wait(delay: 0.5).for { page }.to have_test_selector("op-journal-notes-body", text: "First comment by member updated")
     end
   end
 
@@ -872,7 +870,6 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
         # auto-scrolls to the bottom when a new comment is added by the user
         # add a comment
         activity_tab.add_comment(text: "New comment by admin")
-        activity_tab.expect_journal_notes(text: "New comment by admin") # wait for the comment to be added
         activity_tab.expect_journal_container_at_bottom
 
         # auto-scrolls to the bottom when a new comment is added by another user
@@ -880,7 +877,8 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
         latest_journal_version = work_package.journals.last.version
         create(:work_package_journal, user: member, notes: "New comment by member", journable: work_package,
                                       version: latest_journal_version + 1)
-        activity_tab.expect_journal_notes(text: "New comment by member") # wait for the comment to be added
+        # wait for the comment to be added
+        wait_for { page }.to have_test_selector("op-journal-notes-body", text: "New comment by member")
         sleep 1 # wait for auto scrolling to finish
         activity_tab.expect_journal_container_at_bottom
       end
@@ -897,6 +895,32 @@ RSpec.describe "Work package activity", :js, :with_cuprite, with_flag: { primeri
       it "does not scroll to the bottom as the newest journal entry is on the top", :aggregate_failures do
         sleep 1 # wait for auto scrolling to finish
         activity_tab.expect_journal_container_at_top
+      end
+    end
+  end
+
+  describe "images in the comment",
+           with_cuprite: false,
+           with_settings: { journal_aggregation_time_minutes: 0, show_work_package_attachments: false } do
+    let(:work_package) { create(:work_package, project:, author: admin) }
+    let(:image_fixture) { UploadedFile.load_from("spec/fixtures/files/image.png") }
+    let(:editor) { Components::WysiwygEditor.new }
+
+    context "if work package attachments are deactivated in project" do
+      it "shows the inline image and have it uploaded to the work package", :aggregate_failures do
+        login_as admin
+
+        wp_page.visit!
+        wp_page.wait_for_activity_tab
+
+        page.find_test_selector("op-open-work-package-journal-form-trigger").click
+        editor.drag_attachment(image_fixture.path, "", scroll: false)
+        editor.wait_until_upload_progress_toaster_cleared
+
+        page.find_test_selector("op-submit-work-package-journal-form").click
+
+        expect(find_test_selector("op-journal-notes-body")).to have_css("img")
+        expect(page).to have_test_selector("op-journal-detail-description", text: "File image.png added as attachment")
       end
     end
   end

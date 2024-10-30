@@ -230,6 +230,11 @@ bg:
           short: "Short name"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       За да добавите нови потребителски полета към даден проект, първо трябва да ги създадете, преди да можете да ги добавите към този проект.
     is_enabled_globally: "Активирано е глобално"
@@ -798,7 +803,6 @@ bg:
         consented_at: "Съгласие в"
       user_preference:
         comments_sorting: "Покажи коментарите"
-        hide_mail: "Скрий моя имейл адрес"
         impaired: "Достъпен режим"
         time_zone: "Часова зона"
         auto_hide_popups: "Автоматично скриване на успешните известия"
@@ -2838,9 +2842,6 @@ bg:
   notice_successful_update_custom_fields_added_to_project: |
     Успешна актуализация. Потребителските полета на активираните типове се активират автоматично
     във формуляра на работния пакет. <a href="%{url}" target="_blank">Вижте още.</a>
-  notice_successful_update_custom_fields_added_to_type: |
-    Successful update. The active custom fields are automatically activated for
-    the associated projects of this type.
   notice_to_many_principals_to_display: "Има твърде много резултати. Стесните търсенето, като въведете името на нов член (или група)."
   notice_user_missing_authentication_method: Потребителят все още не е избрал парола или друг начин за влизане.
   notice_user_invitation_resent: An invitation has been sent to %{email}.
@@ -3254,7 +3255,6 @@ bg:
   setting_registration_footer: "Registration footer"
   setting_repositories_automatic_managed_vendor: "Automatic repository vendor type"
   setting_repositories_encodings: "Repositories encodings"
-  setting_repository_authentication_caching_enabled: "Enable caching for authentication request of version control software"
   setting_repository_storage_cache_minutes: "Repository disk size cache"
   setting_repository_checkout_display: "Show checkout instructions"
   setting_repository_checkout_base_url: "Checkout base URL"

@@ -228,6 +228,11 @@ da:
           short: "Short name"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       For at tilføje nye brugerdefinerede felter til et projekt, skal du først oprette dem, før du kan føje dem til dette projekt.
     is_enabled_globally: "Er aktiveret globalt"
@@ -796,7 +801,6 @@ da:
         consented_at: "Consented at"
       user_preference:
         comments_sorting: "Vis kommentarer"
-        hide_mail: "Skjul min e-mailadresse"
         impaired: "Tilgængelighedstilstand"
         time_zone: "Tidszone"
         auto_hide_popups: "Auto-hide success notifications"
@@ -2836,9 +2840,6 @@ da:
   notice_successful_update_custom_fields_added_to_project: |
     Successful update. The custom fields of the activated types are automatically activated
     on the work package form. <a href="%{url}" target="_blank">See more</a>.
-  notice_successful_update_custom_fields_added_to_type: |
-    Successful update. The active custom fields are automatically activated for
-    the associated projects of this type.
   notice_to_many_principals_to_display: "Der er for mange resultater.\nIndsnævr søgningen ved at indtste navnet på det nye medlem (eller gruppe)."
   notice_user_missing_authentication_method: User has yet to choose a password or another way to sign in.
   notice_user_invitation_resent: An invitation has been sent to %{email}.
@@ -3250,7 +3251,6 @@ da:
   setting_registration_footer: "Registration footer"
   setting_repositories_automatic_managed_vendor: "Automatisk repositorie-leverandørtype"
   setting_repositories_encodings: "Kodning af projektarkiv"
-  setting_repository_authentication_caching_enabled: "Aktivér cache-lagring ved forespørgsel om godkendelse af software til kontrol af version"
   setting_repository_storage_cache_minutes: "Repositorie diskstørrelsescache"
   setting_repository_checkout_display: "Vis checkout-instruktioner"
   setting_repository_checkout_base_url: "Standard Checkout-URL"

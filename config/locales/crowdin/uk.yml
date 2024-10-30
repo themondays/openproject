@@ -225,6 +225,11 @@ uk:
           short: "Short name"
       notice:
         remember_items_and_projects: "Обов’язково задайте елементи й проєкти на відповідних вкладках для цього користувацького поля."
+      hierarchy:
+        subitems:
+          zero: no sub-items
+          one: 1 sub-item
+          other: "%{count} sub-items"
     text_add_new_custom_field: >
       Щоб додати нові користувальницькі поля до проекту, спочатку потрібно створити їх, перш ніж ви зможете додати їх до цього проекту.
     is_enabled_globally: "Увімкнено у всьому світі"
@@ -808,7 +813,6 @@ uk:
         consented_at: "Згоден на"
       user_preference:
         comments_sorting: "Відображення коментарів"
-        hide_mail: "Приховувати мій email"
         impaired: "Режим спеціальних можливостей"
         time_zone: "Часовий пояс"
         auto_hide_popups: "Автоматичне приховування сповіщень про успіх"
@@ -2904,8 +2908,6 @@ uk:
   notice_successful_update: "Успішно оновлено."
   notice_successful_update_custom_fields_added_to_project: |
     Оновлення завершено. Користувацькі поля активованих типів автоматично активовано у формі пакета робіт. <a href="%{url}" target="_blank">Докладніше</a>.
-  notice_successful_update_custom_fields_added_to_type: |
-    Оновлення завершено. Активні користувацькі поля автоматично активовано для пов’язаних проєктів цього типу.
   notice_to_many_principals_to_display: "Є занадто багато результатів.\nЗвузити пошук ввівши назву нового елемента (або групи)."
   notice_user_missing_authentication_method: Користувач ще не вибрав пароль або інший спосіб входу.
   notice_user_invitation_resent: Надіслано запрошення %{email}.
@@ -3321,7 +3323,6 @@ uk:
   setting_registration_footer: "Реєстраційний колонтитул"
   setting_repositories_automatic_managed_vendor: "Тип автоматичного сховища"
   setting_repositories_encodings: "Кодування сховищ"
-  setting_repository_authentication_caching_enabled: "Включити кешування для запиту перевірки автентичності програмного забезпечення контролю версій"
   setting_repository_storage_cache_minutes: "Кеш розміру диска в сховищі"
   setting_repository_checkout_display: "Показувати інструкції щодо оформлення замовлення"
   setting_repository_checkout_base_url: "Перевірити URL"

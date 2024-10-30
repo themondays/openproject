@@ -23,12 +23,13 @@ export default class IndexController extends Controller {
     notificationCenterPathName: String,
   };
 
-  static targets = ['journalsContainer', 'buttonRow', 'formRow', 'form'];
+  static targets = ['journalsContainer', 'buttonRow', 'formRow', 'form', 'reactionButton'];
 
   declare readonly journalsContainerTarget:HTMLElement;
   declare readonly buttonRowTarget:HTMLInputElement;
   declare readonly formRowTarget:HTMLElement;
   declare readonly formTarget:HTMLFormElement;
+  declare readonly reactionButtonTargets:HTMLElement[];
 
   declare updateStreamsUrlValue:string;
   declare sortingValue:string;
@@ -47,7 +48,8 @@ export default class IndexController extends Controller {
 
   private onSubmitBound:EventListener;
   private adjustMarginBound:EventListener;
-  private hideEditorBound:EventListener;
+  private onBlurEditorBound:EventListener;
+  private onFocusEditorBound:EventListener;
 
   private saveInProgress:boolean;
   private updateInProgress:boolean;
@@ -160,6 +162,10 @@ export default class IndexController extends Controller {
 
     this.updateInProgress = true;
 
+    // Unfocus any reaction buttons that may have been focused
+    // otherwise the browser will perform an auto scroll to the before focused button after the stream update was applied
+    this.unfocusReactionButtons();
+
     const journalsContainerAtBottom = this.isJournalsContainerScrolledToBottom(this.journalsContainerTarget);
 
     void this.performUpdateStreamsRequest(this.prepareUpdateStreamsUrl())
@@ -170,6 +176,10 @@ export default class IndexController extends Controller {
     }).finally(() => {
       this.updateInProgress = false;
     });
+  }
+
+  private unfocusReactionButtons() {
+    this.reactionButtonTargets.forEach((button) => button.blur());
   }
 
   private prepareUpdateStreamsUrl():string {
@@ -316,13 +326,15 @@ export default class IndexController extends Controller {
   private addEventListenersToCkEditorInstance() {
     this.onSubmitBound = () => { void this.onSubmit(); };
     this.adjustMarginBound = () => { void this.adjustJournalContainerMargin(); };
-    this.hideEditorBound = () => { void this.hideEditorIfEmpty(); };
+    this.onBlurEditorBound = () => { void this.onBlurEditor(); };
+    this.onFocusEditorBound = () => { void this.onFocusEditor(); };
 
     const editorElement = this.getCkEditorElement();
     if (editorElement) {
       editorElement.addEventListener('saveRequested', this.onSubmitBound);
       editorElement.addEventListener('editorKeyup', this.adjustMarginBound);
-      editorElement.addEventListener('editorBlur', this.hideEditorBound);
+      editorElement.addEventListener('editorBlur', this.onBlurEditorBound);
+      editorElement.addEventListener('editorFocus', this.onFocusEditorBound);
     }
   }
 
@@ -331,7 +343,8 @@ export default class IndexController extends Controller {
     if (editorElement) {
       editorElement.removeEventListener('saveRequested', this.onSubmitBound);
       editorElement.removeEventListener('editorKeyup', this.adjustMarginBound);
-      editorElement.removeEventListener('editorBlur', this.hideEditorBound);
+      editorElement.removeEventListener('editorBlur', this.onBlurEditorBound);
+      editorElement.removeEventListener('editorFocus', this.onFocusEditorBound);
     }
   }
 
@@ -454,19 +467,37 @@ export default class IndexController extends Controller {
     const ckEditorInstance = this.getCkEditorInstance();
 
     if (ckEditorInstance && ckEditorInstance.getData({ trim: false }).length === 0) {
-      this.clearEditor(); // remove potentially empty lines
-      this.removeEventListenersFromCkEditorInstance();
-      this.buttonRowTarget.classList.remove('d-none');
-      this.formRowTarget.classList.add('d-none');
-
-      if (this.journalsContainerTarget) {
-        this.journalsContainerTarget.style.marginBottom = '';
-        this.journalsContainerTarget.classList.add('work-packages-activities-tab-index-component--journals-container_with-initial-input-compensation');
-        this.journalsContainerTarget.classList.remove('work-packages-activities-tab-index-component--journals-container_with-input-compensation');
-      }
-
-      if (this.isMobile()) { this.scrollInputContainerIntoView(300); }
+      this.hideEditor();
     }
+  }
+
+  hideEditor() {
+    this.clearEditor(); // remove potentially empty lines
+    this.removeEventListenersFromCkEditorInstance();
+    this.buttonRowTarget.classList.remove('d-none');
+    this.formRowTarget.classList.add('d-none');
+
+    if (this.journalsContainerTarget) {
+      this.journalsContainerTarget.style.marginBottom = '';
+      this.journalsContainerTarget.classList.add('work-packages-activities-tab-index-component--journals-container_with-initial-input-compensation');
+      this.journalsContainerTarget.classList.remove('work-packages-activities-tab-index-component--journals-container_with-input-compensation');
+    }
+
+    if (this.isMobile()) { this.scrollInputContainerIntoView(300); }
+  }
+
+  onBlurEditor() {
+    const ckEditorInstance = this.getCkEditorInstance();
+
+    if (ckEditorInstance && ckEditorInstance.getData({ trim: false }).length === 0) {
+      this.hideEditor();
+    } else {
+      this.adjustJournalContainerMargin();
+    }
+  }
+
+  onFocusEditor() {
+    this.adjustJournalContainerMargin();
   }
 
   async onSubmit(event:Event | null = null) {
