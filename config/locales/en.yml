@@ -1474,6 +1474,9 @@ en:
   button_actions: "Actions"
   button_add: "Add"
   button_add_comment: "Add comment"
+  button_add_item_above: "Add item above"
+  button_add_item_below: "Add item below"
+  button_add_sub_item: "Add sub-item"
   button_add_member: Add member
   button_add_watcher: "Add watcher"
   button_annotate: "Annotate"
