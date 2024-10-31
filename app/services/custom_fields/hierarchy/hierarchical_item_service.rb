@@ -49,12 +49,12 @@ module CustomFields
       # @param label [String] the node label/name that must be unique at the same tree level
       # @param short [String] an alias for the node
       # @return [Success(CustomField::Hierarchy::Item), Failure(Dry::Validation::Result), Failure(ActiveModel::Errors)]
-      def insert_item(parent:, label:, short: nil)
+      def insert_item(parent:, label:, short: nil, sort_order: nil)
         CustomFields::Hierarchy::InsertItemContract
           .new
           .call({ parent:, label:, short: }.compact)
           .to_monad
-          .bind { |validation| create_child_item(validation:) }
+          .bind { |validation| create_child_item(validation:, sort_order:) }
       end
 
       # Updates an item/node
@@ -118,11 +118,11 @@ module CustomFields
         Success(item)
       end
 
-      def create_child_item(validation:)
-        item = validation[:parent].children.create(label: validation[:label], short: validation[:short])
+      def create_child_item(validation:, sort_order:)
+        item = validation[:parent].children.create(label: validation[:label], short: validation[:short], sort_order:)
         return Failure(item.errors) if item.new_record?
 
-        Success(item)
+        Success(item.reload)
       end
 
       def update_item_attributes(item:, attributes:)
