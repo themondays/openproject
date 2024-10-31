@@ -118,11 +118,14 @@ module CustomFields
         Success(item)
       end
 
-      def create_child_item(validation:, sort_order:)
-        item = validation[:parent].children.create(label: validation[:label], short: validation[:short], sort_order:)
+      def create_child_item(validation:, sort_order: nil)
+        attributes = validation.to_h
+        attributes[:sort_order] = sort_order - 1 if sort_order
+
+        item = validation[:parent].children.create(**attributes)
         return Failure(item.errors) if item.new_record?
 
-        Success(item.reload)
+        Success(item)
       end
 
       def update_item_attributes(item:, attributes:)
