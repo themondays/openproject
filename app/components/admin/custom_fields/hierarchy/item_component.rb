@@ -55,6 +55,14 @@ module Admin
           I18n.t("custom_fields.admin.hierarchy.subitems", count: model.children.count)
         end
 
+        def first_item?
+          model.sort_order == 0
+        end
+
+        def last_item?
+          model.sort_order == model.parent.children.length - 1
+        end
+
         def menu_items(menu)
           edit_action_item(menu)
           menu.with_divider
@@ -62,20 +70,13 @@ module Admin
           add_below_action_item(menu)
           add_sub_item_action_item(menu)
           menu.with_divider
+          move_up_action_item(menu) unless first_item?
+          move_down_action_item(menu) unless last_item?
+          menu.with_divider
           deletion_action_item(menu)
         end
 
         private
-
-        def deletion_action_item(menu)
-          menu.with_item(label: I18n.t(:button_delete),
-                         scheme: :danger,
-                         tag: :a,
-                         href: deletion_dialog_custom_field_item_path(custom_field_id: @root.custom_field_id, id: model.id),
-                         content_arguments: { data: { controller: "async-dialog" } }) do |item|
-            item.with_leading_visual_icon(icon: :trash)
-          end
-        end
 
         def edit_action_item(menu)
           menu.with_item(label: I18n.t(:button_edit),
@@ -110,6 +111,40 @@ module Admin
             content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
             href: new_child_custom_field_item_path(@root.custom_field_id, model)
           ) { _1.with_leading_visual_icon(icon: "op-arrow-in") }
+        end
+
+        def move_up_action_item(menu)
+          form_inputs = [{ name: "new_sort_order", value: model.sort_order - 1 }]
+
+          menu.with_item(label: I18n.t(:label_sort_higher),
+                         tag: :button,
+                         href: move_custom_field_item_path(@root.custom_field_id, model),
+                         content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
+                         form_arguments: { method: :post, inputs: form_inputs }) do |item|
+            item.with_leading_visual_icon(icon: "chevron-up")
+          end
+        end
+
+        def move_down_action_item(menu)
+          form_inputs = [{ name: "new_sort_order", value: model.sort_order + 2 }]
+
+          menu.with_item(label: I18n.t(:label_sort_lower),
+                         tag: :button,
+                         href: move_custom_field_item_path(@root.custom_field_id, model),
+                         content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
+                         form_arguments: { method: :post, inputs: form_inputs }) do |item|
+            item.with_leading_visual_icon(icon: "chevron-down")
+          end
+        end
+
+        def deletion_action_item(menu)
+          menu.with_item(label: I18n.t(:button_delete),
+                         scheme: :danger,
+                         tag: :a,
+                         href: deletion_dialog_custom_field_item_path(custom_field_id: @root.custom_field_id, id: model.id),
+                         content_arguments: { data: { controller: "async-dialog" } }) do |item|
+            item.with_leading_visual_icon(icon: :trash)
+          end
         end
       end
     end

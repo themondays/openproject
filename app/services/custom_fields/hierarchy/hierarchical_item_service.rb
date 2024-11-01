@@ -98,11 +98,18 @@ module CustomFields
 
       # Reorder the item along its siblings.
       # @param item [CustomField::Hierarchy::Item] the parent of the node
-      # @param new_sort_order [Integer] the new parent of the node
-      # @return [Success(CustomField::Hierarchy::Item)]
+      # @param new_sort_order [Integer] the new position of the node
+      # @return [Success]
       def reorder_item(item:, new_sort_order:)
-        old_item = item.siblings.where(sort_order: new_sort_order).first
-        Success(old_item.prepend_sibling(item))
+        return Success() if item.siblings.empty?
+
+        new_sort_order = [0, new_sort_order.to_i].max
+
+        return Success() if item.sort_order == new_sort_order
+
+        update_item_order(item:, new_sort_order:)
+
+        Success()
       end
 
       def soft_delete_item(item)
@@ -134,6 +141,16 @@ module CustomFields
           Success(item)
         else
           Failure(item.errors)
+        end
+      end
+
+      def update_item_order(item:, new_sort_order:)
+        target_item = item.siblings.find_by(sort_order: new_sort_order)
+        if target_item.present?
+          target_item.prepend_sibling(item)
+        else
+          target_item = item.siblings.last
+          target_item.append_sibling(item)
         end
       end
     end

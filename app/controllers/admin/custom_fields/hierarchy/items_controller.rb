@@ -92,6 +92,13 @@ module Admin
             )
         end
 
+        def move
+          item_service
+            .reorder_item(item: @active_item, new_sort_order: params.require(:new_sort_order))
+
+          redirect_to(custom_field_items_path(@custom_field), status: :see_other)
+        end
+
         def destroy
           item_service
             .delete_branch(item: @active_item)
