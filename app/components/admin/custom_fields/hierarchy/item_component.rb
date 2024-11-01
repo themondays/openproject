@@ -112,7 +112,7 @@ module Admin
                          tag: :button,
                          href: move_custom_field_item_path(@root.custom_field_id, model),
                          content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
-                         form_arguments: { method: :put, inputs: form_inputs }) do |item|
+                         form_arguments: { method: :post, inputs: form_inputs }) do |item|
             item.with_leading_visual_icon(icon: "chevron-up")
           end
         end
@@ -124,7 +124,7 @@ module Admin
                          tag: :button,
                          href: move_custom_field_item_path(@root.custom_field_id, model),
                          content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
-                         form_arguments: { method: :put, inputs: form_inputs }) do |item|
+                         form_arguments: { method: :post, inputs: form_inputs }) do |item|
             item.with_leading_visual_icon(icon: "chevron-down")
           end
         end

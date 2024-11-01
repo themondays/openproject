@@ -179,7 +179,7 @@ Rails.application.routes.draw do
             get :deletion_dialog
             get :new_child, action: :new
             post :new_child, action: :create
-            put :move
+            post :move
           end
         end
       end
