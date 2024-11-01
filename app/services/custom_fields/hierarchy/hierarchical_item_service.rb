@@ -44,17 +44,18 @@ module CustomFields
           .bind { |validation| create_root_item(validation[:custom_field]) }
       end
 
-      # Insert a new node on the hierarchy tree.
+      # Insert a new node on the hierarchy tree at a desired position or at the end if no sort_order is passed.
       # @param parent [CustomField::Hierarchy::Item] the parent of the node
       # @param label [String] the node label/name that must be unique at the same tree level
       # @param short [String] an alias for the node
+      # @param sort_order [Integer] the position into which insert the item.
       # @return [Success(CustomField::Hierarchy::Item), Failure(Dry::Validation::Result), Failure(ActiveModel::Errors)]
-      def insert_item(parent:, label:, short: nil)
+      def insert_item(parent:, label:, short: nil, sort_order: nil)
         CustomFields::Hierarchy::InsertItemContract
           .new
           .call({ parent:, label:, short: }.compact)
           .to_monad
-          .bind { |validation| create_child_item(validation:) }
+          .bind { |validation| create_child_item(validation:, sort_order:) }
       end
 
       # Updates an item/node
@@ -118,8 +119,11 @@ module CustomFields
         Success(item)
       end
 
-      def create_child_item(validation:)
-        item = validation[:parent].children.create(label: validation[:label], short: validation[:short])
+      def create_child_item(validation:, sort_order: nil)
+        attributes = validation.to_h
+        attributes[:sort_order] = sort_order - 1 if sort_order
+
+        item = validation[:parent].children.create(**attributes)
         return Failure(item.errors) if item.new_record?
 
         Success(item)

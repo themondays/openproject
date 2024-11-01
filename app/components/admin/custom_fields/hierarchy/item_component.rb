@@ -38,7 +38,7 @@ module Admin
         def initialize(item:, show_edit_form: false)
           super(item)
           @show_edit_form = show_edit_form
-          @root = item.root
+          @root = item.root || item.parent.root
         end
 
         def wrapper_uniq_by
@@ -49,11 +49,23 @@ module Admin
           "(#{model.short})"
         end
 
-        def show_edit_form? = @show_edit_form
+        def show_form? = @show_edit_form || model.new_record?
 
         def children_count
           I18n.t("custom_fields.admin.hierarchy.subitems", count: model.children.count)
         end
+
+        def menu_items(menu)
+          edit_action_item(menu)
+          menu.with_divider
+          add_above_action_item(menu)
+          add_below_action_item(menu)
+          add_sub_item_action_item(menu)
+          menu.with_divider
+          deletion_action_item(menu)
+        end
+
+        private
 
         def deletion_action_item(menu)
           menu.with_item(label: I18n.t(:button_delete),
@@ -71,6 +83,33 @@ module Admin
                          href: edit_custom_field_item_path(@root.custom_field_id, model)) do |item|
             item.with_leading_visual_icon(icon: :pencil)
           end
+        end
+
+        def add_above_action_item(menu)
+          menu.with_item(
+            label: I18n.t(:button_add_item_above),
+            tag: :a,
+            content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
+            href: new_child_custom_field_item_path(@root.custom_field_id, model.parent, position: model.sort_order)
+          ) { _1.with_leading_visual_icon(icon: "fold-up") }
+        end
+
+        def add_below_action_item(menu)
+          menu.with_item(
+            label: I18n.t(:button_add_item_below),
+            tag: :a,
+            content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
+            href: new_child_custom_field_item_path(@root.custom_field_id, model.parent, position: model.sort_order + 1)
+          ) { _1.with_leading_visual_icon(icon: "fold-down") }
+        end
+
+        def add_sub_item_action_item(menu)
+          menu.with_item(
+            label: I18n.t(:button_add_sub_item),
+            tag: :a,
+            content_arguments: { data: { turbo_frame: ItemsComponent.wrapper_key } },
+            href: new_child_custom_field_item_path(@root.custom_field_id, model)
+          ) { _1.with_leading_visual_icon(icon: "op-arrow-in") }
         end
       end
     end
