@@ -48,6 +48,7 @@ module CustomFields
       # @param parent [CustomField::Hierarchy::Item] the parent of the node
       # @param label [String] the node label/name that must be unique at the same tree level
       # @param short [String] an alias for the node
+      # @param sort_order [Integer] the position into which insert the item.
       # @return [Success(CustomField::Hierarchy::Item), Failure(Dry::Validation::Result), Failure(ActiveModel::Errors)]
       def insert_item(parent:, label:, short: nil, sort_order: nil)
         CustomFields::Hierarchy::InsertItemContract
