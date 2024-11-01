@@ -146,15 +146,24 @@ RSpec.describe Admin::CustomFields::Hierarchy::ItemsController do
       service.insert_item(parent: root, label: "unused")
     end
 
-    it "redirects to the index" do
-      post :move, params: { custom_field_id: custom_field.id, id: luke.id, new_sort_order: 3 }
-      expect(response).to be_redirect
+    context "when it is successful" do
+      it "redirects to the index" do
+        post :move, params: { custom_field_id: custom_field.id, id: luke.id, new_sort_order: 3 }
+        expect(response).to be_redirect
+      end
+
+      it "moves the item to the new position" do
+        expect do
+          post :move, params: { custom_field_id: custom_field.id, id: luke.id, new_sort_order: 2 }
+        end.to change { luke.reload.sort_order }.from(0).to(1)
+      end
     end
 
-    it "moves the item to the new position" do
-      expect do
-        post :move, params: { custom_field_id: custom_field.id, id: luke.id, new_sort_order: 2 }
-      end.to change { luke.reload.sort_order }.from(0).to(1)
+    context "when missing parameters" do
+      it "fails with bad request" do
+        post :move, params: { custom_field_id: custom_field.id, id: luke.id } # missing new_sort_order
+        expect(response).to be_bad_request
+      end
     end
   end
 

@@ -190,6 +190,14 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
       expect(lando.reload.sort_order).to eq(2)
     end
 
+    it "reorders the item even if sort order is a string" do
+      service.reorder_item(item: chewbacca, new_sort_order: "1")
+
+      expect(luke.reload.sort_order).to eq(0)
+      expect(chewbacca.reload.sort_order).to eq(1)
+      expect(lando.reload.sort_order).to eq(2)
+    end
+
     it "reorders the item to the last position" do
       service.reorder_item(item: lando, new_sort_order: root.children.length)
 

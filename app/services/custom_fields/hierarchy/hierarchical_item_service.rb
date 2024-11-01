@@ -103,17 +103,11 @@ module CustomFields
       def reorder_item(item:, new_sort_order:)
         return Success(item) if item.siblings.empty?
 
-        new_sort_order = [0, new_sort_order].max
+        new_sort_order = [0, new_sort_order.to_i].max
 
         return Success(item) if item.sort_order == new_sort_order
 
-        target_item = item.siblings.find_by(sort_order: new_sort_order)
-        if target_item.present?
-          target_item.prepend_sibling(item)
-        else
-          target_item = item.siblings.last
-          target_item.append_sibling(item)
-        end
+        update_item_order(item:, new_sort_order:)
 
         Success(item.reload)
       end
@@ -147,6 +141,16 @@ module CustomFields
           Success(item)
         else
           Failure(item.errors)
+        end
+      end
+
+      def update_item_order(item:, new_sort_order:)
+        target_item = item.siblings.find_by(sort_order: new_sort_order)
+        if target_item.present?
+          target_item.prepend_sibling(item)
+        else
+          target_item = item.siblings.last
+          target_item.append_sibling(item)
         end
       end
     end

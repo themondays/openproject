@@ -94,7 +94,7 @@ module Admin
 
         def move
           item_service
-            .reorder_item(item: @active_item, new_sort_order: params[:new_sort_order].to_i)
+            .reorder_item(item: @active_item, new_sort_order: params.require(:new_sort_order))
 
           redirect_to(custom_field_items_path(@custom_field), status: :see_other)
         end
