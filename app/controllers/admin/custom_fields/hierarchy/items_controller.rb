@@ -67,7 +67,8 @@ module Admin
             .either(
               lambda do |item|
                 redirect_to(
-                  new_child_custom_field_item_path(@custom_field, @active_item, position: item.sort_order + 1)
+                  new_child_custom_field_item_path(@custom_field, @active_item, position: item.sort_order + 1),
+                  status: :see_other
                 )
               end,
               lambda do |validation_result|
@@ -82,7 +83,7 @@ module Admin
             .update_item(item: @active_item, label: item_input[:label], short: item_input[:short])
             .either(
               lambda do |_|
-                redirect_to(custom_field_item_path(@custom_field, @active_item.parent))
+                redirect_to(custom_field_item_path(@custom_field, @active_item.parent), status: :see_other)
               end,
               lambda do |validation_result|
                 add_errors_to_edit_form(validation_result)

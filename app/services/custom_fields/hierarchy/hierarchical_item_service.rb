@@ -44,7 +44,7 @@ module CustomFields
           .bind { |validation| create_root_item(validation[:custom_field]) }
       end
 
-      # Insert a new node on the hierarchy tree.
+      # Insert a new node on the hierarchy tree at a desired position or at the end if no sort_order is passed.
       # @param parent [CustomField::Hierarchy::Item] the parent of the node
       # @param label [String] the node label/name that must be unique at the same tree level
       # @param short [String] an alias for the node

@@ -45,7 +45,7 @@ module Admin
         end
 
         def new_item_path
-          position = model.children.any? ? children.last.sort_order + 1 : 0
+          position = model.children.any? ? model.children.last.sort_order + 1 : 0
 
           new_child_custom_field_item_path(root.custom_field_id, model, position:)
         end
