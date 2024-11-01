@@ -99,7 +99,7 @@ module CustomFields
       # Reorder the item along its siblings.
       # @param item [CustomField::Hierarchy::Item] the parent of the node
       # @param new_sort_order [Integer] the new position of the node
-      # @return [Success(CustomField::Hierarchy::Item)]
+      # @return [Success]
       def reorder_item(item:, new_sort_order:)
         return Success() if item.siblings.empty?
 
