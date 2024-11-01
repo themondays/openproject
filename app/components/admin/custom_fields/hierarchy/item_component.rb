@@ -55,6 +55,14 @@ module Admin
           I18n.t("custom_fields.admin.hierarchy.subitems", count: model.children.count)
         end
 
+        def first_item?
+          model.sort_order == 0
+        end
+
+        def last_item?
+          model.sort_order == model.parent.children.length - 1
+        end
+
         def menu_items(menu)
           edit_action_item(menu)
           menu.with_divider
@@ -62,8 +70,8 @@ module Admin
           add_below_action_item(menu)
           add_sub_item_action_item(menu)
           menu.with_divider
-          move_up_action_item(menu)
-          move_down_action_item(menu)
+          move_up_action_item(menu) unless first_item?
+          move_down_action_item(menu) unless last_item?
           menu.with_divider
           deletion_action_item(menu)
         end
