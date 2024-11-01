@@ -101,15 +101,15 @@ module CustomFields
       # @param new_sort_order [Integer] the new position of the node
       # @return [Success(CustomField::Hierarchy::Item)]
       def reorder_item(item:, new_sort_order:)
-        return Success(item) if item.siblings.empty?
+        return Success() if item.siblings.empty?
 
         new_sort_order = [0, new_sort_order.to_i].max
 
-        return Success(item) if item.sort_order == new_sort_order
+        return Success() if item.sort_order == new_sort_order
 
         update_item_order(item:, new_sort_order:)
 
-        Success(item.reload)
+        Success()
       end
 
       def soft_delete_item(item)
