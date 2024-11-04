@@ -1,4 +1,3 @@
-import { registerRequestForConfirmation } from 'core-app/core/setup/globals/global-listeners/request-for-confirmation';
 import { DeviceService } from 'core-app/core/browser/device.service';
 import { scrollHeaderOnMobile } from 'core-app/core/setup/globals/global-listeners/top-menu-scroll';
 import { detectOnboardingTour } from 'core-app/core/setup/globals/onboarding/onboarding_tour_trigger';
@@ -24,10 +23,6 @@ export function addTurboGlobalListeners() {
         content.style.marginBottom = '100px';
       }
     }
-
-    // Allow forms with [request-for-confirmation]
-    // to show the password confirmation dialog
-    registerRequestForConfirmation(jQuery);
 
     const deviceService:DeviceService = new DeviceService();
     // Register scroll handler on mobile header
