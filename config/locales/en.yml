@@ -295,12 +295,19 @@ en:
 
   dry_validation:
     errors:
+      integer?: "must be an integer"
+      filled?: "must be filled"
+      greater_or_equal_zero: "must be greater or equal to 0"
+      not_found: "not found"
       rules:
         label:
-          filled?: "must be filled"
           not_unique: "must be unique within the same hierarchy level"
+        parent:
+          not_descendant: "must be a descendant of the hierarchy root"
     rules:
       label: "Label"
+      parent: "Parent"
+      depth: "Depth"
 
   global_search:
     placeholder: "Search in %{app_title}"
@@ -1591,7 +1598,7 @@ en:
   create_new_page: "Wiki page"
 
   date:
-    abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    abbr_day_names: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
     abbr_month_names:
       [
         ~,

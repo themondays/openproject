@@ -10,6 +10,10 @@ get:
     has a reference to its parent and children. The list is ordered in a depth-first manner. The first item is the
     requested parent. If parent was unset, the root item is returned as first element.
     
+    Passing the `depth` query parameter allows to limit the depth of the hierarchy. If the depth is unset, the full
+    hierarchy tree is returned. If the depth is set to `0`, only the requested parent is returned. Any other positive
+    integer will return the number of children levels specified by this value.
+    
     This endpoint only returns, if the custom field is of type `hierarchy`.
   parameters:
     - name: id
@@ -45,6 +49,18 @@ get:
               $ref: '../components/examples/hierarchy_item_collection_response.yml'
             'filtered response':
               $ref: '../components/examples/hierarchy_item_collection_filtered_response.yml'
+    '403':
+      description: Returned if the user is not logged in.
+      content:
+        application/hal+json:
+          schema:
+            $ref: '../components/schemas/error_response.yml'
+          examples:
+            response:
+              value:
+                _type: Error
+                errorIdentifier: urn:openproject-org:api:v3:errors:MissingPermission
+                message: You are not authorized to access this resource.
     '404':
       description: Returned if the custom field does not exist.
       content:

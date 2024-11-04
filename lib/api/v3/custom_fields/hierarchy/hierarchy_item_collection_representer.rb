@@ -27,10 +27,12 @@
 #++
 
 module API
-  module Errors
-    class UnprocessableContent < ErrorBase
-      identifier "UnprocessableContent"
-      code 422
+  module V3
+    module CustomFields
+      module Hierarchy
+        class HierarchyItemCollectionRepresenter < ::API::Decorators::UnpaginatedCollection
+        end
+      end
     end
   end
 end

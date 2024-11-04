@@ -178,7 +178,7 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
     end
   end
 
-  describe "reorder_item" do
+  describe "#reorder_item" do
     let!(:lando) { service.insert_item(parent: root, label: "lando").value! }
     let!(:chewbacca) { service.insert_item(parent: root, label: "AWOOO").value! }
 
@@ -236,6 +236,28 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
       expect(luke.reload.sort_order).to eq(0)
       expect(lando.reload.sort_order).to eq(1)
       expect(chewbacca.reload.sort_order).to eq(2)
+    end
+  end
+
+  describe "#hashed_subtree" do
+    let!(:lando) { service.insert_item(parent: root, label: "lando").value! }
+    let!(:chewbacca) { service.insert_item(parent: root, label: "AWOOO").value! }
+    let!(:lowbacca) { service.insert_item(parent: chewbacca, label: "ARWWWW").value! }
+
+    it "produces a hash version of the tree" do
+      subtree = service.hashed_subtree(item: root, depth: -1)
+
+      expect(subtree.value!).to be_a(Hash)
+      expect(subtree.value![root].size).to eq(3)
+      expect(subtree.value![root][lando]).to be_empty
+      expect(subtree.value![root][chewbacca][lowbacca]).to be_empty
+    end
+
+    it "produces a hash version of a sub tree with limited depth" do
+      subtree = service.hashed_subtree(item: chewbacca, depth: 0)
+
+      expect(subtree.value!).to be_a(Hash)
+      expect(subtree.value![chewbacca]).to be_empty
     end
   end
 end

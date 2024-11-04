@@ -26,11 +26,17 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module API
-  module Errors
-    class UnprocessableContent < ErrorBase
-      identifier "UnprocessableContent"
-      code 422
+module Queries
+  module CustomFields
+    module Hierarchy
+      class ItemQuery
+        include ::Queries::BaseQuery
+        include ::Queries::UnpersistedQuery
+
+        def self.model
+          CustomField::Hierarchy::Item
+        end
+      end
     end
   end
 end

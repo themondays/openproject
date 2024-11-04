@@ -15,6 +15,9 @@ properties:
   short:
     type: string
     description: The short name of the hierarchy item
+  depth:
+    type: integer
+    description: The hierarchy depth. The root item has a depth of 0.
   _links:
     type: object
     properties:

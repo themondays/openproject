@@ -27,10 +27,27 @@
 #++
 
 module API
-  module Errors
-    class UnprocessableContent < ErrorBase
-      identifier "UnprocessableContent"
-      code 422
+  module V3
+    module CustomFields
+      module Hierarchy
+        class ItemAPI < ::API::OpenProjectAPI
+          resource :custom_field_items do
+            route_param :id, type: Integer, desc: "Custom Field Item ID" do
+              after_validation do
+                authorize_logged_in
+
+                @custom_field_item = CustomField::Hierarchy::Item.find(params[:id])
+              end
+
+              get &::API::V3::Utilities::Endpoints::Show
+                     .new(model: CustomField::Hierarchy::Item,
+                          render_representer: HierarchyItemRepresenter,
+                          instance_generator: ->(*) { @custom_field_item })
+                     .mount
+            end
+          end
+        end
+      end
     end
   end
 end

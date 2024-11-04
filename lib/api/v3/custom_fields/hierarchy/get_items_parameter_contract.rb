@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,10 +29,44 @@
 #++
 
 module API
-  module Errors
-    class UnprocessableContent < ErrorBase
-      identifier "UnprocessableContent"
-      code 422
+  module V3
+    module CustomFields
+      module Hierarchy
+        class GetItemsParameterContract < Dry::Validation::Contract
+          config.messages.backend = :i18n
+
+          option :hierarchy_root
+
+          params do
+            optional(:parent).filled(:integer)
+            optional(:depth).filled(:integer)
+          end
+
+          rule(:parent) do
+            next unless key?
+
+            parent_item = ::CustomField::Hierarchy::Item.find_by(id: value)
+
+            if parent_item.nil?
+              key.failure(:not_found)
+            elsif persistence_service.descendant_of?(item: parent_item, parent: hierarchy_root).failure?
+              key.failure(:not_descendant)
+            end
+          end
+
+          rule(:depth) do
+            next unless key?
+
+            key.failure(:greater_or_equal_zero) if value < 0
+          end
+
+          private
+
+          def persistence_service
+            @persistence_service ||= ::CustomFields::Hierarchy::HierarchicalItemService.new
+          end
+        end
+      end
     end
   end
 end

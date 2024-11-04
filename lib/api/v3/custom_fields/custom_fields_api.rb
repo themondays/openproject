@@ -27,10 +27,21 @@
 #++
 
 module API
-  module Errors
-    class UnprocessableContent < ErrorBase
-      identifier "UnprocessableContent"
-      code 422
+  module V3
+    module CustomFields
+      class CustomFieldsAPI < ::API::OpenProjectAPI
+        resource :custom_fields do
+          route_param :id, type: Integer, desc: "Custom Field ID" do
+            after_validation do
+              authorize_logged_in
+
+              @custom_field = CustomField.find(params[:id])
+            end
+
+            mount API::V3::CustomFields::Hierarchy::ItemsAPI
+          end
+        end
+      end
     end
   end
 end

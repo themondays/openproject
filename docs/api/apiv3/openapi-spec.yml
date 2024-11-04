@@ -188,6 +188,8 @@ paths:
     "$ref": "./paths/custom_action_execute.yml"
   "/api/v3/custom_fields/{id}/items":
     "$ref": "./paths/custom_field_items.yml"
+  "/api/v3/custom_field_items/{id}":
+    "$ref": "./paths/custom_field_item.yml"
   "/api/v3/custom_options/{id}":
     "$ref": "./paths/custom_option.yml"
   "/api/v3/days/non_working":
@@ -495,6 +497,8 @@ components:
       $ref: "./components/examples/hierarchy_item_collection_filtered_response.yml"
     HierarchyItemCollectionResponse:
       $ref: "./components/examples/hierarchy_item_collection_response.yml"
+    HierarchyItemResponse:
+      $ref: "./components/examples/hierarchy_item_response.yml"
     MembershipCreateRequestCustomMessage:
       $ref: "./components/examples/membership-create-request-custom-message.yml"
     MembershipCreateRequestGlobalRole:
@@ -956,4 +960,4 @@ tags:
   - "$ref": "./tags/work_packages.yml"
   - "$ref": "./tags/work_schedule.yml"
 security:
-  - BasicAuth: [ ]
+  - BasicAuth: []
