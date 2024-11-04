@@ -261,6 +261,7 @@ RSpec.describe "Copy work packages through Rails view", :js, :with_cuprite do
       wp_table.expect_work_package_count 2
       context_menu.open_for work_package
       context_menu.choose "Copy link to clipboard"
+      wait_for_network_idle
     end
 
     it "successfully copies the short url of the work package" do
