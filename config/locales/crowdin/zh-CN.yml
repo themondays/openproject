@@ -221,11 +221,11 @@ zh-CN:
         actions: "项目操作"
         blankslate:
           root:
-            title: "Your list of items is empty"
-            description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
+            title: "您的项目列表为空"
+            description: "首先，将条目添加到类型层次结构的自定义字段中。每个条目都可以用于在其下方创建一个层次结构。要在层次结构中创建子条目，请点击已创建的条目。"
           item:
-            title: This item doesn't have any hierarchy level below
-            description: Add items to this list to create sub-items inside another one
+            title: 该项目下面没有任何层级
+            description: 在此列表中添加条目，以便在另一个列表中创建子条目
         placeholder:
           label: "项目标签"
           short: "短名"
@@ -1360,9 +1360,9 @@ zh-CN:
   button_actions: "操作"
   button_add: "添加"
   button_add_comment: "添加评论"
-  button_add_item_above: "Add item above"
-  button_add_item_below: "Add item below"
-  button_add_sub_item: "Add sub-item"
+  button_add_item_above: "在上方添加条目"
+  button_add_item_below: "在下方添加条目"
+  button_add_sub_item: "添加子项目"
   button_add_member: 添加成员
   button_add_watcher: "添加关注者"
   button_annotate: "批注"
