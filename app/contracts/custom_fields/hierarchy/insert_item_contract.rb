@@ -53,6 +53,7 @@ module CustomFields
 
       rule(:short) do
         next if schema_error?(:parent)
+        next unless key?
 
         key.failure(:not_unique) if values[:parent].children.exists?(short: value)
       end

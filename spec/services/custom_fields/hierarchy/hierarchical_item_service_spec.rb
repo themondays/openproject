@@ -35,7 +35,7 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
   let(:invalid_custom_field) { create(:custom_field, field_format: "text", hierarchy_root: nil) }
 
   let!(:root) { service.generate_root(custom_field).value! }
-  let!(:luke) { service.insert_item(parent: root, label: "luke").value! }
+  let!(:luke) { service.insert_item(parent: root, label: "luke", short: "LS").value! }
   let!(:mara) { service.insert_item(parent: luke, label: "mara").value! }
 
   subject(:service) { described_class.new }
@@ -72,6 +72,7 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
     context "with valid parameters" do
       it "inserts an item successfully without short" do
         result = service.insert_item(parent: luke, label:)
+
         expect(result).to be_success
         expect(luke.reload.children.count).to eq(2)
       end
@@ -113,11 +114,12 @@ RSpec.describe CustomFields::Hierarchy::HierarchicalItemService do
       let!(:leia) { service.insert_item(parent: root, label: "leia").value! }
 
       it "refuses to update the item with new attributes" do
-        result = service.update_item(item: luke, label: "leia", short: "LS")
+        result = service.update_item(item: leia, label: "luke", short: "LS")
         expect(result).to be_failure
 
         errors = result.failure.errors
-        expect(errors.to_h).to eq({ label: ["must be unique at the same hierarchical level"] })
+        expect(errors[:label]).to eq(["must be unique within the same hierarchy level"])
+        expect(errors[:short]).to eq(["must be unique within the same hierarchy level"])
       end
     end
   end
