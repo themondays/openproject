@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,42 +28,45 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require "spec_helper"
+module API
+  module V3
+    module CustomFields
+      module Hierarchy
+        class GetItemsParameterContract < Dry::Validation::Contract
+          config.messages.backend = :i18n
 
-RSpec.describe API::V3::Utilities::ResourceLinkGenerator do
-  include API::V3::Utilities::PathHelper
+          option :hierarchy_root
 
-  subject { described_class }
+          params do
+            optional(:parent).filled(:integer)
+            optional(:depth).filled(:integer)
+          end
 
-  describe ":make_link" do
-    it "supports work packages" do
-      wp = build_stubbed(:work_package)
-      expect(subject.make_link(wp)).to eql api_v3_paths.work_package(wp.id)
-    end
+          rule(:parent) do
+            next unless key?
 
-    it "supports priorities" do
-      prio = build_stubbed(:priority)
-      expect(subject.make_link(prio)).to eql api_v3_paths.priority(prio.id)
-    end
+            parent_item = ::CustomField::Hierarchy::Item.find_by(id: value)
 
-    it "supports statuses" do
-      status = build_stubbed(:status)
-      expect(subject.make_link(status)).to eql api_v3_paths.status(status.id)
-    end
+            if parent_item.nil?
+              key.failure(:not_found)
+            elsif persistence_service.descendant_of?(item: parent_item, parent: hierarchy_root).failure?
+              key.failure(:not_descendant)
+            end
+          end
 
-    it "supports the anonymous user" do
-      user = build_stubbed(:anonymous)
-      expect(subject.make_link(user)).to eql api_v3_paths.user(user.id)
-    end
+          rule(:depth) do
+            next unless key?
 
-    it "returns nil for unsupported records" do
-      record = create(:oauth_client_token)
-      expect(subject.make_link(record)).to be_nil
-    end
+            key.failure(:greater_or_equal_zero) if value < 0
+          end
 
-    it "returns nil for non-AR types" do
-      record = Object.new
-      expect(subject.make_link(record)).to be_nil
+          private
+
+          def persistence_service
+            @persistence_service ||= ::CustomFields::Hierarchy::HierarchicalItemService.new
+          end
+        end
+      end
     end
   end
 end

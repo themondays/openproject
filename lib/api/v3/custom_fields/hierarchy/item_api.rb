@@ -26,42 +26,28 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require "spec_helper"
+module API
+  module V3
+    module CustomFields
+      module Hierarchy
+        class ItemAPI < ::API::OpenProjectAPI
+          resource :custom_field_items do
+            route_param :id, type: Integer, desc: "Custom Field Item ID" do
+              after_validation do
+                authorize_logged_in
 
-RSpec.describe API::V3::Utilities::ResourceLinkGenerator do
-  include API::V3::Utilities::PathHelper
+                @custom_field_item = CustomField::Hierarchy::Item.find(params[:id])
+              end
 
-  subject { described_class }
-
-  describe ":make_link" do
-    it "supports work packages" do
-      wp = build_stubbed(:work_package)
-      expect(subject.make_link(wp)).to eql api_v3_paths.work_package(wp.id)
-    end
-
-    it "supports priorities" do
-      prio = build_stubbed(:priority)
-      expect(subject.make_link(prio)).to eql api_v3_paths.priority(prio.id)
-    end
-
-    it "supports statuses" do
-      status = build_stubbed(:status)
-      expect(subject.make_link(status)).to eql api_v3_paths.status(status.id)
-    end
-
-    it "supports the anonymous user" do
-      user = build_stubbed(:anonymous)
-      expect(subject.make_link(user)).to eql api_v3_paths.user(user.id)
-    end
-
-    it "returns nil for unsupported records" do
-      record = create(:oauth_client_token)
-      expect(subject.make_link(record)).to be_nil
-    end
-
-    it "returns nil for non-AR types" do
-      record = Object.new
-      expect(subject.make_link(record)).to be_nil
+              get &::API::V3::Utilities::Endpoints::Show
+                     .new(model: CustomField::Hierarchy::Item,
+                          render_representer: HierarchyItemRepresenter,
+                          instance_generator: ->(*) { @custom_field_item })
+                     .mount
+            end
+          end
+        end
+      end
     end
   end
 end
