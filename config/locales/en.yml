@@ -308,7 +308,7 @@ en:
       label: "Label"
       short: "Short"
       item: "Item"
-      parent: "Item"
+      parent: "Parent"
 
   global_search:
     placeholder: "Search in %{app_title}"
