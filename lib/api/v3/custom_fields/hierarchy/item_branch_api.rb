@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -30,22 +32,24 @@ module API
   module V3
     module CustomFields
       module Hierarchy
-        class ItemAPI < ::API::OpenProjectAPI
-          resource :custom_field_items do
-            route_param :id, type: Integer, desc: "Custom Field Item ID" do
-              after_validation do
-                authorize_logged_in
+        class ItemBranchAPI < ::API::OpenProjectAPI
+          include Dry::Monads[:result]
 
-                @custom_field_item = CustomField::Hierarchy::Item.find(params[:id])
-              end
-
-              get &::API::V3::Utilities::Endpoints::Show
-                     .new(model: CustomField::Hierarchy::Item,
-                          render_representer: HierarchyItemRepresenter,
-                          instance_generator: ->(*) { @custom_field_item })
-                     .mount
-
-              mount ItemBranchAPI
+          resource :branch do
+            get do
+              ::CustomFields::Hierarchy::HierarchicalItemService
+                .new
+                .get_branch(item: @custom_field_item)
+                .either(
+                  ->(items) do
+                    self_link = api_v3_paths.custom_field_item(@custom_field_item.id)
+                    HierarchyItemCollectionRepresenter.new(items, self_link:, current_user:)
+                  end,
+                  ->(error) do
+                    msg = "#{I18n.t('api_v3.errors.code_500')} #{error}"
+                    raise ::API::Errors::InternalError.new(msg)
+                  end
+                )
             end
           end
         end

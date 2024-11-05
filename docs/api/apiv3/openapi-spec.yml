@@ -190,6 +190,8 @@ paths:
     "$ref": "./paths/custom_field_items.yml"
   "/api/v3/custom_field_items/{id}":
     "$ref": "./paths/custom_field_item.yml"
+  "/api/v3/custom_field_items/{id}/branch":
+    "$ref": "./paths/custom_field_item_branch.yml"
   "/api/v3/custom_options/{id}":
     "$ref": "./paths/custom_option.yml"
   "/api/v3/days/non_working":

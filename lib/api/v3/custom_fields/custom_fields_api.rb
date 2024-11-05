@@ -38,7 +38,7 @@ module API
               @custom_field = CustomField.find(params[:id])
             end
 
-            mount API::V3::CustomFields::Hierarchy::ItemsAPI
+            mount Hierarchy::ItemsAPI
           end
         end
       end
