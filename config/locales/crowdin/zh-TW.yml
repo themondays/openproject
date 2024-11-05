@@ -223,11 +223,11 @@ zh-TW:
         actions: "自訂動作"
         blankslate:
           root:
-            title: "Your list of items is empty"
-            description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
+            title: "您的欄位清單是空的"
+            description: "首先將項目新增至階層結構的客製欄位。每個項目都可用於在其下方建立一個階層結構。若要在階層結構內導覽和建立子項目，請按一下已建立的項目。"
           item:
-            title: This item doesn't have any hierarchy level below
-            description: Add items to this list to create sub-items inside another one
+            title: 此項目下方沒有任何階層
+            description: 將項目加入此清單以在另一個清單中建立子項目
         placeholder:
           label: "項目標籤"
           short: "簡稱"
@@ -1362,9 +1362,9 @@ zh-TW:
   button_actions: "動作"
   button_add: "增加"
   button_add_comment: "新增留言"
-  button_add_item_above: "Add item above"
-  button_add_item_below: "Add item below"
-  button_add_sub_item: "Add sub-item"
+  button_add_item_above: "新增上述項目"
+  button_add_item_below: "新增以下項目"
+  button_add_sub_item: "新增子項目"
   button_add_member: 新增成員
   button_add_watcher: "新增監看者"
   button_annotate: "注釋"

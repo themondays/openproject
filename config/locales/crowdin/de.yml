@@ -218,11 +218,11 @@ de:
           heading: Für alle Projekte
           description: Dieses Projekt-Attribut ist in allen Projekten aktiviert, da die Option "Für alle Projekte" aktiviert ist. Es kann nicht für einzelne Projekte deaktiviert werden.
       items:
-        actions: "Item actions"
+        actions: "Element-Aktionen"
         blankslate:
           root:
-            title: "Your list of items is empty"
-            description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
+            title: "Ihre Liste der Elemente ist leer"
+            description: "Beginnen Sie mit dem Hinzufügen von Elementen in das benutzerdefinierte Feld der Typ-Hierarchie. Jedes Element kann verwendet werden, um eine Hierarchie darunter zu erstellen. Um Unterelemente innerhalb einer Hierarchie zu navigieren und zu erstellen, klicken Sie auf das erstellte Element."
           item:
             title: This item doesn't have any hierarchy level below
             description: Add items to this list to create sub-items inside another one
@@ -2226,8 +2226,8 @@ de:
   label_internal: "Intern"
   label_introduction_video: "Einführungsvideo"
   label_invite_user: "Nutzer einladen"
-  label_item: "Item"
-  label_item_plural: "Items"
+  label_item: "Element"
+  label_item_plural: "Elemente"
   label_share: "Teilen"
   label_share_project_list: "Projektliste teilen"
   label_share_work_package: "Arbeitspaket teilen"
