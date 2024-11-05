@@ -26,20 +26,20 @@ de:
       no_results_title_text: Innerhalb dieses Zeitraums haben keine Aktivitäten in dem Projekt stattgefunden.
     work_packages:
       activity_tab:
-        no_results_title_text: No activity to display
-        no_results_description_text: "Choose \"Show everything\" to show all activity and comments"
-        label_activity_show_all: "Show everything"
-        label_activity_show_only_comments: "Show comments only"
-        label_activity_show_only_changes: "Show changes only"
-        label_sort_asc: "Newest at the bottom"
-        label_sort_desc: "Newest on top"
-        label_type_to_comment: "Type here to comment"
-        label_submit_comment: "Submit comment"
-        changed_on: "changed on"
-        created_on: "created this on"
-        changed: "changed"
-        created: "created"
-        commented: "commented"
+        no_results_title_text: Keine Aktivität anzuzeigen
+        no_results_description_text: "Wählen Sie \"Alles anzeigen\", um alle Aktivitäten und Kommentare anzuzeigen."
+        label_activity_show_all: "Alles anzeigen"
+        label_activity_show_only_comments: "Nur Kommentare anzeigen"
+        label_activity_show_only_changes: "Nur Änderungen anzeigen"
+        label_sort_asc: "Neueste unten"
+        label_sort_desc: "Neueste oben"
+        label_type_to_comment: "Tippen Sie hier, um zu kommentieren"
+        label_submit_comment: "Kommentar absenden"
+        changed_on: "geändert am"
+        created_on: "erstellte dies am"
+        changed: "geändert"
+        created: "erstellt"
+        commented: "kommentiert"
   admin:
     plugins:
       no_results_title_text: Es sind derzeit keine Plugins installiert.
@@ -60,7 +60,7 @@ de:
         main-menu-bg-hover-background: "Hintergrundfarbe des Hauptmenüs bei Hover"
       custom_colors: "Benutzerdefinierte Farben"
       customize: "Passen Sie Ihre OpenProject Installation mit Ihrem eigenen Logo und eigenen Farben an."
-      enterprise_notice: "Diese kleine Erweiterung steht den Abonnenten der Enterprise edition ganz exklusiv als kleines Dankeschön für deren finanzielle Unterstützung zur Verfügung."
+      enterprise_notice: "Dieses kleine Add-on steht den Abonnenten der Enterprise-Edition ganz exklusiv als kleines Dankeschön für deren finanzielle Unterstützung zur Verfügung."
       enterprise_more_info: "Hinweis: Das verwendete Logo wird öffentlich zugänglich sein."
       manage_colors: "Farbauswahloptionen bearbeiten"
       instructions:
@@ -73,15 +73,15 @@ de:
         main-menu-bg-color: "Hintergrundfarbe des Menüs in der linken Seitenleiste."
       theme_warning: Das Ändern des Themes wird Ihr benutzerdefiniertes Design überschreiben. Alle Änderungen werden dann verloren gehen. Sind Sie sicher, dass Sie fortfahren möchten?
     enterprise:
-      upgrade_to_ee: "Auf Enterprise edition upgraden"
-      add_token: "Enterprise edition Support Token hochladen"
+      upgrade_to_ee: "Auf Enterprise-Edition upgraden"
+      add_token: "Enterprise-Edition Support Token hochladen"
       delete_token_modal:
-        text: "Sind Sie sicher, dass Sie das aktuelle Enterprise edition token entfernen möchten?"
+        text: "Sind Sie sicher, dass Sie das aktuelle Enterprise Edition-Token entfernen möchten?"
         title: "Token löschen"
       replace_token: "Aktuellen Enterprise edition Support Token ersetzen"
       order: "Enterprise on-premises bestellen"
-      paste: "Enterprise edition Support Token hier einfügen"
-      required_for_feature: "Dieses Add-on ist nur mit einem aktiven Enterprise edition Support-Token verfügbar."
+      paste: "Enterprise-Edition Support Token hier einfügen"
+      required_for_feature: "Dieses Add-on ist nur mit einem aktiven Enterprise-Edition Support-Token verfügbar."
       enterprise_link: "Klicken Sie hier für weitere Informationen."
       start_trial: "Kostenlose Testversion starten"
       book_now: "Jetzt buchen"
@@ -218,7 +218,7 @@ de:
           heading: Für alle Projekte
           description: Dieses Projekt-Attribut ist in allen Projekten aktiviert, da die Option "Für alle Projekte" aktiviert ist. Es kann nicht für einzelne Projekte deaktiviert werden.
       items:
-        actions: "Item actions"
+        actions: "Element-Aktionen"
         blankslate:
           title: "Your list of items is empty"
           description: "Start by adding items to the custom field of type hierarchy. Each item can be used to create a hierarchy bellow it. To navigate and create sub-items inside a hierarchy click on the created item."
@@ -263,7 +263,7 @@ de:
           filled?: "must be filled"
           not_unique: "must be unique within the same hierarchy level"
     rules:
-      label: "Label"
+      label: "Bezeichnung"
   global_search:
     placeholder: "Suche in %{app_title}"
     overwritten_tabs:
@@ -497,14 +497,14 @@ de:
       priority_color_text: |
         Klicken zum Zuweisen einer Farbe für diesen Prioritätswert. Diese wird für die Hervorhebung von Arbeitspaketen in Tabellen verwendet.
   reactions:
-    action_title: "React"
-    add_reaction: "Add reaction"
-    react_with: "React with %{reaction}"
-    and_user: "and %{user}"
+    action_title: "Reagieren"
+    add_reaction: "Reaktion hinzufügen"
+    react_with: "Mit %{reaction} reagieren"
+    and_user: "und %{user}"
     and_others:
-      one: and 1 other
-      other: and %{count} others
-    reaction_by: "%{reaction} by"
+      one: und ein weiterer
+      other: und %{count} weitere
+    reaction_by: "%{reaction} von"
   reportings:
     index:
       no_results_title_text: Derzeit gibt es keine Statusberichte.
@@ -514,13 +514,12 @@ de:
       status_color_text: |
         Klicken zum Zuweisen einer Farbe für diesen Status. Diese wird für die Hervorhebung von Arbeitspaketen in Tabellen verwendet.
       status_default_text: |-
-        New work packages are by default set to this type. They cannot be read-only.
+        Neue Arbeitspakete werden standardmäßig auf diesen Typ gesetzt. Er kann nicht schreibgeschützt sein.
       status_excluded_from_totals_text: |-
         Aktivieren Sie diese Option, um Arbeitspakete mit diesem Status aus den Summen von Aufwand, Verbleibender Aufwand und % Abgeschlossen in Hierarchien auszuschließen.
       status_percent_complete_text: |-
-        In <a href="%{href}">status-based progress calculation mode</a>, the % Complete of a work
-        package is automatically set to this value when this status is selected.
-        Ignored in work-based mode.
+        Im <a href="%{href}">statusbasierten Fortschrittsberechnungsmodus</a> wird der % abgeschlossen Wert eines Arbeitspakets automatisch auf diesen Wert gesetzt, wenn dieser Status ausgewählt wird.
+        Im aufwandsbezogenem Modus hat dieser Wert keine Relevanz.
       status_readonly_html: |
         Wählen Sie diese Option um Bearbeitung von Arbeitspaketen in diesem Status zu sperren.
         Außer dem Status selbst können dann keine Attribute verändert werden.
@@ -535,7 +534,7 @@ de:
         is_readonly: "Schreibgeschützt"
         excluded_from_totals: "Von Gesamtsumme auschließen"
   themes:
-    dark: "Dark"
+    dark: "Dunkel"
     light: "Hell"
     light_high_contrast: "Hell (hoher Kontrast)"
   types:
@@ -855,7 +854,7 @@ de:
         blank: "muss ausgefüllt werden."
         blank_nested: "muss die Eigenschaft '%{property}' gesetzt haben."
         cannot_delete_mapping: "ist erforderlich. Kann nicht gelöscht werden."
-        is_for_all_cannot_modify: "is for all projects and can therefore not be modified."
+        is_for_all_cannot_modify: "gilt für alle Projekte und kann daher nicht geändert werden."
         cant_link_a_work_package_with_a_descendant: "Ein Arbeitspaket kann nicht mit einer seiner Unteraufgaben verlinkt werden."
         circular_dependency: "Diese Beziehung würde eine zyklische Abhängigkeit erzeugen."
         confirmation: "stimmt nicht mit %{attribute} überein."
@@ -886,12 +885,12 @@ de:
         not_available: "ist aufgrund einer Systemkonfiguration nicht verfügbar."
         not_deletable: "kann nicht entfernt werden."
         not_current_user: "ist nicht der aktuelle Benutzer."
-        not_found: "not found."
+        not_found: "nicht gefunden."
         not_a_date: "ist kein gültiges Datum."
         not_a_datetime: "ist kein gültiges Datum."
         not_a_number: "ist keine Zahl."
         not_allowed: "ist ungültig aufgrund fehlender Berechtigungen."
-        not_json: "is not a valid JSON object."
+        not_json: "ist kein gültiges JSON-Objekt."
         not_an_integer: "ist keine ganzzahlige Zahl."
         not_an_iso_date: "ist kein gültiges Datum - Erwartetes Format: YYY-MM-DD."
         not_same_project: "gehört nicht zum selben Projekt."
@@ -1660,7 +1659,7 @@ de:
   error_cookie_missing: "Das OpenProject Cookie fehlt. Bitte stellen Sie sicher, dass Cookies aktiviert sind, da diese Applikation ohne aktivierte Cookies nicht korrekt funktioniert."
   error_custom_option_not_found: "Option ist nicht vorhanden."
   error_enterprise_activation_user_limit: "Ihr Konto konnte nicht aktiviert werden (Nutzerlimit erreicht). Bitte kontaktieren Sie Ihren Administrator um Zugriff zu erhalten."
-  error_enterprise_token_invalid_domain: "Die Enterprise edition ist nicht aktiv. Die aktuelle Domain (%{actual}) entspricht nicht dem erwarteten Hostnamen (%{expected})."
+  error_enterprise_token_invalid_domain: "Die Enterprise-Edition ist nicht aktiv. Die aktuelle Domain (%{actual}) entspricht nicht dem erwarteten Hostnamen (%{expected})."
   error_failed_to_delete_entry: "Fehler beim Löschen dieses Eintrags."
   error_in_dependent: "Fehler beim Versuch, abhängiges Objekt zu ändern: %{dependent_class} #%{related_id} - %{related_subject}: %{error}"
   error_in_new_dependent: "Fehler beim Versuch, abhängiges Objekt zu erstellen: %{dependent_class} - %{related_subject}: %{error}"
@@ -1825,10 +1824,10 @@ de:
     blocks:
       community: "OpenProject Community"
       upsale:
-        title: "Auf Enterprise edition upgraden"
+        title: "Auf Enterprise-Edition upgraden"
         more_info: "Weitere Informationen"
     links:
-      upgrade_enterprise_edition: "Auf Enterprise edition upgraden"
+      upgrade_enterprise_edition: "Auf Enterprise-Edition upgraden"
       postgres_migration: "Migration Ihrer Installation zu PostgreSQL"
       user_guides: "Benutzerhandbuch"
       faq: "Häufig gestellte Fragen"
@@ -1848,7 +1847,7 @@ de:
       progress_mode_changed_to_status_based: "Fortschrittsberechnung aktualisiert"
       status_changed: "Status '%{status_name}'"
       system_update: "OpenProject-Systemaktualisierung:"
-      work_package_duplicate_closed: "Duplicate work package updated:"
+      work_package_duplicate_closed: "Dupliziertes Arbeitspaket aktualisiert:"
       total_percent_complete_mode_changed_to_work_weighted_average: "Die Berechnung der Gesamtwerte für % abgeschlossen wird jetzt nach Aufwand gewichtet."
       total_percent_complete_mode_changed_to_simple_average: "Die Berechnung der Gesamtwerte für % abgeschlossen basiert jetzt auf dem einfachen Durchschnitt der % abgeschlossen-Werte."
     cause_descriptions:
@@ -1856,7 +1855,7 @@ de:
       work_package_parent_changed_times: durch Änderungen am übergeordneten Arbeitspaket %{link}
       work_package_children_changed_times: durch Änderungen an Kind-Arbeitspaket %{link}
       work_package_related_changed_times: durch Änderungen an verwandtem Arbeitspaket %{link}
-      work_package_duplicate_closed: The status was automatically updated by the duplicated work package %{link}
+      work_package_duplicate_closed: Der Status wurde automatisch durch das als Duplikat markierte Arbeitspaket %{link} aktualisiert
       unaccessable_work_package_changed: nach Änderungen an einem zugehörigen Arbeitspaket
       working_days_changed:
         changed: "Durch Änderungen an Werktagen (%{changes})"
@@ -1866,7 +1865,7 @@ de:
         dates:
           working: "%{date} ist jetzt ein Arbeitstag"
           non_working: "%{date} ist jetzt ein arbeitsfreier Tag"
-      progress_mode_changed_to_status_based: Fortschrittberechnung wurde auf Status-basiert gesetzt
+      progress_mode_changed_to_status_based: Fortschrittberechnung wurde auf Status-bezogen gesetzt
       status_excluded_from_totals_set_to_false_message: jetzt in den Gesamtwerten der Hierarchie enthalten
       status_excluded_from_totals_set_to_true_message: jetzt von den Hierarchie-Gesamtwerten ausgeschlossen
       status_percent_complete_changed: "% abgeschlossen von %{old_value}% auf %{new_value} % geändert"
@@ -2002,7 +2001,7 @@ de:
   label_ical_access_key_generation_hint: "Wird automatisch generiert, wenn ein Kalender abonniert wird."
   label_ical_access_key_latest: "neueste"
   label_ical_access_key_revoke: "Widerrufen"
-  label_add_column: "Add column"
+  label_add_column: "Spalte hinzufügen"
   label_applied_status: "Zugewiesener Status"
   label_archive_project: "Projekt archivieren"
   label_ascending: "Aufsteigend"
@@ -2029,7 +2028,7 @@ de:
   label_api_doc: "API-Dokumentation"
   label_backup: "Backup"
   label_backup_code: "Backupcode"
-  label_basic_details: "Basic details"
+  label_basic_details: "Allgemeine Informationen"
   label_between: "zwischen"
   label_blocked_by: "Blockiert durch"
   label_blocks: "Blockiert"
@@ -2148,7 +2147,7 @@ de:
   label_enumerations: "Aufzählungen"
   label_enterprise: "Enterprise"
   label_enterprise_active_users: "%{current}/%{limit} gebuchte aktive Nutzer"
-  label_enterprise_edition: "Enterprise edition"
+  label_enterprise_edition: "Enterprise Edition"
   label_enterprise_support: "Enterprise Support"
   label_enterprise_addon: "Enterprise Add-on"
   label_environment: "Umgebung"
@@ -2174,7 +2173,7 @@ de:
   label_file_plural: "Dateien"
   label_filter: "Filter"
   label_filter_add: "Filter hinzufügen"
-  label_filter_by: "Filter by"
+  label_filter_by: "Filtern nach"
   label_filter_plural: "Filter"
   label_filters_toggle: "Filter ein-/ausblenden"
   label_float: "Gleitkommazahl"
@@ -2220,8 +2219,8 @@ de:
   label_internal: "Intern"
   label_introduction_video: "Einführungsvideo"
   label_invite_user: "Nutzer einladen"
-  label_item: "Item"
-  label_item_plural: "Items"
+  label_item: "Element"
+  label_item_plural: "Elemente"
   label_share: "Teilen"
   label_share_project_list: "Projektliste teilen"
   label_share_work_package: "Arbeitspaket teilen"
@@ -2263,7 +2262,7 @@ de:
   label_custom_favicon: "Benutzerdefiniertes Favicon"
   label_custom_touch_icon: "Benutzerdefiniertes Touch-Icon"
   label_logout: "Abmelden"
-  label_mapping_for: "Mapping for: %{attribute}"
+  label_mapping_for: "Zuordnung für: %{attribute}"
   label_main_menu: "Nebenmenü"
   label_manage: "Verwalten"
   label_manage_groups: "Gruppen verwalten"
@@ -2298,8 +2297,8 @@ de:
   label_months_from: "Monate ab"
   label_more: "Mehr"
   label_more_than_ago: "vor mehr als (Tage)"
-  label_move_column_left: "Move column left"
-  label_move_column_right: "Move column right"
+  label_move_column_left: "Spalte nach links"
+  label_move_column_right: "Spalte nach rechts"
   label_move_work_package: "Arbeitspaket verschieben"
   label_my_account: "Kontoeinstellungen"
   label_my_activity: "Meine Aktivität"
@@ -2391,7 +2390,7 @@ de:
   label_project_latest: "Neueste Projekte"
   label_project_default_type: "Erlaube leere Typen"
   label_project_hierarchy: "Projekthierarchie"
-  label_project_mappings: "Projects"
+  label_project_mappings: "Projekte"
   label_project_new: "Neues Projekt"
   label_project_plural: "Projekte"
   label_project_list_plural: "Projektlisten"
@@ -2422,7 +2421,7 @@ de:
   label_relation_new: "Neue Beziehung"
   label_release_notes: "Release Notes"
   label_remaining_work: "Verbleibender Aufwand"
-  label_remove_column: "Remove column"
+  label_remove_column: "Spalte entfernen"
   label_remove_columns: "Ausgewählte Spalten entfernen"
   label_renamed: "umbenannt"
   label_reply_plural: "Antworten"
@@ -2463,10 +2462,10 @@ de:
   label_show_completed_versions: "Abgeschlossene Versionen anzeigen"
   label_columns: "Spalten"
   label_sort: "Sortierung"
-  label_sort_ascending: "Sort ascending"
+  label_sort_ascending: "Sortiere aufsteigend"
   label_sort_by: "Sortiere nach %{value}"
   label_sorted_by: "sortiert nach %{value}"
-  label_sort_descending: "Sort descending"
+  label_sort_descending: "Sortiere absteigend"
   label_sort_higher: "Eins höher"
   label_sort_highest: "An den Anfang"
   label_sort_lower: "Eins tiefer"
@@ -2954,7 +2953,7 @@ de:
   permission_view_shared_work_packages: "Arbeitspaket-Freigaben sehen"
   permission_view_time_entries: "Gebuchte Aufwände ansehen"
   permission_view_timelines: "Zeitplan-Reporte anzeigen"
-  permission_view_user_email: "View users' mail addresses"
+  permission_view_user_email: "E-Mail-Adressen der Benutzer anzeigen"
   permission_view_wiki_edits: "Wiki-Versionsgeschichte ansehen"
   permission_view_wiki_pages: "Wiki ansehen"
   permission_work_package_assigned: "Zugewiesener/Verantwortlicher werden"
@@ -3103,8 +3102,8 @@ de:
       update_timeout: "Speichere die Informationen bzgl. des genutzten Festplattenspeichers eines Projektarchivs für N Minuten.\nErhöhen Sie diesen Wert zur Verbesserung der Performance, da die Erfassung des genutzten Festplattenspeichers Ressourcen-intensiv ist."
       oauth_application_details: "Der Client Geheimcode wird nach dem Schließen dieses Fensters nicht mehr zugänglich sein. Bitte kopieren Sie diese Werte in die Nextcloud OpenProject Integrationseinstellungen:"
       oauth_application_details_link_text: "Zu den Einstellungen gehen"
-      setup_documentation_details: "Wenn Sie Hilfe bei der Konfiguration eines neuen Datei-Speichers benötigen, konsultieren Sie bitte die Dokumentation: "
-      setup_documentation_details_link_text: "Datei-Speicher einrichten"
+      setup_documentation_details: "Wenn Sie Hilfe bei der Konfiguration eines neuen Dateispeichers benötigen, konsultieren Sie bitte die Dokumentation: "
+      setup_documentation_details_link_text: "Dateispeicher einrichten"
       show_warning_details: "Um diesen Dateispeicher nutzen zu können, müssen Sie das Modul und den spezifischen Speicher in den Projekteinstellungen jedes gewünschten Projekts aktivieren."
     subversion:
       existing_title: "Vorhandenes Subversion Projektarchiv"
@@ -3185,9 +3184,9 @@ de:
   setting_default_language: "Standard-Sprache"
   setting_default_projects_modules: "Standardmäßig aktivierte Module für neue Projekte"
   setting_default_projects_public: "Neue Projekte sind standardmäßig öffentlich"
-  setting_disable_password_login: "Disable password authentication"
+  setting_disable_password_login: "Passwort-Authentifizierung deaktivieren"
   setting_diff_max_lines_displayed: "Maximale Anzahl anzuzeigender Diff-Zeilen"
-  setting_omniauth_direct_login_provider: "Direct login SSO provider"
+  setting_omniauth_direct_login_provider: "SSO-Anbieter für direkte Anmeldung"
   setting_display_subprojects_work_packages: "Arbeitspakete von Unterprojekten im Hauptprojekt anzeigen"
   setting_duration_format: "Anzeige der Dauer"
   setting_duration_format_hours_only: "Nur Stunden"
@@ -3284,9 +3283,9 @@ de:
   setting_working_days: "Arbeitstage"
   settings:
     authentication:
-      single_sign_on: "Single Sign-On"
+      single_sign_on: "Single-Sign-On"
       omniauth_direct_login_hint_html: >
-        If this option is active, login requests will redirect to the configured omniauth provider. The login dropdown and sign-in page will be disabled. <br/> <strong>Note:</strong> Unless you also disable password logins, with this option enabled, users can still log in internally by visiting the <code>%{internal_path}</code> login page.
+        Wenn diese Option aktiviert ist, werden die Anmeldeanfragen an den konfigurierten SSO-Anbieter weitergeleitet. Das Login-Dropdown und die Anmeldeseite sind dann deaktiviert. <br/> <strong>Hinweis:</strong> Sofern Sie nicht auch die Passwortanmeldung deaktivieren, können sich Benutzer bei aktivierter Option immer noch intern anmelden, indem sie die interne Anmeldeseite <code>%{internal_path}</code> verwenden.
     attachments:
       whitelist_text_html: >
         Legen Sie eine Liste gültiger Dateierweiterungen und/oder Mime-Typen für hochgeladene Dateien fest. <br/> Dateierweiterungen (z. B. <code>%{ext_example}</code>) oder Mime-Typen (z. ., <code>%{mime_example}</code>). <br/> Lassen Sie diese Liste leer, um das Hochladen beliebiger Dateitypen zu erlauben. Mehrere Werte erlaubt (eine Zeile pro Wert).
@@ -3585,7 +3584,7 @@ de:
   warning_user_limit_reached_admin: >
     Das Hinzufügen zusätzlicher Benutzer überschreitet das aktuelle Benutzerlimit. Bitte <a href="%{upgrade_url}">aktualisieren Sie Ihr Abonnement</a> um sicherzustellen, dass externe Benutzer auf diese Instanz zugreifen können.
   warning_user_limit_reached_instructions: >
-    Du hast dein Nutzerlimit erreicht (%{current}/%{max} active users). Bitte kontaktiere sales@openproject.com um deinen Enterprise edition Plan upzugraden und weitere Nutzer hinzuzufügen.
+    Du hast dein Nutzerlimit erreicht (%{current}/%{max} active users). Bitte kontaktiere sales@openproject.com um deinen Enterprise Edition Plan upzugraden und weitere Nutzer hinzuzufügen.
   warning_protocol_mismatch_html: >
 
   warning_bar:
