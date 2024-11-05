@@ -264,9 +264,9 @@ RSpec.describe SortHelper do
             <div class="generic-table--sort-header-outer">
               <div class="generic-table--sort-header">
                 <span>
-                  <a title="Sort by &quot;Id&quot;" 
-                     data-turbo-stream="true" 
-                     rel="nofollow" 
+                  <a title="Sort by &quot;Id&quot;"
+                     data-turbo-stream="true"
+                     rel="nofollow"
                      target="_top"
                      href="/work_packages?sort=sort_criteria_params">
                     Id

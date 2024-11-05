@@ -34,7 +34,7 @@ import {
 } from 'core-app/shared/components/modals/request-for-confirmation/password-confirmation.modal';
 
 export default class PasswordConfirmationDialogController extends ApplicationController {
-  private formListener = this.onFormSubmit.bind(this);
+  private formListener:(evt:SubmitEvent) => unknown = this.onFormSubmit.bind(this);
 
   private activeDialog = false;
 

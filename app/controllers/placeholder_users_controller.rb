@@ -79,7 +79,7 @@ class PlaceholderUsersController < ApplicationController
     @individual_principal = @placeholder_user
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     service = PlaceholderUsers::CreateService.new(user: User.current)
     service_result = service.call(permitted_params.placeholder_user)
     @placeholder_user = service_result.result
@@ -100,7 +100,7 @@ class PlaceholderUsersController < ApplicationController
     end
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     service_result = PlaceholderUsers::UpdateService
       .new(user: User.current,
            model: @placeholder_user)

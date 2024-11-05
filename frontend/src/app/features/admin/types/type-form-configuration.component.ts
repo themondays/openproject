@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { I18nService } from 'core-app/core/i18n/i18n.service';
 import {
   ExternalRelationQueryConfigurationService,
@@ -167,6 +167,7 @@ export class TypeFormConfigurationComponent extends UntilDestroyedMixin implemen
   ngOnDestroy():void {
     this.dragula.destroy('groups');
     this.dragula.destroy('attributes');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
     this.autoscroll.destroy();
   }
 

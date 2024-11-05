@@ -149,7 +149,7 @@ class WikiController < ApplicationController
   end
 
   # Creates a new page or updates an existing one
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     @old_title = params[:id]
     @page = @wiki.find_or_new_page(@old_title)
     if @page.nil?

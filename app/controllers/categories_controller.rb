@@ -38,7 +38,7 @@ class CategoriesController < ApplicationController
     @category = @project.categories.build
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @category = @project.categories.build
     @category.attributes = permitted_params.category
 

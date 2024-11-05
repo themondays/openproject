@@ -47,7 +47,7 @@ class EnterprisesController < ApplicationController
     end
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @token = EnterpriseToken.current || EnterpriseToken.new
     saved_encoded_token = @token.encoded_token
     @token.encoded_token = params[:enterprise_token][:encoded_token]

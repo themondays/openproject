@@ -87,7 +87,7 @@ class CostTypesController < ApplicationController
     render action: :edit, layout: !request.xhr?
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @cost_type = CostType.new(permitted_params.cost_type)
 
     if @cost_type.save

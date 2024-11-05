@@ -3,7 +3,6 @@ import { Injector, NgModule } from '@angular/core';
 import { CurrentUserService } from './current-user.service';
 import { CurrentUserStore } from './current-user.store';
 import { CurrentUserQuery } from './current-user.query';
-import { ErrorReporterBase } from 'core-app/core/errors/error-reporter-base';
 import { firstValueFrom } from 'rxjs';
 
 function loadUserMetadata(currentUserService:CurrentUserService) {
@@ -18,12 +17,11 @@ function loadUserMetadata(currentUserService:CurrentUserService) {
 export function bootstrapModule(injector:Injector):void {
   const currentUserService = injector.get(CurrentUserService);
 
-  (window.ErrorReporter as ErrorReporterBase)
+  window.ErrorReporter
     .addHook(
       () => firstValueFrom(currentUserService.user$)
         .then(({ id }) => ({ user: id || 'anon' })),
     );
-
 
   loadUserMetadata(currentUserService);
   document.addEventListener('turbo:load', () => loadUserMetadata(currentUserService));

@@ -398,7 +398,6 @@ export function initializeServices(injector:Injector) {
 export class OpenProjectModule implements DoBootstrap {
   // noinspection JSUnusedGlobalSymbols
   ngDoBootstrap(appRef:ApplicationRef) {
-
     this.runBootstrap(appRef);
 
     // Connect ui router to turbo drive
@@ -415,7 +414,6 @@ export class OpenProjectModule implements DoBootstrap {
     if (root) {
       appRef.bootstrap(ApplicationBaseComponent, root);
     }
-
   }
 
   private registerCustomElements(injector:Injector) {

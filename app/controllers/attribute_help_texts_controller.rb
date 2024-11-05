@@ -44,7 +44,7 @@ class AttributeHelpTextsController < ApplicationController
 
   def edit; end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     call = ::AttributeHelpTexts::CreateService
       .new(user: current_user)
       .call(permitted_params_with_attachments)
@@ -59,7 +59,7 @@ class AttributeHelpTextsController < ApplicationController
     end
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     call = ::AttributeHelpTexts::UpdateService
       .new(user: current_user, model: @attribute_help_text)
       .call(permitted_params_with_attachments)

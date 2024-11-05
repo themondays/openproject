@@ -39,9 +39,9 @@ class CustomActions::Conditions::Role < CustomActions::Conditions::Base
 
     def roles_in_project(work_packages, user)
       with_request_store(projects_of(work_packages)) do |projects|
-        projects.map do |project|
+        projects.filter_map do |project|
           user.roles_for_project(project)
-        end.compact.flatten
+        end.flatten
       end
     end
 

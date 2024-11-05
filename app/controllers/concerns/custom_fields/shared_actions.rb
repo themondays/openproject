@@ -47,7 +47,7 @@ module CustomFields
         end
       end
 
-      def create
+      def create # rubocop:disable Metrics/AbcSize
         call = ::CustomFields::CreateService
           .new(user: current_user)
           .call(get_custom_field_params.merge(type: permitted_params.custom_field_type))

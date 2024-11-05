@@ -15,7 +15,7 @@ import {
 } from 'core-app/core/setup/globals/global-listeners/setup-server-response';
 
 export function addTurboGlobalListeners() {
-  document.addEventListener('turbo:load', (event) => {
+  document.addEventListener('turbo:load', () => {
     // Add to content if warnings displayed
     if (document.querySelector('.warning-bar--item')) {
       const content = document.querySelector('#content') as HTMLElement;
@@ -42,7 +42,7 @@ export function addTurboGlobalListeners() {
     setupToggableFieldsets();
 
     // Action menu logic
-    jQuery('.toolbar-items').each((idx:number, menu:HTMLElement) => {
+    jQuery('.toolbar-items').each((_, menu:HTMLElement) => {
       installMenuLogic(jQuery(menu));
     });
 

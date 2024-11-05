@@ -58,7 +58,7 @@ class MeetingContentsController < ApplicationController
     render "meeting_contents/show"
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     call = attachable_update_call ::MeetingContents::UpdateService,
                                   model: @content,
                                   args: content_params

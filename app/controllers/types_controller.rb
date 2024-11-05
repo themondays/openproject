@@ -60,7 +60,7 @@ class TypesController < ApplicationController
     end
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     CreateTypeService
       .new(current_user)
       .call(permitted_type_params, copy_workflow_from: params[:copy_workflow_from]) do |call|
