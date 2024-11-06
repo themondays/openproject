@@ -262,12 +262,26 @@ zh-CN:
     single: "或"
   dry_validation:
     errors:
+      integer?: "must be an integer"
+      filled?: "must be filled"
+      greater_or_equal_zero: "must be greater or equal to 0"
+      not_found: "not found"
       rules:
+        item:
+          root_item: "cannot be a root item"
+          not_persisted: "must be an already existing item"
         label:
-          filled?: "必须填写"
           not_unique: "在同一层级内必须是唯一的"
+        short:
+          not_unique: "must be unique within the same hierarchy level"
+        parent:
+          not_descendant: "must be a descendant of the hierarchy root"
     rules:
+      depth: "Depth"
+      item: "Item"
       label: "标签"
+      short: "Short"
+      parent: "Parent"
   global_search:
     placeholder: "在%{app_title}中搜索"
     overwritten_tabs:
