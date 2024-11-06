@@ -51,7 +51,7 @@ module API
           "user" => ["users", "groups", "placeholder_users"],
           "version" => "versions",
           "list" => "custom_options",
-          "hierarchy" => "hierarchical_items"
+          "hierarchy" => "custom_field_items"
         }.freeze
 
         REPRESENTER_MAP = {
