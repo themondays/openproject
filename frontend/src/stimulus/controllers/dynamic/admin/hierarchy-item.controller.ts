@@ -32,40 +32,55 @@ import { Controller } from '@hotwired/stimulus';
 import * as Turbo from '@hotwired/turbo';
 
 export default class HierarchyItemController extends Controller {
+  private currentHover:HTMLElement | null;
+
   connect() {}
 
   dragstart(event:DragEvent) {
     const element = dataNode(event.target);
+    element.style.opacity = '0.4';
 
     if (event.dataTransfer) {
       event.dataTransfer.setDragImage(element, 25, 25);
       event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData('application/drag-key', element.dataset.hierarchyItemId || '');
+      event.dataTransfer.setData('application/dragkey', element.dataset.hierarchyItemId || '');
     }
   }
 
   dragenter(event:DragEvent) {
-    const target = dataNode(event.target);
-    if (target != null) {
-      target.classList.add('border-dashed');
-      event.preventDefault();
-    }
+    this.currentHover = event.target as HTMLElement;
+    event.preventDefault();
+    event.stopPropagation();
+
+    dataNode(event.target).classList.add('bgColor-accent-muted');
+    return false;
   }
 
   dragleave(event:DragEvent) {
-    const target = dataNode(event.target);
-    if (target != null) {
-      target.classList.remove('border-dashed');
+    if (event.target === this.currentHover) {
+      dataNode(event.target).classList.remove('bgColor-accent-muted');
       event.preventDefault();
+      event.stopPropagation();
     }
+    return false;
+  }
+
+  dragend(event:DragEvent) {
+    if (event.target === this.currentHover) {
+      dataNode(event.target).classList.remove('bgColor-accent-muted');
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    return false;
   }
 
   drop(event:DragEvent) {
     const targetElement = dataNode(event.target);
 
     if (event.dataTransfer) {
-      const origin = event.dataTransfer.getData('application/drag-key');
+      const origin = event.dataTransfer.getData('application/dragkey');
       const originElement = document.querySelector(`[data-hierarchy-item-id='${origin}']`) as HTMLElement;
+      originElement.style.opacity = '1';
 
       if (targetElement.dataset.hierarchyItemId === originElement.dataset.hierarchyItemId) {
         return;

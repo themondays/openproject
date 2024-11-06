@@ -65,12 +65,13 @@ See COPYRIGHT and LICENSE files for more details.
                                   "data-action": "dragstart->admin--hierarchy-item#dragstart
                                                   dragenter->admin--hierarchy-item#dragenter
                                                   dragleave->admin--hierarchy-item#dragleave
+                                                  dragend->admin--hierarchy-item#dragend
                                                   drop->admin--hierarchy-item#drop",
                                   "data-hierarchy-item-id": item.id,
                                   "data-sort-order": item.sort_order,
                                   "data-frame-id": Admin::CustomFields::Hierarchy::ItemsComponent.wrapper_key,
                                   "data-move-url": move_custom_field_item_url(root.custom_field_id, item),
-                                  "data-index-url": custom_field_items_url(root.custom_field_id)
+                                  "data-index-url": custom_field_item_url(root.custom_field_id, item.parent)
                                 }
                               else
                                 {}
