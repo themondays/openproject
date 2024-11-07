@@ -73,7 +73,7 @@ module Admin
               end,
               lambda do |validation_result|
                 add_errors_to_form(validation_result)
-                render action: :new
+                render :new
               end
             )
         end
@@ -129,7 +129,7 @@ module Admin
         end
 
         def add_errors_to_form(validation_result)
-          @new_item = ::CustomField::Hierarchy::Item.new(parent: @active_item, **validation_result.to_h)
+          @new_item = ::CustomField::Hierarchy::Item.new(**item_input)
           validation_result.errors(full: true).to_h.each do |attribute, errors|
             @new_item.errors.add(attribute, errors.join(", "))
           end
