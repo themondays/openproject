@@ -4,7 +4,6 @@ import {
 } from 'core-app/shared/components/editor/components/ckeditor/ckeditor.types';
 import { TurboRequestsService } from 'core-app/core/turbo/turbo-requests.service';
 import { ApiV3Service } from 'core-app/core/apiv3/api-v3.service';
-import { IanCenterService } from 'core-app/features/in-app-notifications/center/state/ian-center.service';
 
 interface CustomEventWithIdParam extends Event {
   params:{
@@ -56,13 +55,11 @@ export default class IndexController extends Controller {
   private turboRequests:TurboRequestsService;
 
   private apiV3Service:ApiV3Service;
-  private ianCenterService:IanCenterService;
 
   async connect() {
     const context = await window.OpenProject.getPluginContext();
     this.turboRequests = context.services.turboRequests;
     this.apiV3Service = context.services.apiV3Service;
-    this.ianCenterService = context.services.ianCenter;
 
     this.setLocalStorageKey();
     this.setLastUpdateTimestamp();
@@ -166,7 +163,7 @@ export default class IndexController extends Controller {
     // otherwise the browser will perform an auto scroll to the before focused button after the stream update was applied
     this.unfocusReactionButtons();
 
-    const journalsContainerAtBottom = this.isJournalsContainerScrolledToBottom(this.journalsContainerTarget);
+    const journalsContainerAtBottom = this.isJournalsContainerScrolledToBottom();
 
     void this.performUpdateStreamsRequest(this.prepareUpdateStreamsUrl())
     .then((html) => {
@@ -224,7 +221,7 @@ export default class IndexController extends Controller {
   }
 
   private updateNotificationCenter() {
-    this.ianCenterService.updateImmediate();
+    document.dispatchEvent(new Event('ian-update-immediate'));
   }
 
   private performAutoScrolling(html:string, journalsContainerAtBottom:boolean) {
@@ -239,7 +236,7 @@ export default class IndexController extends Controller {
         if (this.isMobile()) {
           this.scrollInputContainerIntoView(300);
         } else {
-          this.scrollJournalContainer(this.journalsContainerTarget, true, true);
+          this.scrollJournalContainer(true, true);
         }
       }
     }, 100);
@@ -273,7 +270,7 @@ export default class IndexController extends Controller {
   }
 
   private scrollToActivity(activityId:string) {
-    const scrollableContainer = jQuery(this.element).scrollParent()[0];
+    const scrollableContainer = this.getScrollableContainer();
     const activityElement = document.getElementById(`activity-anchor-${activityId}`);
 
     if (activityElement && scrollableContainer) {
@@ -282,7 +279,7 @@ export default class IndexController extends Controller {
   }
 
   private scrollToBottom() {
-    const scrollableContainer = jQuery(this.element).scrollParent()[0];
+    const scrollableContainer = this.getScrollableContainer();
     if (scrollableContainer) {
       scrollableContainer.scrollTop = scrollableContainer.scrollHeight;
     }
@@ -312,6 +309,19 @@ export default class IndexController extends Controller {
 
   private getInputContainer():HTMLElement | null {
     return this.element.querySelector('.work-packages-activities-tab-journals-new-component');
+  }
+
+  private getScrollableContainer():HTMLElement | null {
+    if (this.isWithinNotificationCenter()) {
+      // valid for both mobile and desktop
+      return document.querySelector('.work-package-details-tab') as HTMLElement;
+    }
+    if (this.isMobile()) {
+      return document.querySelector('#content-body') as HTMLElement;
+    }
+
+    // valid for desktop
+    return document.querySelector('.tabcontent') as HTMLElement;
   }
 
   // Code Maintenance: Get rid of this JS based view port checks when activities are rendered in fully primierized activity tab in all contexts
@@ -354,31 +364,25 @@ export default class IndexController extends Controller {
     this.journalsContainerTarget.style.marginBottom = `${this.formRowTarget.clientHeight + 29}px`;
   }
 
-  private isJournalsContainerScrolledToBottom(journalsContainer:HTMLElement) {
+  private isJournalsContainerScrolledToBottom() {
     let atBottom = false;
     // we have to handle different scrollable containers for different viewports/pages in order to idenfity if the user is at the bottom of the journals
     // DOM structure different for notification center and workpackage detail view as well
-    // seems way to hacky for me, but I couldn't find a better solution
-    if (this.isMobile() && !this.isWithinNotificationCenter()) {
-      const scrollableContainer = document.querySelector('#content-body') as HTMLElement;
-
-      atBottom = (scrollableContainer.scrollTop + scrollableContainer.clientHeight + 10) >= scrollableContainer.scrollHeight;
-    } else {
-      const scrollableContainer = jQuery(journalsContainer).scrollParent()[0];
-
+    const scrollableContainer = this.getScrollableContainer();
+    if (scrollableContainer) {
       atBottom = (scrollableContainer.scrollTop + scrollableContainer.clientHeight + 10) >= scrollableContainer.scrollHeight;
     }
 
     return atBottom;
   }
 
-  private scrollJournalContainer(journalsContainer:HTMLElement, toBottom:boolean, smooth:boolean = false) {
-    const scrollableContainer = jQuery(journalsContainer).scrollParent()[0];
+  private scrollJournalContainer(toBottom:boolean, smooth:boolean = false) {
+    const scrollableContainer = this.getScrollableContainer();
     if (scrollableContainer) {
       if (smooth) {
         scrollableContainer.scrollTo({
           top: toBottom ? scrollableContainer.scrollHeight : 0,
-        behavior: 'smooth',
+          behavior: 'smooth',
         });
       } else {
         scrollableContainer.scrollTop = toBottom ? scrollableContainer.scrollHeight : 0;
@@ -406,7 +410,7 @@ export default class IndexController extends Controller {
   }
 
   showForm() {
-    const journalsContainerAtBottom = this.isJournalsContainerScrolledToBottom(this.journalsContainerTarget);
+    const journalsContainerAtBottom = this.isJournalsContainerScrolledToBottom();
 
     this.buttonRowTarget.classList.add('d-none');
     this.formRowTarget.classList.remove('d-none');
@@ -415,22 +419,20 @@ export default class IndexController extends Controller {
     this.addEventListenersToCkEditorInstance();
 
     if (this.isMobile()) {
-      this.scrollInputContainerIntoView(300);
+      // timeout amount tested on mobile devices for best possible user experience
+      this.scrollInputContainerIntoView(100); // first bring the input container fully into view (before focusing!)
+      this.focusEditor(400); // wait before focusing to avoid interference with the auto scroll
     } else if (this.sortingValue === 'asc' && journalsContainerAtBottom) {
       // scroll to (new) bottom if sorting is ascending and journals container was already at bottom before showing the form
-      this.scrollJournalContainer(this.journalsContainerTarget, true);
-    }
-
-    const ckEditorInstance = this.getCkEditorInstance();
-    if (ckEditorInstance) {
-      setTimeout(() => ckEditorInstance.editing.view.focus(), 10);
+      this.scrollJournalContainer(true);
+      this.focusEditor();
     }
   }
 
-  focusEditor() {
+  focusEditor(timeout:number = 10) {
     const ckEditorInstance = this.getCkEditorInstance();
     if (ckEditorInstance) {
-      setTimeout(() => ckEditorInstance.editing.view.focus(), 10);
+      setTimeout(() => ckEditorInstance.editing.view.focus(), timeout);
     }
   }
 
@@ -483,7 +485,11 @@ export default class IndexController extends Controller {
       this.journalsContainerTarget.classList.remove('work-packages-activities-tab-index-component--journals-container_with-input-compensation');
     }
 
-    if (this.isMobile()) { this.scrollInputContainerIntoView(300); }
+    if (this.isMobile()) {
+      // wait for the keyboard to be fully down before scrolling further
+      // timeout amount tested on mobile devices for best possible user experience
+      this.scrollInputContainerIntoView(500);
+    }
   }
 
   onBlurEditor() {
@@ -552,13 +558,15 @@ export default class IndexController extends Controller {
     this.adjustJournalsContainer();
 
     setTimeout(() => {
-      this.scrollJournalContainer(
-        this.journalsContainerTarget,
-        this.sortingValue === 'asc',
-        true,
-      );
-      if (this.isMobile()) {
-        this.scrollInputContainerIntoView(300);
+      if (this.isMobile() && !this.isWithinNotificationCenter()) {
+        // wait for the keyboard to be fully down before scrolling further
+        // timeout amount tested on mobile devices for best possible user experience
+        this.scrollInputContainerIntoView(800);
+      } else {
+        this.scrollJournalContainer(
+          this.sortingValue === 'asc',
+          true,
+        );
       }
     }, 10);
 
