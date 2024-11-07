@@ -96,7 +96,7 @@ module Admin
           item_service
             .reorder_item(item: @active_item, new_sort_order: params.require(:new_sort_order))
 
-          redirect_to(custom_field_items_path(@custom_field), status: :see_other)
+          redirect_to(custom_field_item_path(@custom_field, @active_item.parent), status: :see_other)
         end
 
         def destroy
