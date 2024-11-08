@@ -42,8 +42,9 @@ RUN apt-get install -y nodejs
 # dcrw <path-to-your-spec-file>
 RUN curl -fsSL https://apt.cli.rs/pubkey.asc | tee -a /usr/share/keyrings/rust-tools.asc
 RUN curl -fsSL https://apt.cli.rs/rust-tools.list | tee /etc/apt/sources.list.d/rust-tools.list
-RUN apt update
-RUN apt install watchexec-cli
+# Debian `bullseye` has no candidate for watchexec-cli in the default apt repositories.
+# Using curl to fetch watchexec-cli from webinstall.dev as an alternative installation method.
+RUN curl -sS https://webinstall.dev/watchexec | bash
 
 COPY ./docker/dev/backend/scripts/setup /usr/sbin/setup
 COPY ./docker/dev/backend/scripts/setup-bim /usr/sbin/setup-bim
